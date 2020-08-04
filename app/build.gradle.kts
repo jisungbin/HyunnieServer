@@ -24,14 +24,13 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
     sourceSets {
-        getByName("androidTest").java.srcDirs("src/androidTest/kotlin")
         getByName("main").java.srcDirs("src/main/kotlin")
-        getByName("test").java.srcDirs("src/test/kotlin")
     }
 
     packagingOptions {
@@ -60,15 +59,6 @@ dependencies {
     implementation(Dependencies.Essential.LifeCycleViewModel)
     implementation(Dependencies.Essential.LifeCycleExtensions)
 
-    implementation(Dependencies.Network.OkHttp)
-    implementation(Dependencies.Network.Retrofit)
-    implementation(Dependencies.Network.RxRetrofit)
-    implementation(Dependencies.Network.LoggingInterceptor)
-
-    implementation(Dependencies.Rx.Java)
-    implementation(Dependencies.Rx.Kotlin)
-    implementation(Dependencies.Rx.Android)
-
     implementation(Dependencies.Di.Hilt)
     implementation(Dependencies.Di.Dagger)
     implementation(Dependencies.Di.HiltCommon)
@@ -80,20 +70,13 @@ dependencies {
 
     implementation(Dependencies.Utils.AndroidUtils)
     implementation(Dependencies.Utils.CrashReporter)
-    implementation(Dependencies.Utils.GsonConverter)
 
     implementation(Dependencies.Animator.Tool)
     implementation(Dependencies.Animator.Yoyo)
     implementation(Dependencies.Animator.Lottie)
 
-    implementation(Dependencies.AndroidX.RoomRx)
-    implementation(Dependencies.AndroidX.PagingRx)
-    implementation(Dependencies.AndroidX.RoomRuntime)
-    implementation(Dependencies.AndroidX.PagingRuntime)
-
     kapt(Dependencies.Ui.GlideCompiler)
     kapt(Dependencies.Di.DaggerCompiler)
-    kapt(Dependencies.AndroidX.RoomCompiler)
     kapt(Dependencies.Di.HiltGoogleCompiler)
     kapt(Dependencies.Di.HiltAndroidXCompiler)
 }
