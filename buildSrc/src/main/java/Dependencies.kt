@@ -37,9 +37,17 @@ object Versions {
     const val AnimatorLottie = "3.4.0"
     const val AnimatorTool = "2.1@aar"
     const val AnimatorYOYO = "2.3@aar"
+
+    const val CommonIo = "2.7"
+    const val CommonNet = "3.6"
 }
 
 object Dependencies {
+    object Network {
+        const val CommonIo = "commons-io:commons-io:${Versions.CommonIo}"
+        const val CommonNet = "commons-net:commons-net:${Versions.CommonNet}"
+    }
+
     object Essential {
         const val Anko = "org.jetbrains.anko:anko:${Versions.Anko}"
         const val CoreKtx = "androidx.core:core-ktx:${Versions.CoreKtx}"

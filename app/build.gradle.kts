@@ -75,6 +75,9 @@ dependencies {
     implementation(Dependencies.Animator.Yoyo)
     implementation(Dependencies.Animator.Lottie)
 
+    implementation(Dependencies.Network.CommonIo)
+    implementation(Dependencies.Network.CommonNet)
+
     kapt(Dependencies.Ui.GlideCompiler)
     kapt(Dependencies.Di.DaggerCompiler)
     kapt(Dependencies.Di.HiltGoogleCompiler)
