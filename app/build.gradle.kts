@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
+    id("name.remal.check-dependency-updates") version "1.0.211"
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
@@ -14,7 +15,7 @@ android {
         versionCode = Application.versionCode
         versionName = Application.versionName
         multiDexEnabled = true
-        setProperty("archivesBaseName", "v$versionName($versionCode)")
+        setProperty("archivesBaseName", "v$versionName ($versionCode)")
     }
 
     buildFeatures {
@@ -25,7 +26,12 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isUseProguard = true
+            isDebuggable = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
@@ -34,7 +40,8 @@ android {
     }
 
     packagingOptions {
-        exclude ("META-INF/library_release.kotlin_module")
+        exclude("META-INF/DEPENDENCIES")
+        exclude("META-INF/library_release.kotlin_module")
     }
 
     compileOptions {
@@ -48,38 +55,42 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    fun def(vararg strings: String) {
+        for (string in strings) implementation(string)
+    }
 
-    implementation(Dependencies.Essential.Anko)
-    implementation(Dependencies.Essential.CoreKtx)
-    implementation(Dependencies.Essential.Legacy)
-    implementation(Dependencies.Essential.Kotlin)
-    implementation(Dependencies.Essential.AppCompat)
-    implementation(Dependencies.Essential.FragmentKtx)
-    implementation(Dependencies.Essential.LifeCycleViewModel)
-    implementation(Dependencies.Essential.LifeCycleExtensions)
+    def(
+        Dependencies.Network.Retrofit,
+        Dependencies.Network.OkHttp,
 
-    implementation(Dependencies.Di.Hilt)
-    implementation(Dependencies.Di.Dagger)
-    implementation(Dependencies.Di.HiltCommon)
-    implementation(Dependencies.Di.HiltLifeCycle)
+        Dependencies.Rx.Kotlin,
+        Dependencies.Rx.Android,
+        Dependencies.Rx.Retrofit,
 
-    implementation(Dependencies.Ui.Glide)
-    implementation(Dependencies.Ui.CardView)
-    implementation(Dependencies.Ui.ConstraintLayout)
+        Dependencies.Essential.AppCompat,
+        Dependencies.Essential.Anko,
+        Dependencies.Essential.Kotlin,
 
-    implementation(Dependencies.Utils.AndroidUtils)
-    implementation(Dependencies.Utils.CrashReporter)
+        Dependencies.Ktx.Core,
+        Dependencies.Ktx.Fragment,
 
-    implementation(Dependencies.Animator.Tool)
-    implementation(Dependencies.Animator.Yoyo)
-    implementation(Dependencies.Animator.Lottie)
+        Dependencies.Di.Hilt,
 
-    implementation(Dependencies.Network.CommonIo)
-    implementation(Dependencies.Network.CommonNet)
+        Dependencies.Ui.SpotLight,
+        Dependencies.Ui.TransformationLayout,
+        Dependencies.Ui.ShapeOfYou,
+        Dependencies.Ui.YoYo,
+        Dependencies.Ui.Lottie,
+        Dependencies.Ui.Licenser,
+        Dependencies.Ui.Material,
+        Dependencies.Ui.Glide,
+        Dependencies.Ui.ConstraintLayout,
 
-    kapt(Dependencies.Ui.GlideCompiler)
-    kapt(Dependencies.Di.DaggerCompiler)
-    kapt(Dependencies.Di.HiltGoogleCompiler)
-    kapt(Dependencies.Di.HiltAndroidXCompiler)
+        Dependencies.Utils.YoyoHelper,
+        Dependencies.Utils.AndroidUtils,
+        Dependencies.Utils.CrashReporter
+    )
+
+    kapt(Dependencies.Di.HiltCompiler)
+    kapt(Dependencies.Utils.GlideCompiler)
 }

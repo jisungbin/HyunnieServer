@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">HyunnieServer2</string>
+    <string name="app_name">혀니서버</string>
+    <string name="copyright">© 2020 SungBin</string>
+
+    <string name="join_need_permission_use_service">앱 사용 시 필요한 권한이에요.</string>
+    <string name="join_need_login_use_service">앱을 이용하기 위해선 로그인이 필요해요.</string>
+    <string name="join_continue">계속하기 →</string>
+    <string name="join_server_address">서버 주소</string>
+    <string name="join_login_with_arrow">로그인 →</string>
+    <string name="join_password">비밀번호</string>
+    <string name="join_id">아이디</string>
+    <string name="join_hello">안녕하세요!</string>
+    <string name="join_need_setting_before_start">시작하기 앞서,\n몇 가지 기본 설정이 필요해요.</string>
+    <string name="join_set_permission">권한설정</string>
+    <string name="join_storage_permission">저장소 접근 권한</string>
+    <string name="join_give_permission">권한 허용하기</string>
+    <string name="join_permission_grant">권한 부여됨</string>
+    <string name="join_start_with_start">로그인하여 시작하기</string>
+    <string name="join_reason_for_storage_permission">혀니서버 데이터 저장을 위해 해당 권한이 필요해요.</string>
+
+
+
 </resources>

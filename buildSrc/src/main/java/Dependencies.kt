@@ -2,10 +2,10 @@ import org.gradle.api.JavaVersion
 
 object Application {
     const val minSdk = 23
-    const val targetSdk = 29
-    const val compileSdk = 29
-    const val versionCode = 10
+    const val targetSdk = 30
+    const val compileSdk = 30
     const val jvmTarget = "1.8"
+    const val versionCode = 1
     const val versionName = "1.0.0"
 
     val targetCompat = JavaVersion.VERSION_1_8
@@ -13,77 +13,97 @@ object Application {
 }
 
 object Versions {
-    const val Anko = "0.10.8"
-    const val Legacy = "1.0.0"
-    const val Kotlin = "1.3.50"
-    const val CoreKtx = "1.3.0"
-    const val AppCompat = "1.0.2"
-    const val FragmentKtx = "1.2.5"
-    const val LifeCycleViewModel = "2.2.0"
-    const val LifeCycleExtensions = "2.2.0"
-
-    const val Hilt = "2.28-alpha"
-    const val HiltAndroidX = "1.0.0-alpha01"
-
-    const val Dagger = "2.28"
-
-    const val Glide = "4.11.0"
-    const val CardView = "1.0.0"
-    const val ConstraintLayout = "1.1.3"
-
-    const val AndroidUtils = "3.1.5"
-    const val CrashReporter = "1.1.0"
-
-    const val AnimatorLottie = "3.4.0"
-    const val AnimatorTool = "2.1@aar"
-    const val AnimatorYOYO = "2.3@aar"
-
-    const val CommonIo = "2.7"
-    const val CommonNet = "3.6"
-}
-
-object Dependencies {
     object Network {
-        const val CommonIo = "commons-io:commons-io:${Versions.CommonIo}"
-        const val CommonNet = "commons-net:commons-net:${Versions.CommonNet}"
+        const val Retrofit = "2.9.0"
+        const val OkHttp = "4.8.1"
+    }
+
+    object Rx {
+        const val Kotlin = "3.0.0"
+        const val Android = "3.0.0"
+        const val Retrofit = "2.9.0"
     }
 
     object Essential {
-        const val Anko = "org.jetbrains.anko:anko:${Versions.Anko}"
-        const val CoreKtx = "androidx.core:core-ktx:${Versions.CoreKtx}"
-        const val Kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.Kotlin}"
-        const val AppCompat = "androidx.appcompat:appcompat:${Versions.AppCompat}"
-        const val Legacy = "androidx.legacy:legacy-support-core-ui:${Versions.Legacy}"
-        const val FragmentKtx = "androidx.fragment:fragment-ktx:${Versions.FragmentKtx}"
-        const val LifeCycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.LifeCycleExtensions}"
-        const val LifeCycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LifeCycleViewModel}"
+        const val AppCompat = "1.2.0"
+        const val Anko = "0.10.8"
+        const val Kotlin = "1.4.0"
+        const val Gradle = "4.0.1"
+    }
+
+    object Ktx {
+        const val Core = "1.3.1"
+        const val Fragment = "2.3.0"
     }
 
     object Di {
-        const val Dagger = "com.google.dagger:dagger:${Versions.Dagger}"
-        const val Hilt = "com.google.dagger:hilt-android:${Versions.Hilt}"
-        const val HiltCommon = "androidx.hilt:hilt-common:${Versions.HiltAndroidX}"
-        const val DaggerCompiler = "com.google.dagger:dagger-compiler:${Versions.Dagger}"
-        const val HiltAndroidXCompiler = "androidx.hilt:hilt-compiler:${Versions.HiltAndroidX}"
-        const val HiltGoogleCompiler = "com.google.dagger:hilt-android-compiler:${Versions.Hilt}"
-        const val HiltLifeCycle = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HiltAndroidX}"
+        const val Hilt = "2.28-alpha"
     }
 
     object Ui {
-        const val Glide = "com.github.bumptech.glide:glide:${Versions.Glide}"
-        const val CardView = "androidx.cardview:cardview:${Versions.CardView}"
-        const val GlideCompiler = "com.github.bumptech.glide:compiler:${Versions.Glide}"
-        const val ConstraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.ConstraintLayout}"
+        const val SpotLight = "2.0.1"
+        const val TransformationLayout = "1.0.5"
+        const val ShapeOfView = "1.3.2"
+        const val YoYo = "2.3@aar"
+        const val Lottie = "3.4.1"
+        const val Licenser = "2.0.0"
+        const val Material = "1.2.0-alpha06"
+        const val Glide = "4.11.0"
+        const val ConstraintLayout = "1.1.3"
     }
 
     object Utils {
-        const val AndroidUtils = "com.github.sungbin5304:AndroidUtils:${Versions.AndroidUtils}"
-        const val CrashReporter = "com.balsikandar.android:crashreporter:${Versions.CrashReporter}"
+        const val YoYoHelper = "2.1@aar"
+        const val AndroidUtils = "3.2.4"
+        const val CarshReporter = "1.1.0"
+    }
+}
+
+object Dependencies {
+   object Network {
+        const val Retrofit = "com.squareup.okhttp3:okhttp:${Versions.Network.OkHttp}"
+        const val OkHttp = "com.squareup.retrofit2:retrofit:${Versions.Network.Retrofit}"
     }
 
-    object Animator {
-        const val Tool = "com.daimajia.easing:library:${Versions.AnimatorTool}"
-        const val Lottie = "com.airbnb.android:lottie:${Versions.AnimatorLottie}"
-        const val Yoyo = "com.daimajia.androidanimations:library:${Versions.AnimatorYOYO}"
+    object Rx {
+        const val Kotlin = "io.reactivex.rxjava3:rxkotlin:${Versions.Rx.Kotlin}"
+        const val Android = "io.reactivex.rxjava3:rxandroid:${Versions.Rx.Android}"
+        const val Retrofit = "com.squareup.retrofit2:adapter-rxjava3:${Versions.Rx.Retrofit}"
+    }
+
+    object Essential {
+        const val AppCompat = "androidx.appcompat:appcompat:${Versions.Essential.AppCompat}"
+        const val Anko = "org.jetbrains.anko:anko:${Versions.Essential.Anko}"
+        const val Kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.Essential.Kotlin}"
+    }
+
+    object Ktx {
+        const val Core = "androidx.core:core-ktx:${Versions.Ktx.Core}"
+        const val Fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.Ktx.Fragment}"
+    }
+
+    object Di {
+        const val Hilt = "com.google.dagger:hilt-android:${Versions.Di.Hilt}"
+        const val HiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.Di.Hilt}"
+    }
+
+    object Ui {
+        const val SpotLight = "com.github.takusemba:spotlight:${Versions.Ui.SpotLight}"
+        const val TransformationLayout = "com.github.skydoves:transformationlayout:${Versions.Ui.TransformationLayout}"
+        const val ShapeOfYou = "com.github.florent37:shapeofview:${Versions.Ui.ShapeOfView}"
+        const val YoYo = "com.daimajia.androidanimations:library:${Versions.Ui.YoYo}"
+        const val Lottie = "com.airbnb.android:lottie:${Versions.Ui.Lottie}"
+        const val Licenser = "com.github.marcoscgdev:Licenser:${Versions.Ui.Licenser}"
+        const val Material = "com.google.android.material:material:${Versions.Ui.Material}"
+        const val Glide = "com.github.bumptech.glide:glide:${Versions.Ui.Glide}"
+        const val ConstraintLayout =
+            "androidx.constraintlayout:constraintlayout:${Versions.Ui.ConstraintLayout}"
+    }
+
+    object Utils {
+        const val GlideCompiler = "com.github.bumptech.glide:compiler:${Versions.Ui.Glide}"
+        const val YoyoHelper = "com.daimajia.easing:library:${Versions.Utils.YoYoHelper}"
+        const val AndroidUtils = "com.github.sungbin5304:SBT:${Versions.Utils.AndroidUtils}"
+        const val CrashReporter = "com.balsikandar.android:crashreporter:${Versions.Utils.CarshReporter}"
     }
 }
