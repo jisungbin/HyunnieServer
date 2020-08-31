@@ -15,7 +15,6 @@
             android:layout_height="250dp"
             android:elevation="@dimen/margin_default"
             app:layout_constraintTop_toTopOf="parent"
-            app:shape_arc_cropDirection="outside"
             app:shape_arc_height="20dp"
             app:shape_arc_position="bottom">
 
@@ -136,16 +135,19 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/join_server_address"
+            android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_twice"
             android:layout_marginEnd="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
+            android:hint="@string/join_server_address"
+            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/cl_storage">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tiet_server_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,16 +156,19 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/join_id"
+            android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_default"
             android:layout_marginEnd="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
+            android:hint="@string/join_id"
+            app:endIconMode="clear_text"
             app:layout_constraintTop_toBottomOf="@+id/til_server_address">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tiet_id"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -172,16 +177,20 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/join_password"
+            android:layout_marginStart="@dimen/margin_default"
             android:layout_marginTop="@dimen/margin_default"
             android:layout_marginEnd="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
+            android:hint="@string/join_password"
+            app:endIconMode="password_toggle"
             app:layout_constraintTop_toBottomOf="@+id/til_id">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tiet_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -189,6 +198,8 @@
             android:id="@+id/btn_start_with_login"
             android:layout_width="250dp"
             android:layout_height="50dp"
+            android:layout_marginTop="@dimen/margin_twice_and_half"
+            android:layout_marginBottom="@dimen/margin_twice_and_half"
             android:alpha="0.5"
             android:background="@drawable/bg_all_round_30"
             android:text="@string/join_start_with_start"
@@ -196,8 +207,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/margin_twice_and_half"
-            android:layout_marginBottom="@dimen/margin_twice_and_half"
             app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,10 +7,12 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.sungbin.hyunnieserver.R
+import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
+import com.sungbin.sungbintool.LogUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_join.*
-import retrofit2.Retrofit
+import org.apache.commons.net.ftp.FTPClient
 import javax.inject.Inject
 
 
@@ -24,7 +26,7 @@ class JoinActivity : AppCompatActivity() {
     private val CODE_REQUEST_STORAGE_ACCESS = 3000
 
     @Inject
-    lateinit var client: Retrofit
+    lateinit var client: FTPClient
 
     private val loadingDialog by lazy {
         LoadingDialog(this)
@@ -69,19 +71,25 @@ class JoinActivity : AppCompatActivity() {
             btn_start_with_login.apply {
                 alpha = 1f
                 setOnClickListener {
-                    checkLogin(
+                    val logined = checkLogin(
                         tiet_server_address.text.toString(),
                         tiet_id.text.toString(),
                         tiet_password.text.toString()
                     )
+                    LogUtils.w(logined)
                 }
             }
         }
     }
 
-    private fun checkLogin(address: String, id: String, pw: String): Boolean {
-        // todo: 로그인 체크 기능
-        return true
+    private fun checkLogin(address: String, id: String, password: String): Boolean {
+        return try {
+            client.connect(address)
+            client.login(id, password)
+        } catch (exception: Exception) {
+            ExceptionUtil.except(exception, applicationContext)
+            false
+        }
     }
 
 }

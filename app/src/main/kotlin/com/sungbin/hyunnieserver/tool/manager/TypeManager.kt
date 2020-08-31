@@ -1,4 +1,4 @@
-package com.sungbin.hyunnieserver.ui.tool.manager
+package com.sungbin.hyunnieserver.tool.manager
 
 object TypeManager {
 

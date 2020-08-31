@@ -1,4 +1,4 @@
-package com.sungbin.hyunnieserver.ui
+package com.sungbin.hyunnieserver
 
 import android.app.Application
 import android.content.Context

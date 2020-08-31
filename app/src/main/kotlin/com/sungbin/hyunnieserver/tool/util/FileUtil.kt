@@ -1,4 +1,4 @@
-package com.sungbin.hyunnieserver.ui.tool.util
+package com.sungbin.hyunnieserver.tool.util
 
 object FileUtil {
 

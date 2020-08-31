@@ -6,7 +6,9 @@ import android.os.Looper
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.sungbin.hyunnieserver.R
-import com.sungbin.hyunnieserver.ui.tool.manager.PathManager
+import com.sungbin.hyunnieserver.tool.manager.PathManager
+import com.sungbin.hyunnieserver.tool.util.NetworkUtil
+import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import com.sungbin.sungbintool.DataUtils
 import org.jetbrains.anko.startActivity
 
@@ -27,15 +29,33 @@ class SplashActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_splash)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            finish()
-            if (DataUtils.readData(applicationContext, PathManager.SERVER_ADDRESS, "null") == "null") {
-                startActivity<JoinActivity>()
-            } else {
-                startActivity<MainActivity>()
-            }
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        }, 1500)
+        if (NetworkUtil.isNetworkAvailable(applicationContext)) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                finish()
+                if (DataUtils.readData(
+                        applicationContext,
+                        PathManager.SERVER_ADDRESS,
+                        "null"
+                    ) == "null"
+                ) {
+                    startActivity<JoinActivity>()
+                } else {
+                    startActivity<MainActivity>()
+                }
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }, 1500)
+        } else {
+            LoadingDialog(this).apply {
+                init()
+                setCustomState(
+                    R.raw.no_internet,
+                    getString(R.string.join_no_connect_internet),
+                    true
+                ) {
+                    finish()
+                }
+            }.show()
+        }
     }
 
     override fun onBackPressed() {}
