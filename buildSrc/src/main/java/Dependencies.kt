@@ -14,8 +14,8 @@ object Application {
 
 object Versions {
     object Network {
-        const val CommonsNet = "3.6"
-        const val CommonsIo = "2.6"
+        const val CommonsNet = "3.7"
+        const val CommonsIo = "2.7"
     }
 
     object Essential {
@@ -37,13 +37,13 @@ object Versions {
     object Ui {
         const val SpotLight = "2.0.1"
         const val TransformationLayout = "1.0.5"
-        const val ShapeOfView = "1.3.2"
+        const val ShapeOfView = "1.4.7"
         const val YoYo = "2.3@aar"
         const val Lottie = "3.4.1"
         const val Licenser = "2.0.0"
         const val Material = "1.2.0-alpha06"
         const val Glide = "4.11.0"
-        const val ConstraintLayout = "1.1.3"
+        const val ConstraintLayout = "2.0.1"
     }
 
     object Utils {
