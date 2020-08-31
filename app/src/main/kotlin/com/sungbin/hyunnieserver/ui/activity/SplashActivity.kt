@@ -46,7 +46,6 @@ class SplashActivity : AppCompatActivity() {
             }, 1500)
         } else {
             LoadingDialog(this).apply {
-                init()
                 setCustomState(
                     R.raw.no_internet,
                     getString(R.string.join_no_connect_internet),

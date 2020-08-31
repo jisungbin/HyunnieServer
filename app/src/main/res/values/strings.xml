@@ -28,6 +28,8 @@
     <string name="fileitem_preview_size">4MB</string>
     <string name="fileitem_preview_path">preview path</string>
     <string name="fileitem_type">item type</string>
+    <string name="fileitem_dot">•</string>
+    <string name="fileitem_preview_last_modify">오늘 14:00</string>
 
     <string name="exception_except">오류가 발생했습니다 😔</string>
     <string name="exception_preview_except">FATAL EXCEPTION: main exception</string>

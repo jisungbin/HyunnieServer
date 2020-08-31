@@ -2,21 +2,29 @@ package com.sungbin.hyunnieserver.model
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.sungbin.hyunnieserver.GlideApp
+import com.sungbin.hyunnieserver.tool.util.FileUtil
 
 
 /**
  * Created by SungBin on 2020-08-31.
  */
 
-data class FileItem(val title: String, val size: Int, val path: String, val type: Int) {
+data class FileItem(
+    val name: String,
+    val size: String,
+    val path: String,
+    val type: Int,
+    val lastModify: String
+) {
     companion object {
         @JvmStatic
         @BindingAdapter("typeSrc")
-        fun loadImage(imageView: ImageView, type: Int) {
-            /*GlideApp
+        fun setTypeSrc(imageView: ImageView, type: Int) {
+            GlideApp
                 .with(imageView.context)
-                .load(url ?: R.drawable.ic_baseline_insert_drive_file_24)
-                .into(imageView)*/
+                .load(FileUtil.getTypeIcon(type))
+                .into(imageView)
         }
     }
 }

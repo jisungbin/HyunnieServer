@@ -21,11 +21,12 @@ import com.sungbin.sungbintool.extensions.plusAssign
 class LoadingDialog(private val activity: Activity) {
 
     private lateinit var alert: AlertDialog
-    private lateinit var layout: View
 
     @SuppressLint("InflateParams")
-    fun init() {
-        layout = LayoutInflater.from(activity).inflate(R.layout.layout_loading_dialog, null)
+    private var layout: View =
+        LayoutInflater.from(activity).inflate(R.layout.layout_loading_dialog, null)
+
+    init {
         val dialog = AlertDialog.Builder(activity)
         dialog.setView(layout)
 
@@ -50,7 +51,12 @@ class LoadingDialog(private val activity: Activity) {
         layout.invalidate()
     }
 
-    fun setCustomState(lottie: Int, message: String, canDismiss: Boolean, dismissListener: () -> Unit) {
+    fun setCustomState(
+        lottie: Int,
+        message: String,
+        canDismiss: Boolean,
+        dismissListener: () -> Unit
+    ) {
         (layout[R.id.lav_load] as LottieAnimationView).run {
             setAnimation(lottie)
             playAnimation()

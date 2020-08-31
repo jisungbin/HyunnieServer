@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.sungbin.hyunnieserver.R
+import com.sungbin.hyunnieserver.adapter.FileAdapter
+import com.sungbin.hyunnieserver.model.FileItem
 import com.sungbin.hyunnieserver.tool.manager.PathManager
+import com.sungbin.hyunnieserver.tool.util.FileUtil
+import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import com.sungbin.sungbintool.DataUtils
-import com.sungbin.sungbintool.LogUtils
+import com.sungbin.sungbintool.StorageUtils
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.android.synthetic.main.fragment_main.*
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
 import javax.inject.Inject
@@ -41,6 +42,10 @@ class MainFragment : Fragment() {
 
     private val viewModel by viewModels<MainViewModel>()
 
+    private val loadingDialog by lazy {
+        LoadingDialog(requireActivity())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,7 +56,7 @@ class MainFragment : Fragment() {
         retainInstance = false
 
         viewModel.fileList.observe(viewLifecycleOwner, {
-            // todo: 파일 갱신 옵저버
+            rv_file.adapter = FileAdapter(it, requireActivity())
         })
 
         val context = requireContext()
@@ -59,30 +64,30 @@ class MainFragment : Fragment() {
         val id = DataUtils.readData(context, PathManager.ID, "")
         val password = DataUtils.readData(context, PathManager.PASSWORD, "")
 
-        LogUtils.w(arrayOf(address, id, password))
-
         client.connect(address)
         client.login(id, password)
-        client.enterLocalPassiveMode()
-        CoroutineScope(Dispatchers.Main).launch {
-            val list = withContext(Dispatchers.Default) {
-                client.listFiles("/메인 혀니서버/혀니서버") as Array<FTPFile>
+        client.enterLocalPassiveMode() // required for connection
+        loadingDialog.show()
+
+        val list = ArrayList<FileItem>()
+        (client.listFiles("/메인 혀니서버/혀니서버") as Array<FTPFile>).map {
+            val size = if (it.isFile) {
+                StorageUtils.getSize(it.size)
+            } else {
+                ""
             }
-            list.map {
-                LogUtils.w(it)
-            }
+            list.add(
+                FileItem(
+                    it.name,
+                    size,
+                    "/메인 혀니서버/혀니서버/${it.name}",
+                    FileUtil.getType(it.name, size),
+                    FileUtil.getLastModifyTime(it.timestamp)
+                )
+            )
         }
-        /*LogUtils.w("5", (client.listFiles("/메인 혀니서버") as Array<FTPFile>).size)
-        *//*ftpFiles.
-        for (element in ftpFiles) {
-            val size = when (element.isFile) {
-                true -> {
-                    StorageUtils.getSize(element.size)**
-                }
-                else -> element.
-            }
-            items.add(FileListItem(element.isFile, element.name, count))
-        }*/
+        viewModel.fileList.postValue(list)
+        loadingDialog.close()
     }
 
 }

@@ -33,15 +33,17 @@
             tools:src="@drawable/ic_baseline_folder_24" />
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:maxLines="1"
-            android:marqueeRepeatLimit="marquee_forever"
             android:layout_marginStart="@dimen/margin_default"
             android:layout_marginEnd="@dimen/margin_default"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:text="@{Item.name}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_type"
@@ -49,13 +51,30 @@
             tools:text="@string/fileitem_preview_path" />
 
         <TextView
+            android:id="@+id/tv_last_modify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Item.lastModify}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/fileitem_preview_size" />
+
+        <TextView
+            android:id="@+id/tv_dot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fileitem_dot"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_last_modify" />
+
+        <TextView
             android:id="@+id/tv_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{Item.size}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="@string/fileitem_preview_size" />
+            app:layout_constraintEnd_toStartOf="@+id/tv_dot"
+            tools:text="@string/fileitem_preview_last_modify" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

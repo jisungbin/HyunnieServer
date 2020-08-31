@@ -14,8 +14,8 @@ object Application {
 
 object Versions {
     object Network {
-        const val CommonsNet = "3.6"
-        const val CommonsIo = "2.6"
+        const val CommonsNet = "3.7"
+        const val CommonsIo = "2.7"
     }
 
     object Essential {
@@ -48,7 +48,7 @@ object Versions {
 
     object Utils {
         const val YoYoHelper = "2.1@aar"
-        const val AndroidUtils = "3.2.4"
+        const val AndroidUtils = "3.2.5"
         const val CarshReporter = "1.1.0"
     }
 }
