@@ -60,12 +60,8 @@ dependencies {
     }
 
     def(
-        Dependencies.Network.Retrofit,
-        Dependencies.Network.OkHttp,
-
-        Dependencies.Rx.Kotlin,
-        Dependencies.Rx.Android,
-        Dependencies.Rx.Retrofit,
+        Dependencies.Network.CommonsIo,
+        Dependencies.Network.CommonsNet,
 
         Dependencies.Essential.AppCompat,
         Dependencies.Essential.Anko,

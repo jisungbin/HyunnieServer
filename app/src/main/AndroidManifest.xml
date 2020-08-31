@@ -12,6 +12,7 @@
         android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
+        android:name=".ui.HyunnieServer"
         android:fullBackupContent="true"
         tools:targetApi="q">
         <activity android:name=".ui.activity.SplashActivity">

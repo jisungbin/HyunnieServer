@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
             if (DataUtils.readData(applicationContext, PathManager.SERVER_ADDRESS, "null") == "null") {
                 startActivity<JoinActivity>()
             } else {
-                startActivity<DashboardActivity>()
+                startActivity<MainActivity>()
             }
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }, 1500)

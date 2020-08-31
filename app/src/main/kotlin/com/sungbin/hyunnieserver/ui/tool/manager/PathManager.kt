@@ -6,4 +6,6 @@ object PathManager {
     const val ID = "id"
     const val PASSWORD = "password"
 
+    const val DOWNLOAD_PATH = "download-path"
+
 }

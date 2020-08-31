@@ -14,14 +14,8 @@ object Application {
 
 object Versions {
     object Network {
-        const val Retrofit = "2.9.0"
-        const val OkHttp = "4.8.1"
-    }
-
-    object Rx {
-        const val Kotlin = "3.0.0"
-        const val Android = "3.0.0"
-        const val Retrofit = "2.9.0"
+        const val CommonsNet = "3.6"
+        const val CommonsIo = "2.6"
     }
 
     object Essential {
@@ -61,14 +55,8 @@ object Versions {
 
 object Dependencies {
    object Network {
-        const val Retrofit = "com.squareup.okhttp3:okhttp:${Versions.Network.OkHttp}"
-        const val OkHttp = "com.squareup.retrofit2:retrofit:${Versions.Network.Retrofit}"
-    }
-
-    object Rx {
-        const val Kotlin = "io.reactivex.rxjava3:rxkotlin:${Versions.Rx.Kotlin}"
-        const val Android = "io.reactivex.rxjava3:rxandroid:${Versions.Rx.Android}"
-        const val Retrofit = "com.squareup.retrofit2:adapter-rxjava3:${Versions.Rx.Retrofit}"
+        const val CommonsNet = "commons-net:commons-net:${Versions.Network.CommonsNet  }"
+        const val CommonsIo = "commons-io:commons-io:${Versions.Network.CommonsIo}"
     }
 
     object Essential {

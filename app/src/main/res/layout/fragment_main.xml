@@ -66,7 +66,7 @@
         android:visibility="invisible"
         android:layoutAnimation="@anim/layout_animation"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/layout_bot" />
+        tools:listitem="@layout/layout_file" />
 
     <com.skydoves.transformationlayout.TransformationLayout
         android:id="@+id/tsl_container"
