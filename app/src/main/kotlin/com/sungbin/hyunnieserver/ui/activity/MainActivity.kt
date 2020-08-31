@@ -8,12 +8,14 @@ import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.ui.fragment.main.MainFragment
 import com.sungbin.sungbintool.DataUtils
 import com.sungbin.sungbintool.StorageUtils
+import dagger.hilt.android.AndroidEntryPoint
 
 
 /**
  * Created by SungBin on 2020-08-23.
  */
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

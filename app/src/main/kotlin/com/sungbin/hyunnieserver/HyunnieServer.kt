@@ -3,6 +3,7 @@ package com.sungbin.hyunnieserver
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
+import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
 import dagger.hilt.android.HiltAndroidApp
 
 
@@ -22,6 +23,10 @@ class HyunnieServer : Application() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
         context = applicationContext
+
+        Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
+            ExceptionUtil.except(Exception(throwable), applicationContext)
+        }
     }
 
 }

@@ -14,8 +14,8 @@ object Application {
 
 object Versions {
     object Network {
-        const val CommonsNet = "3.7"
-        const val CommonsIo = "2.7"
+        const val CommonsNet = "3.6"
+        const val CommonsIo = "2.6"
     }
 
     object Essential {

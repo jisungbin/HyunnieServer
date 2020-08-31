@@ -1,6 +1,8 @@
 package com.sungbin.hyunnieserver.ui.fragment.main
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sungbin.hyunnieserver.model.FileItem
 
 
 /**
@@ -8,5 +10,7 @@ import androidx.lifecycle.ViewModel
  */
 
 class MainViewModel : ViewModel() {
+
+    val fileList: MutableLiveData<List<FileItem>> = MutableLiveData()
 
 }

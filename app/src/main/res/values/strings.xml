@@ -1,6 +1,9 @@
 <resources>
+
+    <!-- global -->
     <string name="app_name">혀니서버</string>
     <string name="copyright">© 2020 SungBin</string>
+    <string name="loading">불러오는 중…</string>
 
     <string name="join_server_address">서버 주소</string>
     <string name="join_login_with_arrow">로그인 →</string>
@@ -15,16 +18,18 @@
     <string name="join_start_with_start">로그인하여 시작하기</string>
     <string name="join_reason_for_storage_permission">혀니서버 데이터 저장을 위해 해당 권한이 필요해요.</string>
     <string name="join_no_connect_internet">인터넷에 연결되어있지 않아요 😢</string>
+    <string name="join_welcome">환영합니다 👋</string>
+    <string name="join_wrong_data">접속 정보가 일치하지 않습니다.</string>
 
     <string name="navigation_main">메인</string>
     <string name="navigation_download">다운로드</string>
     <string name="navigation_setting">설정</string>
+
     <string name="fileitem_preview_size">4MB</string>
-    <string name="item_type">item type</string>
-    <string name="loading">불러오는 중…</string>
     <string name="fileitem_preview_path">preview path</string>
+    <string name="fileitem_type">item type</string>
+
     <string name="exception_except">오류가 발생했습니다 😔</string>
     <string name="exception_preview_except">FATAL EXCEPTION: main exception</string>
-
 
 </resources>

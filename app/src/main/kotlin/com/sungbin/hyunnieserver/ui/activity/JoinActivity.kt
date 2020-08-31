@@ -7,12 +7,13 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.sungbin.hyunnieserver.R
-import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
-import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
-import com.sungbin.sungbintool.LogUtils
+import com.sungbin.hyunnieserver.tool.manager.PathManager
+import com.sungbin.sungbintool.DataUtils
+import com.sungbin.sungbintool.ToastUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_join.*
 import org.apache.commons.net.ftp.FTPClient
+import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 
@@ -27,10 +28,6 @@ class JoinActivity : AppCompatActivity() {
 
     @Inject
     lateinit var client: FTPClient
-
-    private val loadingDialog by lazy {
-        LoadingDialog(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +48,7 @@ class JoinActivity : AppCompatActivity() {
                 ),
                 CODE_REQUEST_STORAGE_ACCESS
             )
-        } 
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -71,23 +68,39 @@ class JoinActivity : AppCompatActivity() {
             btn_start_with_login.apply {
                 alpha = 1f
                 setOnClickListener {
-                    val logined = checkLogin(
-                        tiet_server_address.text.toString(),
-                        tiet_id.text.toString(),
-                        tiet_password.text.toString()
-                    )
-                    LogUtils.w(logined)
+                    val address = tiet_server_address.text.toString()
+                    val id = tiet_id.text.toString()
+                    val password = tiet_password.text.toString()
+                    if (login(address, id, password)) {
+                        ToastUtils.show(
+                            context,
+                            context.getString(R.string.join_welcome),
+                            ToastUtils.SHORT,
+                            ToastUtils.SUCCESS
+                        )
+                        DataUtils.saveData(context, PathManager.SERVER_ADDRESS, address)
+                        DataUtils.saveData(context, PathManager.ID, id)
+                        DataUtils.saveData(context, PathManager.PASSWORD, password)
+                        startActivity<MainActivity>()
+                    } else {
+                        ToastUtils.show(
+                            context,
+                            context.getString(R.string.join_wrong_data),
+                            ToastUtils.SHORT,
+                            ToastUtils.ERROR
+                        )
+                    }
                 }
             }
         }
     }
 
-    private fun checkLogin(address: String, id: String, password: String): Boolean {
+    private fun login(address: String, id: String, password: String): Boolean {
         return try {
             client.connect(address)
             client.login(id, password)
         } catch (exception: Exception) {
-            ExceptionUtil.except(exception, applicationContext)
+            // ExceptionUtil.except(exception, applicationContext)
             false
         }
     }
