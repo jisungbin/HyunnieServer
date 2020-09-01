@@ -1,5 +1,7 @@
 package com.sungbin.hyunnieserver.ui.fragment.main
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import com.sungbin.hyunnieserver.adapter.FileAdapter
 import com.sungbin.hyunnieserver.model.FileItem
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.util.FileUtil
+import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import com.sungbin.sungbintool.DataUtils
 import com.sungbin.sungbintool.StorageUtils
@@ -29,7 +32,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 @WithFragmentBindings
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), OnBackPressedUtil {
 
     companion object {
         private val instance by lazy {
@@ -92,6 +95,7 @@ class MainFragment : Fragment() {
                 )
             )
         }
+        viewModel.fileCache["/메인 혀니서버/혀니서버"] = list
         viewModel.fileList.postValue(list)
         loadingDialog.close()
     }
@@ -99,24 +103,31 @@ class MainFragment : Fragment() {
     private fun changeFtpPath(item: FileItem) {
         loadingDialog.show()
 
-        val list = ArrayList<FileItem>()
-        (client.listFiles(item.path) as Array<FTPFile>).map {
-            val size = if (it.isFile) {
-                StorageUtils.getSize(it.size)
-            } else {
-                ""
-            }
-            list.add(
-                FileItem(
-                    it.name,
-                    size,
-                    "${item.path}/${it.name}",
-                    FileUtil.getType(it.name, it.size),
-                    FileUtil.getLastModifyTime(it.timestamp)
+        val cache = viewModel.fileCache[item.path]
+        if (cache == null) {
+            val list = ArrayList<FileItem>()
+            (client.listFiles(item.path) as Array<FTPFile>).map {
+                val size = if (it.isFile) {
+                    StorageUtils.getSize(it.size)
+                } else {
+                    ""
+                }
+                list.add(
+                    FileItem(
+                        it.name,
+                        size,
+                        "${item.path}/${it.name}",
+                        FileUtil.getType(it.name, it.size),
+                        FileUtil.getLastModifyTime(it.timestamp)
+                    )
                 )
-            )
+            }
+            viewModel.fileCache[item.path] = list
+            viewModel.fileList.postValue(list)
         }
-        viewModel.fileList.postValue(list)
+        else {
+            viewModel.fileList.postValue(cache)
+        }
         loadingDialog.close()
     }
 
@@ -131,18 +142,38 @@ class MainFragment : Fragment() {
             )
         }
 
-        val lastPathName = item.path.split("/").last()
-        val backPath = item.path.replaceLast("/$lastPathName", "")
-        val backCache = viewModel.fileCache[backPath]
+        val levelOneLastPathName = item.path.split("/").last()
+        val levelOneBackPath = item.path.replaceLast("/$levelOneLastPathName", "")
+        val levelTwoLastPathName = levelOneBackPath.split("/").last()
+        val levelTwoBackPath = levelOneBackPath.replaceLast("/$levelTwoLastPathName", "")
 
+        val backCache = viewModel.fileCache[levelTwoBackPath]
         loadingDialog.show()
-
-        val list = ArrayList<FileItem>()
-        backCache?.map {
-            list.add(it)
+        backCache?.let {
+            viewModel.fileList.postValue(it)
         } ?: cantGoBack()
-        viewModel.fileList.postValue(list)
         loadingDialog.close()
+    }
+
+    override fun onBackPressed(activity: Activity): Boolean {
+        return when (viewModel.fileList.value!![0].path.replace("/메인 혀니서버/혀니서버", "").split("/").size > 2) {
+            true -> {
+                changeBackPath(viewModel.fileList.value!![0])
+                false
+            }
+            else -> {
+                AlertDialog.Builder(activity).run {
+                    setTitle(getString(R.string.close))
+                    setMessage(getString(R.string.main_really_close))
+                    setNeutralButton("좀 더 있기") { _, _ -> }
+                    setPositiveButton("종료하기") { _, _ ->
+                        activity.finish()
+                    }
+                    show()
+                    true
+                }
+            }
+        }
     }
 
 }

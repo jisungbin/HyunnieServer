@@ -1,6 +1,7 @@
 <resources>
 
     <!-- global -->
+    <string name="close">닫기</string>
     <string name="app_name">혀니서버</string>
     <string name="copyright">© 2020 SungBin</string>
     <string name="loading">불러오는 중…</string>
@@ -35,5 +36,6 @@
     <string name="exception_preview_except">FATAL EXCEPTION: main exception</string>
 
     <string name="ftp_cant_go_back">뒤로가기를 수행할 수 없습니다.</string>
+    <string name="main_really_close">정말 혀니서버 앱을 종료하실거에요?</string>
 
 </resources>
