@@ -13,6 +13,8 @@ import com.sungbin.hyunnieserver.tool.util.FileUtil
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import com.sungbin.sungbintool.DataUtils
 import com.sungbin.sungbintool.StorageUtils
+import com.sungbin.sungbintool.ToastUtils
+import com.sungbin.sungbintool.extensions.replaceLast
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -56,7 +58,11 @@ class MainFragment : Fragment() {
         retainInstance = false
 
         viewModel.fileList.observe(viewLifecycleOwner, {
-            rv_file.adapter = FileAdapter(it, requireActivity())
+            rv_file.adapter = FileAdapter(it, requireActivity()).apply {
+                setOnClickListener { file ->
+                    changeFtpPath(file)
+                }
+            }
         })
 
         val context = requireContext()
@@ -64,7 +70,7 @@ class MainFragment : Fragment() {
         val id = DataUtils.readData(context, PathManager.ID, "")
         val password = DataUtils.readData(context, PathManager.PASSWORD, "")
 
-        client.connect(address)
+        client.connect(address) // client init
         client.login(id, password)
         client.enterLocalPassiveMode() // required for connection
         loadingDialog.show()
@@ -81,11 +87,60 @@ class MainFragment : Fragment() {
                     it.name,
                     size,
                     "/메인 혀니서버/혀니서버/${it.name}",
-                    FileUtil.getType(it.name, size),
+                    FileUtil.getType(it.name, it.size),
                     FileUtil.getLastModifyTime(it.timestamp)
                 )
             )
         }
+        viewModel.fileList.postValue(list)
+        loadingDialog.close()
+    }
+
+    private fun changeFtpPath(item: FileItem) {
+        loadingDialog.show()
+
+        val list = ArrayList<FileItem>()
+        (client.listFiles(item.path) as Array<FTPFile>).map {
+            val size = if (it.isFile) {
+                StorageUtils.getSize(it.size)
+            } else {
+                ""
+            }
+            list.add(
+                FileItem(
+                    it.name,
+                    size,
+                    "${item.path}/${it.name}",
+                    FileUtil.getType(it.name, it.size),
+                    FileUtil.getLastModifyTime(it.timestamp)
+                )
+            )
+        }
+        viewModel.fileList.postValue(list)
+        loadingDialog.close()
+    }
+
+    private fun changeBackPath(item: FileItem) {
+
+        fun cantGoBack() {
+            ToastUtils.show(
+                requireContext(),
+                getString(R.string.ftp_cant_go_back),
+                ToastUtils.SHORT,
+                ToastUtils.WARNING
+            )
+        }
+
+        val lastPathName = item.path.split("/").last()
+        val backPath = item.path.replaceLast("/$lastPathName", "")
+        val backCache = viewModel.fileCache[backPath]
+
+        loadingDialog.show()
+
+        val list = ArrayList<FileItem>()
+        backCache?.map {
+            list.add(it)
+        } ?: cantGoBack()
         viewModel.fileList.postValue(list)
         loadingDialog.close()
     }

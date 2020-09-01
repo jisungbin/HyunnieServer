@@ -26,15 +26,20 @@ object FileUtil {
         }
     }
 
-    fun getType(name: String, sizeString: String): Int {
-        val size = if (sizeString == "") 0 else sizeString.toInt()
+    fun getType(name: String, size: Long): Int {
         return if (name.contains(".")) {
-            with (name) {
+            with(name) {
                 when {
                     endsWith("png", true) -> TypeManager.IMAGE
                     endsWith("jpg", true) -> TypeManager.IMAGE
-                    endsWith("txt", true) -> if (size >= 10000) TypeManager.BOOK else TypeManager.TEXT
-                    endsWith("text", true) -> if (size >= 10000) TypeManager.BOOK else TypeManager.TEXT
+                    endsWith(
+                        "txt",
+                        true
+                    ) -> if (size >= 10000) TypeManager.BOOK else TypeManager.TEXT
+                    endsWith(
+                        "text",
+                        true
+                    ) -> if (size >= 10000) TypeManager.BOOK else TypeManager.TEXT
                     endsWith("mp4", true) -> TypeManager.VIDEO
                     endsWith("avi", true) -> TypeManager.VIDEO
                     endsWith("gif", true) -> TypeManager.GIF
@@ -48,9 +53,8 @@ object FileUtil {
                     else -> TypeManager.FILE
                 }
             }
-        }
-        else {
-          TypeManager.FOLDER
+        } else {
+            TypeManager.FOLDER
         }
     }
 

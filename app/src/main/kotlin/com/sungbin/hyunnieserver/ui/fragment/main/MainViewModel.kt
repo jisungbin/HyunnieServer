@@ -12,5 +12,6 @@ import com.sungbin.hyunnieserver.model.FileItem
 class MainViewModel : ViewModel() {
 
     val fileList: MutableLiveData<List<FileItem>> = MutableLiveData()
+    val fileCache = HashMap<String, List<FileItem>>()
 
 }

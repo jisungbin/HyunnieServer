@@ -34,4 +34,6 @@
     <string name="exception_except">오류가 발생했습니다 😔</string>
     <string name="exception_preview_except">FATAL EXCEPTION: main exception</string>
 
+    <string name="ftp_cant_go_back">뒤로가기를 수행할 수 없습니다.</string>
+
 </resources>

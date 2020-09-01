@@ -21,12 +21,30 @@ class FileAdapter(
     private val activity: Activity
 ) : RecyclerView.Adapter<FileAdapter.ViewHolder>() {
 
+    private var onClickListener: OnClickListener? = null
+    interface OnClickListener {
+        fun onClick(fileItem: FileItem)
+    }
+
+    fun setOnClickListener(action: (FileItem) -> Unit) {
+        onClickListener = object : OnClickListener {
+            override fun onClick(fileItem: FileItem) {
+                action(fileItem)
+            }
+        }
+    }
+
     class ViewHolder(private val itemBinding: LayoutFileBinding, private val activity: Activity) :
         RecyclerView.ViewHolder(itemBinding.root) {
-        fun bindViewHolder(file: FileItem) {
+        fun bindViewHolder(file: FileItem, listener: OnClickListener?) {
             with (itemBinding) {
                 item = file
-                tvName.isSelected = true
+                tvName.apply {
+                    isSelected = true
+                    setOnClickListener {
+                        listener?.onClick(file)
+                    }
+                }
                 if (file.size == "") tvDot.hide(true)
                 invalidateAll()
             }
@@ -42,7 +60,7 @@ class FileAdapter(
         )
 
     override fun onBindViewHolder(@NonNull viewholder: ViewHolder, position: Int) {
-        viewholder.bindViewHolder(items[position])
+        viewholder.bindViewHolder(items[position], onClickListener)
     }
 
     override fun getItemCount() = items.size
