@@ -14,6 +14,7 @@ object TypeManager {
     const val MUSIC = 9
     const val BOOK = 10
     const val PDF = 11
+    const val SUBTITLE = 12
     const val FILE = 999
 
 }

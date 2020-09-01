@@ -13,6 +13,7 @@ import com.sungbin.hyunnieserver.tool.util.FileUtil
 data class FileItem(
     val name: String,
     val size: String,
+    val originSize: Long,
     val path: String,
     val type: Int,
     val lastModify: String

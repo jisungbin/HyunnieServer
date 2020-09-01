@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             DataUtils.readData(
                 applicationContext,
                 PathManager.DOWNLOAD_PATH,
-                "HyunnieServer/Download"
+                PathManager.DOWNLOAD_PATH_DEFAULT
             ), true
         )
 

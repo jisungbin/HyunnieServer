@@ -36,6 +36,10 @@
     <string name="exception_preview_except">FATAL EXCEPTION: main exception</string>
 
     <string name="ftp_cant_go_back">뒤로가기를 수행할 수 없습니다.</string>
+
     <string name="main_really_close">정말 혀니서버 앱을 종료하실거에요?</string>
+
+    <string name="notification_description">혀니서버 다운로드 알림이</string>
+    <string name="notification_downloading">다운로드중…</string>
 
 </resources>

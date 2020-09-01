@@ -22,6 +22,7 @@ object FileUtil {
             TypeManager.BOOK -> R.drawable.ic_baseline_menu_book_24
             TypeManager.PDF -> R.drawable.ic_baseline_picture_as_pdf_24
             TypeManager.FILE -> R.drawable.ic_baseline_insert_drive_file_24
+            TypeManager.SUBTITLE -> R.drawable.ic_baseline_translate_24
             else -> R.drawable.ic_baseline_folder_24
         }
     }
@@ -50,6 +51,7 @@ object FileUtil {
                     endsWith("exe", true) -> TypeManager.EXE
                     endsWith("mp3", true) -> TypeManager.MUSIC
                     endsWith("pdf", true) -> TypeManager.PDF
+                    endsWith("smi", true) -> TypeManager.SUBTITLE
                     else -> TypeManager.FILE
                 }
             }
