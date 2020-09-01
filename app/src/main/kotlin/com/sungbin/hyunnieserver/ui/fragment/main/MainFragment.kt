@@ -12,11 +12,11 @@ import com.sungbin.hyunnieserver.adapter.FileAdapter
 import com.sungbin.hyunnieserver.model.FileItem
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
+import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
 import com.sungbin.hyunnieserver.tool.util.FileUtil
 import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import com.sungbin.sungbintool.DataUtils
-import com.sungbin.sungbintool.LogUtils
 import com.sungbin.sungbintool.StorageUtils
 import com.sungbin.sungbintool.StorageUtils.sdcard
 import com.sungbin.sungbintool.ToastUtils
@@ -124,9 +124,9 @@ class MainFragment : Fragment(), OnBackPressedUtil {
                 R.string.notification_downloading
             ), file.name
         )
+        manager.notify(notificationId, notification.build())
 
         try {
-            manager.notify(notificationId, notification.build())
             val downloadFile = File(
                 "$sdcard/${
                     DataUtils.readData(
@@ -150,8 +150,8 @@ class MainFragment : Fragment(), OnBackPressedUtil {
 
             client.bufferSize = 2048 * 2048
             client.retrieveFile(file.path, cos)
-        } catch (e: Exception) {
-            LogUtils.w(e)
+        } catch (exception: Exception) {
+            ExceptionUtil.except(exception, requireContext())
         } finally {
             outputStream?.close()
         }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commitNow
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.tool.manager.PathManager
+import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
 import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import com.sungbin.hyunnieserver.ui.fragment.main.MainFragment
 import com.sungbin.sungbintool.DataUtils
@@ -22,6 +23,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        NotificationUtil.createChannel(applicationContext)
+        val notificationId = 1000
+        val manager = NotificationUtil.getManager(applicationContext)
+        val notification = NotificationUtil.getDownloadNotification(
+            applicationContext, notificationId, getString(
+                R.string.notification_downloading
+            ), "test notification"
+        )
+        manager.notify(notificationId, notification.build())
 
         StorageUtils.createFolder(
             DataUtils.readData(

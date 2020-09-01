@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:windowSoftInputMode="adjustResize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -30,7 +31,8 @@
                     android:layout_marginBottom="@dimen/margin_twice_half"
                     android:text="@string/join_hello"
                     android:textColor="@color/colorWhite"
-                    android:textSize="50sp"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/view_center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
