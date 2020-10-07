@@ -2,7 +2,7 @@ package com.sungbin.hyunnieserver.model
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.sungbin.hyunnieserver.GlideApp
+import com.sungbin.hyunnieserver.module.GlideApp
 import com.sungbin.hyunnieserver.tool.util.FileUtil
 
 

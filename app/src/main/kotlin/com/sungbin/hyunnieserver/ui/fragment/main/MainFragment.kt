@@ -1,6 +1,5 @@
 package com.sungbin.hyunnieserver.ui.fragment.main
 
-import StorageUtil.sdcard
 import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
@@ -18,6 +17,7 @@ import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import com.sungbin.sungbintool.extensions.replaceLast
 import com.sungbin.sungbintool.util.*
+import com.sungbin.sungbintool.util.StorageUtil.sdcard
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.android.synthetic.main.fragment_main.*

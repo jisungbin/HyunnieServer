@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
+import com.sungbin.sungbintool.util.DataUtil
 import com.sungbin.sungbintool.util.NetworkUtil
 import org.jetbrains.anko.startActivity
 

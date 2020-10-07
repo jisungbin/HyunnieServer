@@ -6,19 +6,19 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        app:popupTheme="@style/AppTheme.PopupOverlay"
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/app_name"
             app:subtitle="@string/copyright"
-            app:titleTextColor="@color/colorWhite"
-            app:subtitleTextColor="@color/colorWhite"/>
+            app:subtitleTextColor="@color/colorWhite"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/colorWhite" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

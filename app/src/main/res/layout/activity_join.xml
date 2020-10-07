@@ -121,7 +121,7 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginTop="@dimen/margin_half"
+                android:layout_marginTop="@dimen/margin_default"
                 android:background="@drawable/bg_all_round_30"
                 android:paddingStart="@dimen/margin_default"
                 android:paddingEnd="@dimen/margin_default"

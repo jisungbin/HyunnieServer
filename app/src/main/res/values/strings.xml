@@ -17,7 +17,7 @@
     <string name="join_give_permission">권한 허용하기</string>
     <string name="join_permission_grant">권한 부여됨</string>
     <string name="join_start_with_start">로그인하여 시작하기</string>
-    <string name="join_reason_for_storage_permission">혀니서버 데이터 저장을 위해 해당 권한이 필요해요.</string>
+    <string name="join_reason_for_storage_permission">데이터 저장을 위해 해당 권한이 필요해요.</string>
     <string name="join_no_connect_internet">인터넷에 연결되어있지 않아요 😢</string>
     <string name="join_welcome">환영합니다 👋</string>
     <string name="join_wrong_data">접속 정보가 일치하지 않습니다.</string>
@@ -41,6 +41,7 @@
 
     <string name="notification_description">혀니서버 다운로드 알림이</string>
     <string name="notification_downloading">다운로드중…</string>
+
     <string name="main_finish">종료하기</string>
     <string name="main_stay">좀 더 있기</string>
 
