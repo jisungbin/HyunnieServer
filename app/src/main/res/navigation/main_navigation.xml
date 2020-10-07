@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@+id/main">
+
+    <fragment
+        android:id="@+id/main"
+        android:name="com.sungbin.hyunnieserver.ui.fragment.main.MainFragment"
+        android:label="MainFragment" />
+
+    <fragment
+        android:id="@+id/download"
+        android:name="com.sungbin.hyunnieserver.ui.fragment.download.DownloadFragment"
+        android:label="DownloadFragment" />
+
+    <fragment
+        android:id="@+id/setting"
+        android:name="com.sungbin.hyunnieserver.ui.fragment.setting.SettingFragment"
+        android:label="SettingFragment" />
+
+</navigation>

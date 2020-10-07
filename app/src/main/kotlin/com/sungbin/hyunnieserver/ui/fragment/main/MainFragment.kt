@@ -5,22 +5,19 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.sungbin.hyunnieserver.R
-import com.sungbin.hyunnieserver.adapter.FileAdapter
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
 import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
 import com.sungbin.hyunnieserver.tool.util.FileUtil
 import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
+import com.sungbin.hyunnieserver.ui.fragment.BaseFragment
 import com.sungbin.sungbintool.extensions.replaceLast
 import com.sungbin.sungbintool.util.*
 import com.sungbin.sungbintool.util.StorageUtil.sdcard
-import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.WithFragmentBindings
-import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.test_fragment.*
 import org.apache.commons.io.output.CountingOutputStream
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
@@ -35,9 +32,7 @@ import javax.inject.Inject
  * Created by SungBin on 2020-08-31.
  */
 
-@AndroidEntryPoint
-@WithFragmentBindings
-class MainFragment : Fragment(), OnBackPressedUtil {
+class MainFragment : BaseFragment(), OnBackPressedUtil {
 
     companion object {
         private lateinit var mainFragment: MainFragment
@@ -62,11 +57,15 @@ class MainFragment : Fragment(), OnBackPressedUtil {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.fragment_main, container, false)!!
+    ) = inflater.inflate(R.layout.test_fragment, container, false)!!
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        retainInstance = false
+        tv_test.text = "MainFragment"
+    }
+
+    /*override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         viewModel.fileList.observe(viewLifecycleOwner, {
             rv_file.adapter = FileAdapter(it, requireActivity()).apply {
@@ -111,7 +110,7 @@ class MainFragment : Fragment(), OnBackPressedUtil {
         viewModel.fileCache["/메인 혀니서버/혀니서버"] = list
         viewModel.fileList.postValue(list)
         loadingDialog.close()
-    }
+    }*/
 
     private fun ftpFileDownload(file: com.sungbin.hyunnieserver.model.File) {
         NotificationUtil.createChannel(requireContext())

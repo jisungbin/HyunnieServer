@@ -1,20 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundWhite"
+    android:paddingTop="@dimen/margin_default">
+
+    <TextView
+        android:id="@+id/tv_online"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:text="@string/app_name"
+        android:textColor="@color/colorBlack"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:contentDescription="@string/image_description_search"
+        android:src="@drawable/ic_baseline_search_24"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_online"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_online"
+        app:tint="@color/colorLightGray" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/margin_default"
+        android:paddingEnd="@dimen/margin_default"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/tv_online"
+        tools:listitem="@layout/layout_path" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_file"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorBackgroundWhite"
         android:orientation="vertical"
         android:overScrollMode="never"
-        android:layoutAnimation="@anim/layout_animation"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_path"
         tools:listitem="@layout/layout_file" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

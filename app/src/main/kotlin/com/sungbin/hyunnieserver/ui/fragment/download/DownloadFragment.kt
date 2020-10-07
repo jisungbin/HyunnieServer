@@ -1,20 +1,38 @@
 package com.sungbin.hyunnieserver.ui.fragment.download
 
-import androidx.fragment.app.Fragment
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.sungbin.hyunnieserver.R
+import com.sungbin.hyunnieserver.ui.fragment.BaseFragment
+import kotlinx.android.synthetic.main.test_fragment.*
 
 
 /**
  * Created by SungBin on 2020-08-31.
  */
 
-class DownloadFragment : Fragment() {
+class DownloadFragment : BaseFragment() {
 
     companion object {
-        private val instance by lazy {
-            DownloadFragment()
-        }
+        private lateinit var downloadFragment: DownloadFragment
 
-        fun instance() = instance
+        fun instance(): DownloadFragment {
+            if (!::downloadFragment.isInitialized) {
+                downloadFragment = DownloadFragment()
+            }
+            return downloadFragment
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = inflater.inflate(R.layout.test_fragment, container, false)!!
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        tv_test.text = "DownloadFragment"
     }
 
 }

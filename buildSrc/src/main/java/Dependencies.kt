@@ -40,6 +40,7 @@ object Versions {
     }
 
     object Ui {
+        const val SmoothBottomBar = "1.7.6"
         const val SpotLight = "2.0.2"
         const val TransformationLayout = "1.0.6"
         const val ShapeOfView = "1.4.7"
@@ -90,6 +91,8 @@ object Dependencies {
     }
 
     object Ui {
+        const val SmoothBottomBar =
+            "com.github.ibrahimsn98:SmoothBottomBar:${Versions.Ui.SmoothBottomBar}"
         const val SpotLight = "com.github.takusemba:spotlight:${Versions.Ui.SpotLight}"
         const val TransformationLayout =
             "com.github.skydoves:transformationlayout:${Versions.Ui.TransformationLayout}"

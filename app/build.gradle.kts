@@ -67,6 +67,8 @@ dependencies {
         Dependencies.Essential.Anko,
         Dependencies.Essential.Kotlin,
 
+        Dependencies.Ktx.NavigationUi,
+        Dependencies.Ktx.NavigationFragment,
         Dependencies.Ktx.Core,
         Dependencies.Ktx.Fragment,
 
@@ -78,6 +80,7 @@ dependencies {
         Dependencies.Ui.TransformationLayout,
         Dependencies.Ui.ShapeOfYou,
         Dependencies.Ui.YoYo,
+        Dependencies.Ui.SmoothBottomBar,
         Dependencies.Ui.Lottie,
         Dependencies.Ui.Licenser,
         Dependencies.Ui.Material,

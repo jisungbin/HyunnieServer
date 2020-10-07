@@ -6,6 +6,8 @@
     <string name="copyright">© 2020 SungBin</string>
     <string name="loading">불러오는 중…</string>
 
+    <string name="image_description_search">search</string>
+
     <string name="join_server_address">서버 주소</string>
     <string name="join_login_with_arrow">로그인 →</string>
     <string name="join_password">비밀번호</string>
@@ -44,5 +46,6 @@
 
     <string name="main_finish">종료하기</string>
     <string name="main_stay">좀 더 있기</string>
+    <string name="path_preview">메인 혀니서버</string>
 
 </resources>
