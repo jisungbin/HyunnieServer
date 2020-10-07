@@ -5,6 +5,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -71,6 +72,8 @@ dependencies {
 
         Dependencies.Di.Hilt,
 
+        Dependencies.Jetpack.DataStore,
+
         Dependencies.Ui.SpotLight,
         Dependencies.Ui.TransformationLayout,
         Dependencies.Ui.ShapeOfYou,
@@ -81,11 +84,11 @@ dependencies {
         Dependencies.Ui.Glide,
         Dependencies.Ui.ConstraintLayout,
 
-        Dependencies.Utils.YoyoHelper,
-        Dependencies.Utils.AndroidUtils,
-        Dependencies.Utils.CrashReporter
+        Dependencies.Util.YoyoHelper,
+        Dependencies.Util.AndroidUtils,
+        Dependencies.Util.CrashReporter
     )
 
     kapt(Dependencies.Di.HiltCompiler)
-    kapt(Dependencies.Utils.GlideCompiler)
+    kapt(Dependencies.Util.GlideCompiler)
 }

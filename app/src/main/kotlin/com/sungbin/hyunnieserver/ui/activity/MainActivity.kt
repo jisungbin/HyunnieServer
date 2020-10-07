@@ -8,8 +8,8 @@ import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
 import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import com.sungbin.hyunnieserver.ui.fragment.main.MainFragment
-import com.sungbin.sungbintool.DataUtils
-import com.sungbin.sungbintool.StorageUtils
+import com.sungbin.sungbintool.util.DataUtil
+import com.sungbin.sungbintool.util.StorageUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -34,13 +34,15 @@ class MainActivity : AppCompatActivity() {
         )
         manager.notify(notificationId, notification.build())
 
-        StorageUtils.createFolder(
-            DataUtils.readData(
-                applicationContext,
-                PathManager.DOWNLOAD_PATH,
-                PathManager.DOWNLOAD_PATH_DEFAULT
-            ), true
-        )
+        DataUtil.readData(
+            applicationContext,
+            PathManager.DOWNLOAD_PATH,
+            PathManager.DOWNLOAD_PATH_DEFAULT
+        )?.let {
+            StorageUtil.createFolder(
+                it, true
+            )
+        }
 
         supportFragmentManager.commitNow {
             add(R.id.fl_container, MainFragment.instance())

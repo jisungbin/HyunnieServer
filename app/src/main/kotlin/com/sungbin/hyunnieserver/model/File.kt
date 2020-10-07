@@ -10,21 +10,21 @@ import com.sungbin.hyunnieserver.tool.util.FileUtil
  * Created by SungBin on 2020-08-31.
  */
 
-data class FileItem(
+data class File(
     val name: String,
     val size: String,
     val originSize: Long,
     val path: String,
-    val type: Int,
+    val fileType: FileType,
     val lastModify: String
 ) {
     companion object {
         @JvmStatic
         @BindingAdapter("typeSrc")
-        fun setTypeSrc(imageView: ImageView, type: Int) {
+        fun setTypeSrc(imageView: ImageView, fileType: FileType) {
             GlideApp
                 .with(imageView.context)
-                .load(FileUtil.getTypeIcon(type))
+                .load(FileUtil.getTypeIcon(fileType))
                 .into(imageView)
         }
     }

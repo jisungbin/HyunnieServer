@@ -16,7 +16,6 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 class FtpModule {
 
-
     @Singleton
     @Provides
     fun instance() = FTPClient().apply {

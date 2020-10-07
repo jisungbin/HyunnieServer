@@ -20,7 +20,7 @@ import com.sungbin.sungbintool.extensions.plusAssign
 
 class LoadingDialog(private val activity: Activity) {
 
-    private lateinit var alert: AlertDialog
+    private var alert: AlertDialog
 
     @SuppressLint("InflateParams")
     private var layout: View =

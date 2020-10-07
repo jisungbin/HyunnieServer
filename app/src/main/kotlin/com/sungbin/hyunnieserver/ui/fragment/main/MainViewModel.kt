@@ -2,7 +2,7 @@ package com.sungbin.hyunnieserver.ui.fragment.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sungbin.hyunnieserver.model.FileItem
+import com.sungbin.hyunnieserver.model.File
 
 
 /**
@@ -11,7 +11,7 @@ import com.sungbin.hyunnieserver.model.FileItem
 
 class MainViewModel : ViewModel() {
 
-    val fileList: MutableLiveData<List<FileItem>> = MutableLiveData()
-    val fileCache = HashMap<String, List<FileItem>>()
+    val fileList: MutableLiveData<List<File>> = MutableLiveData()
+    val fileCache = HashMap<String, List<File>>()
 
 }

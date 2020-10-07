@@ -7,9 +7,8 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.tool.manager.PathManager
-import com.sungbin.hyunnieserver.tool.util.NetworkUtil
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
-import com.sungbin.sungbintool.DataUtils
+import com.sungbin.sungbintool.util.NetworkUtil
 import org.jetbrains.anko.startActivity
 
 
@@ -32,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
         if (NetworkUtil.isNetworkAvailable(applicationContext)) {
             Handler(Looper.getMainLooper()).postDelayed({
                 finish()
-                if (DataUtils.readData(
+                if (DataUtil.readData(
                         applicationContext,
                         PathManager.SERVER_ADDRESS,
                         "null"

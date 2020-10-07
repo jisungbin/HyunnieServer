@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.databinding.LayoutFileBinding
-import com.sungbin.hyunnieserver.model.FileItem
+import com.sungbin.hyunnieserver.model.File
 import com.sungbin.sungbintool.extensions.hide
 
 
@@ -17,27 +17,27 @@ import com.sungbin.sungbintool.extensions.hide
  */
 
 class FileAdapter(
-    private val items: List<FileItem>,
+    private val items: List<File>,
     private val activity: Activity
 ) : RecyclerView.Adapter<FileAdapter.ViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
     interface OnClickListener {
-        fun onClick(fileItem: FileItem)
+        fun onClick(file: File)
     }
 
-    fun setOnClickListener(action: (FileItem) -> Unit) {
+    fun setOnClickListener(action: (File) -> Unit) {
         onClickListener = object : OnClickListener {
-            override fun onClick(fileItem: FileItem) {
-                action(fileItem)
+            override fun onClick(file: File) {
+                action(file)
             }
         }
     }
 
     class ViewHolder(private val itemBinding: LayoutFileBinding, private val activity: Activity) :
         RecyclerView.ViewHolder(itemBinding.root) {
-        fun bindViewHolder(file: FileItem, listener: OnClickListener?) {
-            with (itemBinding) {
+        fun bindViewHolder(file: File, listener: OnClickListener?) {
+            with(itemBinding) {
                 item = file
                 tvName.apply {
                     isSelected = true

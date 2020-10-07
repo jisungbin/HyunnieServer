@@ -1,5 +1,6 @@
 package com.sungbin.hyunnieserver.ui.fragment.main
 
+import StorageUtil.sdcard
 import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
@@ -9,18 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.adapter.FileAdapter
-import com.sungbin.hyunnieserver.model.FileItem
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
 import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
 import com.sungbin.hyunnieserver.tool.util.FileUtil
 import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
-import com.sungbin.sungbintool.DataUtils
-import com.sungbin.sungbintool.StorageUtils
-import com.sungbin.sungbintool.StorageUtils.sdcard
-import com.sungbin.sungbintool.ToastUtils
 import com.sungbin.sungbintool.extensions.replaceLast
+import com.sungbin.sungbintool.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -43,11 +40,14 @@ import javax.inject.Inject
 class MainFragment : Fragment(), OnBackPressedUtil {
 
     companion object {
-        private val instance by lazy {
-            MainFragment()
-        }
+        private lateinit var mainFragment: MainFragment
 
-        fun instance() = instance
+        fun instance(): MainFragment {
+            if (!::mainFragment.isInitialized) {
+                mainFragment = MainFragment()
+            }
+            return mainFragment
+        }
     }
 
     @Inject
@@ -81,24 +81,24 @@ class MainFragment : Fragment(), OnBackPressedUtil {
         })
 
         val context = requireContext()
-        val address = DataUtils.readData(context, PathManager.SERVER_ADDRESS, "")
-        val id = DataUtils.readData(context, PathManager.ID, "")
-        val password = DataUtils.readData(context, PathManager.PASSWORD, "")
+        val address = DataUtil.readData(context, PathManager.SERVER_ADDRESS, "")
+        val id = DataUtil.readData(context, PathManager.ID, "")
+        val password = DataUtil.readData(context, PathManager.PASSWORD, "")
 
         client.connect(address) // client init
         client.login(id, password)
         client.enterLocalPassiveMode() // required for connection
         loadingDialog.show()
 
-        val list = ArrayList<FileItem>()
+        val list = ArrayList<com.sungbin.hyunnieserver.model.File>()
         (client.listFiles("/메인 혀니서버/혀니서버") as Array<FTPFile>).map {
             val size = if (it.isFile) {
-                StorageUtils.getSize(it.size)
+                StorageUtil.getSize(it.size)
             } else {
                 ""
             }
             list.add(
-                FileItem(
+                com.sungbin.hyunnieserver.model.File(
                     it.name,
                     size,
                     it.size,
@@ -113,7 +113,7 @@ class MainFragment : Fragment(), OnBackPressedUtil {
         loadingDialog.close()
     }
 
-    private fun ftpFileDownload(file: FileItem) {
+    private fun ftpFileDownload(file: com.sungbin.hyunnieserver.model.File) {
         NotificationUtil.createChannel(requireContext())
         client.setFileType(FTPClient.BINARY_FILE_TYPE)
         val notificationId = 1000
@@ -129,7 +129,7 @@ class MainFragment : Fragment(), OnBackPressedUtil {
         try {
             val downloadFile = File(
                 "$sdcard/${
-                    DataUtils.readData(
+                    DataUtil.readData(
                         requireContext(),
                         PathManager.DOWNLOAD_PATH,
                         PathManager.DOWNLOAD_PATH_DEFAULT
@@ -157,20 +157,20 @@ class MainFragment : Fragment(), OnBackPressedUtil {
         }
     }
 
-    private fun changeFtpPath(file: FileItem) {
+    private fun changeFtpPath(file: com.sungbin.hyunnieserver.model.File) {
         loadingDialog.show()
 
         val cache = viewModel.fileCache[file.path]
         if (cache == null) {
-            val list = ArrayList<FileItem>()
+            val list = ArrayList<com.sungbin.hyunnieserver.model.File>()
             (client.listFiles(file.path) as Array<FTPFile>).map {
                 val size = if (it.isFile) {
-                    StorageUtils.getSize(it.size)
+                    StorageUtil.getSize(it.size)
                 } else {
                     ""
                 }
                 list.add(
-                    FileItem(
+                    com.sungbin.hyunnieserver.model.File(
                         it.name,
                         size,
                         it.size,
@@ -188,14 +188,14 @@ class MainFragment : Fragment(), OnBackPressedUtil {
         loadingDialog.close()
     }
 
-    private fun changeBackPath(file: FileItem) {
+    private fun changeBackPath(file: com.sungbin.hyunnieserver.model.File) {
 
         fun cantGoBack() {
-            ToastUtils.show(
+            ToastUtil.show(
                 requireContext(),
                 getString(R.string.ftp_cant_go_back),
-                ToastUtils.SHORT,
-                ToastUtils.WARNING
+                ToastLength.SHORT,
+                ToastType.WARNING
             )
         }
 
@@ -223,8 +223,8 @@ class MainFragment : Fragment(), OnBackPressedUtil {
                 AlertDialog.Builder(activity).run {
                     setTitle(getString(R.string.close))
                     setMessage(getString(R.string.main_really_close))
-                    setNeutralButton("좀 더 있기") { _, _ -> }
-                    setPositiveButton("종료하기") { _, _ ->
+                    setNeutralButton(getString(R.string.main_stay)) { _, _ -> }
+                    setPositiveButton(getString(R.string.main_finish)) { _, _ ->
                         activity.finish()
                     }
                     show()

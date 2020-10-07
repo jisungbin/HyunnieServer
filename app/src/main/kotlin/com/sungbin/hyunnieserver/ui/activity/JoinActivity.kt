@@ -8,8 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.tool.manager.PathManager
-import com.sungbin.sungbintool.DataUtils
-import com.sungbin.sungbintool.ToastUtils
+import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
+import com.sungbin.sungbintool.util.DataUtil
+import com.sungbin.sungbintool.util.ToastLength
+import com.sungbin.sungbintool.util.ToastType
+import com.sungbin.sungbintool.util.ToastUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_join.*
 import org.apache.commons.net.ftp.FTPClient
@@ -62,7 +65,6 @@ class JoinActivity : AppCompatActivity() {
                 text = getString(R.string.join_permission_grant)
                 setOnClickListener { }
                 alpha = 0.5f
-
             }
 
             btn_start_with_login.apply {
@@ -72,22 +74,22 @@ class JoinActivity : AppCompatActivity() {
                     val id = tiet_id.text.toString()
                     val password = tiet_password.text.toString()
                     if (login(address, id, password)) {
-                        ToastUtils.show(
+                        ToastUtil.show(
                             context,
                             context.getString(R.string.join_welcome),
-                            ToastUtils.SHORT,
-                            ToastUtils.SUCCESS
+                            ToastLength.SHORT,
+                            ToastType.SUCCESS
                         )
-                        DataUtils.saveData(context, PathManager.SERVER_ADDRESS, address)
-                        DataUtils.saveData(context, PathManager.ID, id)
-                        DataUtils.saveData(context, PathManager.PASSWORD, password)
+                        DataUtil.saveData(context, PathManager.SERVER_ADDRESS, address)
+                        DataUtil.saveData(context, PathManager.ID, id)
+                        DataUtil.saveData(context, PathManager.PASSWORD, password)
                         startActivity<MainActivity>()
                     } else {
-                        ToastUtils.show(
+                        ToastUtil.show(
                             context,
                             context.getString(R.string.join_wrong_data),
-                            ToastUtils.SHORT,
-                            ToastUtils.ERROR
+                            ToastLength.SHORT,
+                            ToastType.ERROR
                         )
                     }
                 }
@@ -100,7 +102,7 @@ class JoinActivity : AppCompatActivity() {
             client.connect(address)
             client.login(id, password)
         } catch (exception: Exception) {
-            // ExceptionUtil.except(exception, applicationContext)
+            ExceptionUtil.except(exception, applicationContext)
             false
         }
     }

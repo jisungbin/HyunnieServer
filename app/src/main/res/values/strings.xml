@@ -41,5 +41,7 @@
 
     <string name="notification_description">혀니서버 다운로드 알림이</string>
     <string name="notification_downloading">다운로드중…</string>
+    <string name="main_finish">종료하기</string>
+    <string name="main_stay">좀 더 있기</string>
 
 </resources>

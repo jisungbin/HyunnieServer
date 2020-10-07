@@ -7,7 +7,7 @@
 
         <variable
             name="Item"
-            type="com.sungbin.hyunnieserver.model.FileItem" />
+            type="com.sungbin.hyunnieserver.model.File" />
 
     </data>
 
@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/colorPrimary"
-            app:typeSrc="@{Item.type}"
+            app:typeSrc="@{Item.fileType}"
             tools:src="@drawable/ic_baseline_folder_24" />
 
         <TextView
