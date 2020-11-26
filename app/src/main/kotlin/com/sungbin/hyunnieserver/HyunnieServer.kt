@@ -3,6 +3,8 @@ package com.sungbin.hyunnieserver
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
 import dagger.hilt.android.HiltAndroidApp
 
@@ -27,6 +29,8 @@ class HyunnieServer : Application() {
         Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
             ExceptionUtil.except(Exception(throwable), applicationContext)
         }
+
+        Firebase.remoteConfig.fetchAndActivate()
     }
 
 }

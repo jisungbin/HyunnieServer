@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.get
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.sungbin.androidutils.extensions.replaceLast
 import com.sungbin.androidutils.util.*
@@ -30,6 +29,7 @@ import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
+import kotlin.collections.set
 
 
 /**
@@ -70,10 +70,9 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
         super.onActivityCreated(savedInstanceState)
 
         val config = Firebase.remoteConfig
-        val id = config["freeIp"].toString()
-        val password = config["freePw"].toString()
+        val id = config.getString("freeId")
+        val password = config.getString("freePw")
         val address = "hn.osmg.kr"
-        Logger.w(arrayOf(id, password, address))
 
         viewModel.fileList.observe(viewLifecycleOwner, {
             binding.rvFile.adapter = FileAdapter(it, requireActivity()).apply {
