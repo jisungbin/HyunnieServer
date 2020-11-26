@@ -42,10 +42,6 @@
         </activity>
 
         <activity
-            android:name=".ui.activity.JoinActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
             android:name=".ui.activity.ExceptionActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 

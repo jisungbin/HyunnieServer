@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
+import org.apache.commons.net.ftp.FTPClient
+import javax.inject.Inject
 
 
 /**
@@ -13,6 +15,9 @@ import dagger.hilt.android.WithFragmentBindings
 @AndroidEntryPoint
 @WithFragmentBindings
 abstract class BaseFragment : Fragment() {
+
+    @Inject
+    lateinit var client: FTPClient
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

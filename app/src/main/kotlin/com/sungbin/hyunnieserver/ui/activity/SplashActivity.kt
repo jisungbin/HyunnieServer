@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.sungbin.androidutils.extensions.doDelay
-import com.sungbin.androidutils.util.DataUtil
 import com.sungbin.androidutils.util.NetworkUtil
 import com.sungbin.hyunnieserver.R
-import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import org.jetbrains.anko.startActivity
 
@@ -32,16 +30,7 @@ class SplashActivity : AppCompatActivity() {
         if (NetworkUtil.isNetworkAvailable(applicationContext)) {
             doDelay(1500) {
                 finish()
-                if (DataUtil.readData(
-                        applicationContext,
-                        PathManager.SERVER_ADDRESS,
-                        "null"
-                    ) == "null"
-                ) {
-                    startActivity<JoinActivity>()
-                } else {
-                    startActivity<MainActivity>()
-                }
+                startActivity<MainActivity>()
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             }
         } else {

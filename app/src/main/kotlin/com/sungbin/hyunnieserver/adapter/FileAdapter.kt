@@ -10,6 +10,8 @@ import com.sungbin.androidutils.extensions.hide
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.databinding.LayoutFileBinding
 import com.sungbin.hyunnieserver.model.File
+import com.sungbin.hyunnieserver.module.GlideApp
+import com.sungbin.hyunnieserver.tool.util.FileUtil
 
 
 /**
@@ -39,6 +41,10 @@ class FileAdapter(
         fun bindViewHolder(file: File, listener: OnClickListener?) {
             with(itemBinding) {
                 item = file
+                GlideApp
+                    .with(ivType.context)
+                    .load(FileUtil.getTypeIcon(file.fileType))
+                    .into(ivType)
                 tvName.apply {
                     isSelected = true
                     setOnClickListener {

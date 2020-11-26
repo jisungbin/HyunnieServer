@@ -19,7 +19,7 @@ class FtpModule {
     @Singleton
     @Provides
     fun instance() = FTPClient().apply {
-        controlEncoding = "UTF-8" //what the fuck
+        controlEncoding = "UTF-8"
     }
 
 }

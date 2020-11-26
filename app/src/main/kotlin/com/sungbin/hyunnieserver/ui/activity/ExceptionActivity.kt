@@ -7,8 +7,7 @@ import android.text.SpannableStringBuilder
 import android.text.method.ScrollingMovementMethod
 import android.text.style.StyleSpan
 import androidx.appcompat.app.AppCompatActivity
-import com.sungbin.hyunnieserver.R
-import kotlinx.android.synthetic.main.activity_exception.*
+import com.sungbin.hyunnieserver.databinding.ActivityExceptionBinding
 
 
 /**
@@ -17,12 +16,15 @@ import kotlinx.android.synthetic.main.activity_exception.*
 
 class ExceptionActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityExceptionBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exception)
+        binding = ActivityExceptionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val message = intent.getStringExtra("message") ?: "NullPointerException"
-        tv_except.apply {
+        binding.tvExcept.apply {
             val ssb = SpannableStringBuilder(message)
             ssb.setSpan(
                 StyleSpan(Typeface.ITALIC),
@@ -34,8 +36,8 @@ class ExceptionActivity : AppCompatActivity() {
             movementMethod = ScrollingMovementMethod()
         }
 
-        lav_exception.setOnClickListener {
-            lav_exception.playAnimation()
+        binding.lavException.setOnClickListener {
+            binding.lavException.playAnimation()
         }
     }
 

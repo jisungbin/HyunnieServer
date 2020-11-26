@@ -2,8 +2,8 @@ plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
     id("name.remal.check-dependency-updates") version "1.1.4"
+    id("com.google.gms.google-services")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
 }
@@ -19,10 +19,6 @@ android {
         setProperty("archivesBaseName", "v$versionName ($versionCode)")
     }
 
-    buildFeatures {
-        dataBinding = true
-    }
-
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
@@ -35,9 +31,13 @@ android {
         }
     }
 
-    sourceSets {
-        getByName("main").java.srcDirs("src/main/kotlin")
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
     }
+
+    kotlinOptions.jvmTarget = Application.jvmTarget
+    sourceSets.getByName("main").java.srcDirs("src/main/kotlin")
 
     packagingOptions {
         exclude("META-INF/DEPENDENCIES")
@@ -49,12 +49,11 @@ android {
         targetCompatibility = Application.targetCompat
     }
 
-    kotlinOptions {
-        jvmTarget = Application.jvmTarget
-    }
 }
 
 dependencies {
+    "implementation"(platform(Dependencies.Firebase.Bom))
+
     fun def(vararg strings: String) {
         for (string in strings) implementation(string)
     }
@@ -71,6 +70,7 @@ dependencies {
         Dependencies.Ktx.NavigationFragment,
         Dependencies.Ktx.Core,
         Dependencies.Ktx.Fragment,
+        Dependencies.Ktx.Config,
 
         Dependencies.Di.Hilt,
 

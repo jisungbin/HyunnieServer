@@ -4,12 +4,18 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.get
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.sungbin.androidutils.extensions.replaceLast
 import com.sungbin.androidutils.util.*
 import com.sungbin.androidutils.util.StorageUtil.sdcard
 import com.sungbin.hyunnieserver.R
+import com.sungbin.hyunnieserver.adapter.FileAdapter
+import com.sungbin.hyunnieserver.databinding.FragmentMainBinding
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
 import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
@@ -17,7 +23,6 @@ import com.sungbin.hyunnieserver.tool.util.FileUtil
 import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import com.sungbin.hyunnieserver.ui.fragment.BaseFragment
-import kotlinx.android.synthetic.main.test_fragment.*
 import org.apache.commons.io.output.CountingOutputStream
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
@@ -25,12 +30,12 @@ import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
-import javax.inject.Inject
 
 
 /**
  * Created by SungBin on 2020-08-31.
  */
+
 
 class MainFragment : BaseFragment(), OnBackPressedUtil {
 
@@ -45,10 +50,9 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
         }
     }
 
-    @Inject
-    lateinit var client: FTPClient
-
     private val viewModel by viewModels<MainViewModel>()
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
     private val loadingDialog by lazy {
         LoadingDialog(requireActivity())
@@ -57,18 +61,22 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.test_fragment, container, false)!!
+    ): View {
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        tv_test.text = "MainFragment"
-    }
 
-    /*override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        val config = Firebase.remoteConfig
+        val id = config["freeIp"].toString()
+        val password = config["freePw"].toString()
+        val address = "hn.osmg.kr"
+        Logger.w(arrayOf(id, password, address))
 
         viewModel.fileList.observe(viewLifecycleOwner, {
-            rv_file.adapter = FileAdapter(it, requireActivity()).apply {
+            binding.rvFile.adapter = FileAdapter(it, requireActivity()).apply {
                 setOnClickListener { file ->
                     if (file.path.contains(".")) {
                         ftpFileDownload(file)
@@ -80,9 +88,6 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
         })
 
         val context = requireContext()
-        val address = DataUtil.readData(context, PathManager.SERVER_ADDRESS, "")
-        val id = DataUtil.readData(context, PathManager.ID, "")
-        val password = DataUtil.readData(context, PathManager.PASSWORD, "")
 
         client.connect(address) // client init
         client.login(id, password)
@@ -110,7 +115,7 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
         viewModel.fileCache["/메인 혀니서버/혀니서버"] = list
         viewModel.fileList.postValue(list)
         loadingDialog.close()
-    }*/
+    }
 
     private fun ftpFileDownload(file: com.sungbin.hyunnieserver.model.File) {
         NotificationUtil.createChannel(requireContext())

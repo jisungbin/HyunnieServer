@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.sungbin.hyunnieserver.R
+import com.sungbin.hyunnieserver.databinding.ActivityMainBinding
 import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 /**
@@ -18,11 +18,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fcv_container) as NavHostFragment
@@ -57,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_navigation, menu)
-        sbb_navigation.setupWithNavController(menu!!, navController)
+        binding.sbbNavigation.setupWithNavController(menu!!, navController)
         return true
     }
 

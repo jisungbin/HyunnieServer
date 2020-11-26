@@ -2,10 +2,10 @@ package com.sungbin.hyunnieserver.ui.fragment.setting
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import com.sungbin.hyunnieserver.R
+import com.sungbin.hyunnieserver.databinding.TestFragmentBinding
 import com.sungbin.hyunnieserver.ui.fragment.BaseFragment
-import kotlinx.android.synthetic.main.test_fragment.*
 
 
 /**
@@ -25,14 +25,20 @@ class SettingFragment : BaseFragment() {
         }
     }
 
+    private var _binding: TestFragmentBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.test_fragment, container, false)!!
+    ): View {
+        _binding = TestFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        tv_test.text = "SettingFragment"
+        binding.tvTest.text = "SettingFragment"
     }
 
 }

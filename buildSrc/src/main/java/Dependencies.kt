@@ -13,6 +13,10 @@ object Application {
 }
 
 object Versions {
+    object Firebase {
+        const val Bom = "26.1.0"
+    }
+
     object Network {
         const val CommonsNet = "3.7.1"
         const val CommonsIo = "2.8.0"
@@ -23,6 +27,7 @@ object Versions {
         const val Anko = "0.10.8"
         const val Kotlin = "1.4.20"
         const val Gradle = "4.1.1"
+        const val Google = "4.3.3"
     }
 
     object Ktx {
@@ -61,6 +66,11 @@ object Versions {
 }
 
 object Dependencies {
+    object Firebase {
+        const val Bom = "com.google.firebase:firebase-bom:${Versions.Firebase.Bom}"
+    }
+
+
     object Network {
         const val CommonsNet = "commons-net:commons-net:${Versions.Network.CommonsNet}"
         const val CommonsIo = "commons-io:commons-io:${Versions.Network.CommonsIo}"
@@ -78,6 +88,7 @@ object Dependencies {
     }
 
     object Ktx {
+        const val Config = "com.google.firebase:firebase-config-ktx"
         const val NavigationFragment =
             "androidx.navigation:navigation-fragment-ktx:${Versions.Jetpack.Navigation}"
         const val NavigationUi =
