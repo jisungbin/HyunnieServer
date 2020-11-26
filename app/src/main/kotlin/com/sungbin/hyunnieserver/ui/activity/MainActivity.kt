@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fcv_container) as NavHostFragment
         navController = navHostFragment.navController
 
+        supportActionBar?.hide()
+
         /* NotificationUtil.createChannel(applicationContext)
          val notificationId = 1000
          val manager = NotificationUtil.getManager(applicationContext)

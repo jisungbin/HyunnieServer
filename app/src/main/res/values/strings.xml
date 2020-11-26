@@ -46,6 +46,7 @@
 
     <string name="main_finish">종료하기</string>
     <string name="main_stay">좀 더 있기</string>
+
     <string name="path_preview">메인 혀니서버</string>
 
 </resources>

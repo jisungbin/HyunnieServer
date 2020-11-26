@@ -6,9 +6,9 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:windowSoftInputMode="adjustResize"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:windowSoftInputMode="adjustResize">
 
         <com.github.florent37.shapeofview.shapes.ArcView
             android:id="@+id/av_container"
@@ -19,48 +19,37 @@
             app:shape_arc_height="20dp"
             app:shape_arc_position="bottom">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
-                android:paddingTop="@dimen/margin_default">
+                android:paddingTop="@dimen/margin_default"
+                app:alignItems="center"
+                app:flexDirection="column"
+                app:justifyContent="center">
 
                 <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_twice_half"
                     android:text="@string/join_hello"
                     android:textColor="@color/colorWhite"
                     android:textSize="35sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/view_center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <View
-                    android:id="@+id/view_center"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.1dp"
-                    android:layout_marginBottom="@dimen/margin_half"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:background="@color/colorPrimary"
-                    tools:layout_height="5dp" />
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_twice_half"
+                    android:layout_marginTop="@dimen/margin_half"
                     android:gravity="center"
                     android:text="@string/join_need_setting_before_start"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view_center" />
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.flexbox.FlexboxLayout>
 
         </com.github.florent37.shapeofview.shapes.ArcView>
 

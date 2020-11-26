@@ -1,8 +1,8 @@
 package com.sungbin.hyunnieserver.tool.util
 
 import android.content.Context
+import com.sungbin.androidutils.util.Logger
 import com.sungbin.hyunnieserver.ui.activity.ExceptionActivity
-import com.sungbin.sungbintool.util.Logger
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
 

@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.sungbin.androidutils.extensions.replaceLast
+import com.sungbin.androidutils.util.*
+import com.sungbin.androidutils.util.StorageUtil.sdcard
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
@@ -14,9 +17,6 @@ import com.sungbin.hyunnieserver.tool.util.FileUtil
 import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import com.sungbin.hyunnieserver.ui.fragment.BaseFragment
-import com.sungbin.sungbintool.extensions.replaceLast
-import com.sungbin.sungbintool.util.*
-import com.sungbin.sungbintool.util.StorageUtil.sdcard
 import kotlinx.android.synthetic.main.test_fragment.*
 import org.apache.commons.io.output.CountingOutputStream
 import org.apache.commons.net.ftp.FTPClient
@@ -226,9 +226,8 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
                     setPositiveButton(getString(R.string.main_finish)) { _, _ ->
                         activity.finish()
                     }
-                    show()
-                    true
-                }
+                }.show()
+                true
             }
         }
     }

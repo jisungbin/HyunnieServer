@@ -1,15 +1,14 @@
 package com.sungbin.hyunnieserver.ui.activity
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.sungbin.androidutils.extensions.doDelay
+import com.sungbin.androidutils.util.DataUtil
+import com.sungbin.androidutils.util.NetworkUtil
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
-import com.sungbin.sungbintool.util.DataUtil
-import com.sungbin.sungbintool.util.NetworkUtil
 import org.jetbrains.anko.startActivity
 
 
@@ -22,15 +21,16 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        @Suppress("DEPRECATION")
         window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
         setContentView(R.layout.activity_splash)
 
         if (NetworkUtil.isNetworkAvailable(applicationContext)) {
-            Handler(Looper.getMainLooper()).postDelayed({
+            doDelay(1500) {
                 finish()
                 if (DataUtil.readData(
                         applicationContext,
@@ -43,7 +43,7 @@ class SplashActivity : AppCompatActivity() {
                     startActivity<MainActivity>()
                 }
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            }, 1500)
+            }
         } else {
             LoadingDialog(this).apply {
                 setCustomState(

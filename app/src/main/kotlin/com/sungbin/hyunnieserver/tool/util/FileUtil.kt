@@ -1,8 +1,8 @@
 package com.sungbin.hyunnieserver.tool.util
 
+import com.sungbin.androidutils.extensions.replaceLast
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.model.FileType
-import com.sungbin.sungbintool.extensions.replaceLast
 import java.util.*
 
 object FileUtil {

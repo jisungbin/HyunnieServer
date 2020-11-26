@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.sungbin.androidutils.extensions.hide
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.databinding.LayoutFileBinding
 import com.sungbin.hyunnieserver.model.File
-import com.sungbin.sungbintool.extensions.hide
 
 
 /**

@@ -21,8 +21,8 @@ object Versions {
     object Essential {
         const val AppCompat = "1.2.0"
         const val Anko = "0.10.8"
-        const val Kotlin = "1.4.10"
-        const val Gradle = "4.0.2"
+        const val Kotlin = "1.4.20"
+        const val Gradle = "4.1.1"
     }
 
     object Ktx {
@@ -36,25 +36,26 @@ object Versions {
 
     object Jetpack {
         const val DataStore = "1.0.0-alpha01"
-        const val Navigation = "2.3.0"
+        const val Navigation = "2.3.1"
     }
 
     object Ui {
+        const val Flexbox = "2.0.1"
         const val SmoothBottomBar = "1.7.6"
-        const val SpotLight = "2.0.2"
+        const val SpotLight = "2.0.3"
         const val TransformationLayout = "1.0.6"
         const val ShapeOfView = "1.4.7"
         const val YoYo = "2.4@aar"
-        const val Lottie = "3.4.4"
+        const val Lottie = "3.5.0"
         const val Licenser = "2.0.0"
         const val Material = "1.2.0-alpha06"
         const val Glide = "4.11.0"
-        const val ConstraintLayout = "2.0.2"
+        const val ConstraintLayout = "2.0.4"
     }
 
     object Util {
         const val YoYoHelper = "2.4@aar"
-        const val AndroidUtils = "4.0.3"
+        const val AndroidUtils = "4.1.2"
         const val CarshReporter = "1.1.0"
     }
 }
@@ -91,6 +92,7 @@ object Dependencies {
     }
 
     object Ui {
+        const val Flexbox = "com.google.android:flexbox:${Versions.Ui.Flexbox}"
         const val SmoothBottomBar =
             "com.github.ibrahimsn98:SmoothBottomBar:${Versions.Ui.SmoothBottomBar}"
         const val SpotLight = "com.github.takusemba:spotlight:${Versions.Ui.SpotLight}"

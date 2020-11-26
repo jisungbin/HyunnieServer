@@ -4,7 +4,9 @@
     package="com.sungbin.hyunnieserver">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -23,16 +25,16 @@
 
         <activity
             android:name=".ui.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
+            android:theme="@style/AppTheme.WhiteStatusBar">
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
-        <!--<activity
+        <activity
             android:name=".ui.activity.SplashActivity"
-            android:theme="@style/AppThemeWhiteStatusBar.NoActionBarWithNoLimit">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -44,12 +46,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".ui.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
             android:name=".ui.activity.ExceptionActivity"
-            android:theme="@style/AppThemeWhiteStatusBar.NoActionBarWithNoLimit" />-->
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.samsung.android.icon_container.has_icon_container"

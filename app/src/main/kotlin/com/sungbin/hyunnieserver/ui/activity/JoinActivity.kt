@@ -6,13 +6,17 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
+import com.sungbin.androidutils.extensions.doDelay
+import com.sungbin.androidutils.extensions.show
+import com.sungbin.androidutils.util.DataUtil
+import com.sungbin.androidutils.util.ToastLength
+import com.sungbin.androidutils.util.ToastType
+import com.sungbin.androidutils.util.ToastUtil
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
-import com.sungbin.sungbintool.util.DataUtil
-import com.sungbin.sungbintool.util.ToastLength
-import com.sungbin.sungbintool.util.ToastType
-import com.sungbin.sungbintool.util.ToastUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_join.*
 import org.apache.commons.net.ftp.FTPClient
@@ -35,9 +39,10 @@ class JoinActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        @Suppress("DEPRECATION")
         window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
         setContentView(R.layout.activity_join)
@@ -51,6 +56,13 @@ class JoinActivity : AppCompatActivity() {
                 ),
                 CODE_REQUEST_STORAGE_ACCESS
             )
+        }
+
+        doDelay(1000) {
+            tv_description.show()
+            YoYo.with(Techniques.FadeIn)
+                .duration(500)
+                .playOn(tv_description)
         }
     }
 

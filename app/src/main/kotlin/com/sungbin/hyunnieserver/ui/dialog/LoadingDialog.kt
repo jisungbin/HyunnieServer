@@ -13,9 +13,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.airbnb.lottie.LottieAnimationView
+import com.sungbin.androidutils.extensions.get
+import com.sungbin.androidutils.extensions.plusAssign
 import com.sungbin.hyunnieserver.R
-import com.sungbin.sungbintool.extensions.get
-import com.sungbin.sungbintool.extensions.plusAssign
 
 
 class LoadingDialog(private val activity: Activity) {

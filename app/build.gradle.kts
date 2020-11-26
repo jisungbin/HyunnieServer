@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
-    id("name.remal.check-dependency-updates") version "1.0.211"
+    id("name.remal.check-dependency-updates") version "1.1.4"
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
@@ -76,6 +76,7 @@ dependencies {
 
         Dependencies.Jetpack.DataStore,
 
+        Dependencies.Ui.Flexbox,
         Dependencies.Ui.SpotLight,
         Dependencies.Ui.TransformationLayout,
         Dependencies.Ui.ShapeOfYou,
