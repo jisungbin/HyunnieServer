@@ -1,7 +1,5 @@
 package com.sungbin.hyunnieserver.ui.fragment.main
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +8,19 @@ import androidx.fragment.app.viewModels
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.sungbin.androidutils.extensions.replaceLast
+import com.sungbin.androidutils.extensions.toBottomScroll
 import com.sungbin.androidutils.util.*
 import com.sungbin.androidutils.util.StorageUtil.sdcard
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.adapter.FileAdapter
+import com.sungbin.hyunnieserver.adapter.PathAdapter
 import com.sungbin.hyunnieserver.databinding.FragmentMainBinding
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
+import com.sungbin.hyunnieserver.tool.util.ArrayPosition
 import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
 import com.sungbin.hyunnieserver.tool.util.FileUtil
-import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
+import com.sungbin.hyunnieserver.tool.util.removePosition
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import com.sungbin.hyunnieserver.ui.fragment.BaseFragment
 import org.apache.commons.io.output.CountingOutputStream
@@ -37,7 +38,7 @@ import kotlin.collections.set
  */
 
 
-class MainFragment : BaseFragment(), OnBackPressedUtil {
+class MainFragment : BaseFragment() {
 
     companion object {
         private lateinit var mainFragment: MainFragment
@@ -74,6 +75,20 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
         val password = config.getString("freePw")
         val address = "hn.osmg.kr"
 
+        binding.cvHome.setOnClickListener {
+            viewModel.fileList.postValue(viewModel.fileCache["/메인 혀니서버/혀니서버"])
+        }
+
+        binding.cvBack.setOnClickListener {
+            if (viewModel.fileList.value!![0].path.replace("/메인 혀니서버/혀니서버", "")
+                    .split("/").size > 2
+            ) {
+                changeBackPath(viewModel.fileList.value!![0])
+            } else {
+                cantGoBack()
+            }
+        }
+
         viewModel.fileList.observe(viewLifecycleOwner, {
             binding.rvFile.adapter = FileAdapter(it, requireActivity()).apply {
                 setOnClickListener { file ->
@@ -84,11 +99,23 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
                     }
                 }
             }
+            binding.rvPath.apply {
+                adapter = PathAdapter(
+                    it[0].path.split("/").removePosition(ArrayPosition.FIRST)
+                        .removePosition(ArrayPosition.LAST), requireActivity()
+                ).apply {
+                    setOnClickListener { path ->
+                        viewModel.fileCache.mapKeys { cache ->
+                            if (cache.key.split("/").last() == path) {
+                                viewModel.fileList.postValue(viewModel.fileCache[cache.key])
+                            }
+                        }
+                    }
+                }
+            }.toBottomScroll()
         })
 
-        val context = requireContext()
-
-        client.connect(address) // client init
+        client.connect(address) // client inits
         client.login(id, password)
         client.enterLocalPassiveMode() // required for connection
         loadingDialog.show()
@@ -113,11 +140,11 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
         }
         viewModel.fileCache["/메인 혀니서버/혀니서버"] = list
         viewModel.fileList.postValue(list)
+
         loadingDialog.close()
     }
 
     private fun ftpFileDownload(file: com.sungbin.hyunnieserver.model.File) {
-        NotificationUtil.createChannel(requireContext())
         client.setFileType(FTPClient.BINARY_FILE_TYPE)
         val notificationId = 1000
         var outputStream: OutputStream? = null
@@ -192,16 +219,6 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
     }
 
     private fun changeBackPath(file: com.sungbin.hyunnieserver.model.File) {
-
-        fun cantGoBack() {
-            ToastUtil.show(
-                requireContext(),
-                getString(R.string.ftp_cant_go_back),
-                ToastLength.SHORT,
-                ToastType.WARNING
-            )
-        }
-
         val levelOneLastPathName = file.path.split("/").last()
         val levelOneBackPath = file.path.replaceLast("/$levelOneLastPathName", "")
         val levelTwoLastPathName = levelOneBackPath.split("/").last()
@@ -215,25 +232,13 @@ class MainFragment : BaseFragment(), OnBackPressedUtil {
         loadingDialog.close()
     }
 
-    override fun onBackPressed(activity: Activity): Boolean {
-        return when (viewModel.fileList.value!![0].path.replace("/메인 혀니서버/혀니서버", "")
-            .split("/").size > 2) {
-            true -> {
-                changeBackPath(viewModel.fileList.value!![0])
-                false
-            }
-            else -> {
-                AlertDialog.Builder(activity).run {
-                    setTitle(getString(R.string.close))
-                    setMessage(getString(R.string.main_really_close))
-                    setNeutralButton(getString(R.string.main_stay)) { _, _ -> }
-                    setPositiveButton(getString(R.string.main_finish)) { _, _ ->
-                        activity.finish()
-                    }
-                }.show()
-                true
-            }
-        }
+    private fun cantGoBack() {
+        ToastUtil.show(
+            requireContext(),
+            getString(R.string.ftp_cant_go_back),
+            ToastLength.SHORT,
+            ToastType.WARNING
+        )
     }
 
 }

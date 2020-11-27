@@ -1,5 +1,6 @@
 package com.sungbin.hyunnieserver.ui.activity
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +8,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.databinding.ActivityMainBinding
-import com.sungbin.hyunnieserver.tool.util.OnBackPressedUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -32,30 +32,6 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         supportActionBar?.hide()
-
-        /* NotificationUtil.createChannel(applicationContext)
-         val notificationId = 1000
-         val manager = NotificationUtil.getManager(applicationContext)
-         val notification = NotificationUtil.getDownloadNotification(
-             applicationContext, notificationId, getString(
-                 R.string.notification_downloading
-             ), "test notification"
-         )
-         manager.notify(notificationId, notification.build())
-
-         DataUtil.readData(
-             applicationContext,
-             PathManager.DOWNLOAD_PATH,
-             PathManager.DOWNLOAD_PATH_DEFAULT
-         )?.let {
-             StorageUtil.createFolder(
-                 it, true
-             )
-         }
-
-         supportFragmentManager.commitNow {
-             add(R.id.fl_container, MainFragment.instance())
-         }*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -70,8 +46,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val fragment = this.supportFragmentManager.findFragmentById(R.id.fcv_container)
-        (fragment as? OnBackPressedUtil)?.onBackPressed(this)
+        AlertDialog.Builder(this).run {
+            setTitle(getString(R.string.close))
+            setMessage(getString(R.string.main_really_close))
+            setNeutralButton(getString(R.string.main_stay)) { _, _ -> }
+            setPositiveButton(getString(R.string.main_finish)) { _, _ ->
+                finish()
+            }
+        }.show()
     }
 
 }

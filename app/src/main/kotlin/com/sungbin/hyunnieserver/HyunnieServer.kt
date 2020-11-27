@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.StrictMode
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
 import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
 import dagger.hilt.android.HiltAndroidApp
 
@@ -31,6 +32,8 @@ class HyunnieServer : Application() {
         }
 
         Firebase.remoteConfig.fetchAndActivate()
+
+        NotificationUtil.createChannel(applicationContext)
     }
 
 }
