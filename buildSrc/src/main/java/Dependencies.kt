@@ -35,33 +35,21 @@ object Versions {
         const val Fragment = "2.3.0"
     }
 
-    object Di {
-        const val Hilt = "2.28-alpha"
-    }
-
     object Jetpack {
-        const val DataStore = "1.0.0-alpha01"
         const val Navigation = "2.3.1"
     }
 
     object Ui {
         const val Flexbox = "2.0.1"
         const val SmoothBottomBar = "1.7.6"
-        const val SpotLight = "2.0.3"
-        const val TransformationLayout = "1.0.6"
-        const val ShapeOfView = "1.4.7"
-        const val YoYo = "2.4@aar"
         const val Lottie = "3.5.0"
-        const val Licenser = "2.0.0"
         const val Material = "1.2.0-alpha06"
         const val Glide = "4.11.0"
         const val ConstraintLayout = "2.0.4"
     }
 
     object Util {
-        const val YoYoHelper = "2.4@aar"
-        const val AndroidUtils = "4.1.4"
-        const val CarshReporter = "1.1.0"
+        const val AndroidUtils = "4.1.5"
     }
 }
 
@@ -74,11 +62,6 @@ object Dependencies {
     object Network {
         const val CommonsNet = "commons-net:commons-net:${Versions.Network.CommonsNet}"
         const val CommonsIo = "commons-io:commons-io:${Versions.Network.CommonsIo}"
-    }
-
-    object Jetpack {
-        const val DataStore =
-            "androidx.datastore:datastore-preferences:${Versions.Jetpack.DataStore}"
     }
 
     object Essential {
@@ -97,22 +80,11 @@ object Dependencies {
         const val Fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.Ktx.Fragment}"
     }
 
-    object Di {
-        const val Hilt = "com.google.dagger:hilt-android:${Versions.Di.Hilt}"
-        const val HiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.Di.Hilt}"
-    }
-
     object Ui {
         const val Flexbox = "com.google.android:flexbox:${Versions.Ui.Flexbox}"
         const val SmoothBottomBar =
             "com.github.ibrahimsn98:SmoothBottomBar:${Versions.Ui.SmoothBottomBar}"
-        const val SpotLight = "com.github.takusemba:spotlight:${Versions.Ui.SpotLight}"
-        const val TransformationLayout =
-            "com.github.skydoves:transformationlayout:${Versions.Ui.TransformationLayout}"
-        const val ShapeOfYou = "com.github.florent37:shapeofview:${Versions.Ui.ShapeOfView}"
-        const val YoYo = "com.daimajia.androidanimations:library:${Versions.Ui.YoYo}"
         const val Lottie = "com.airbnb.android:lottie:${Versions.Ui.Lottie}"
-        const val Licenser = "com.github.marcoscgdev:Licenser:${Versions.Ui.Licenser}"
         const val Material = "com.google.android.material:material:${Versions.Ui.Material}"
         const val Glide = "com.github.bumptech.glide:glide:${Versions.Ui.Glide}"
         const val ConstraintLayout =
@@ -121,9 +93,6 @@ object Dependencies {
 
     object Util {
         const val GlideCompiler = "com.github.bumptech.glide:compiler:${Versions.Ui.Glide}"
-        const val YoyoHelper = "com.daimajia.easing:library:${Versions.Util.YoYoHelper}"
         const val AndroidUtils = "com.github.sungbin5304:SBT:${Versions.Util.AndroidUtils}"
-        const val CrashReporter =
-            "com.balsikandar.android:crashreporter:${Versions.Util.CarshReporter}"
     }
 }

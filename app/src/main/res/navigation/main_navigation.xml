@@ -5,17 +5,17 @@
 
     <fragment
         android:id="@+id/main"
-        android:name="com.sungbin.hyunnieserver.ui.fragment.main.MainFragment"
+        android:name="com.sungbin.hyunnieserver.ui.fragment.MainFragment"
         android:label="MainFragment" />
 
     <fragment
         android:id="@+id/download"
-        android:name="com.sungbin.hyunnieserver.ui.fragment.download.DownloadFragment"
+        android:name="com.sungbin.hyunnieserver.ui.fragment.DownloadFragment"
         android:label="DownloadFragment" />
 
     <fragment
         android:id="@+id/setting"
-        android:name="com.sungbin.hyunnieserver.ui.fragment.setting.SettingFragment"
+        android:name="com.sungbin.hyunnieserver.ui.fragment.SettingFragment"
         android:label="SettingFragment" />
 
 </navigation>

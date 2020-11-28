@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackgroundWhite"
-    android:clipToPadding="false"
     android:paddingTop="@dimen/margin_default"
     tools:ignore="RtlSymmetry">
 
@@ -32,6 +31,17 @@
         app:layout_constraintTop_toTopOf="@+id/tv_title"
         app:tint="@color/colorLightGray" />
 
+    <ImageView
+        android:id="@+id/iv_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:contentDescription="@string/image_description_sort"
+        android:src="@drawable/ic_baseline_sort_24"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+        app:layout_constraintEnd_toStartOf="@id/iv_search"
+        app:layout_constraintTop_toTopOf="@+id/tv_title"
+        app:tint="@color/colorLightGray" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_home"
@@ -68,7 +78,7 @@
         android:id="@+id/rv_path"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginTop="@dimen/margin_default"
         android:clipToPadding="false"
         android:orientation="horizontal"
         android:overScrollMode="never"
@@ -115,13 +125,10 @@
         android:id="@+id/rv_file"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginTop="@dimen/margin_default"
         android:background="@color/colorBackgroundWhite"
-        android:clipToPadding="false"
         android:orientation="vertical"
         android:overScrollMode="never"
-        android:paddingStart="@dimen/margin_half"
-        android:paddingEnd="@dimen/margin_half"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rv_path"
@@ -131,18 +138,17 @@
         android:id="@+id/fbl_empty_file"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginTop="@dimen/margin_default"
         android:visibility="gone"
         app:alignItems="center"
         app:flexDirection="column"
         app:justifyContent="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_path"
-        tools:visibility="visible">
+        app:layout_constraintTop_toBottomOf="@+id/rv_path">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/empty" />
@@ -151,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_half"
-            android:text="@string/main_empty_file"
+            android:text="@string/ftp_empty_file"
             android:textSize="20sp" />
 
     </com.google.android.flexbox.FlexboxLayout>

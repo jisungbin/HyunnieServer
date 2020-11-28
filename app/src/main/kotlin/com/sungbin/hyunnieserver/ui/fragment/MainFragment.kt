@@ -1,12 +1,10 @@
-package com.sungbin.hyunnieserver.ui.fragment.main
+package com.sungbin.hyunnieserver.ui.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.sungbin.androidutils.extensions.hide
 import com.sungbin.androidutils.extensions.replaceLast
 import com.sungbin.androidutils.extensions.show
@@ -24,8 +22,11 @@ import com.sungbin.hyunnieserver.tool.util.ArrayPosition
 import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
 import com.sungbin.hyunnieserver.tool.util.FileUtil
 import com.sungbin.hyunnieserver.tool.util.removePosition
+import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.client
+import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.config
+import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.fileCache
+import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.fileList
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
-import com.sungbin.hyunnieserver.ui.fragment.BaseFragment
 import org.apache.commons.io.output.CountingOutputStream
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
@@ -34,7 +35,6 @@ import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
-import kotlin.collections.set
 
 
 /**
@@ -44,18 +44,7 @@ import kotlin.collections.set
 
 class MainFragment : BaseFragment() {
 
-    companion object {
-        private lateinit var mainFragment: MainFragment
-
-        fun instance(): MainFragment {
-            if (!::mainFragment.isInitialized) {
-                mainFragment = MainFragment()
-            }
-            return mainFragment
-        }
-    }
-
-    private val viewModel by viewModels<MainViewModel>()
+    private val DEFAULT_PATH = "/메인 혀니서버/혀니서버"
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
@@ -74,26 +63,26 @@ class MainFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val config = Firebase.remoteConfig
         val id = config.getString("freeId")
         val password = config.getString("freePw")
-        val address = "hn.osmg.kr"
+        val address = /*config.getString("serverAddress")*/ "hn.osmg.kr"
 
         binding.cvHome.setOnClickListener {
-            viewModel.fileList.postValue(viewModel.fileCache["/메인 혀니서버/혀니서버"])
+            fileList.postValue(fileCache[DEFAULT_PATH])
         }
 
         binding.cvBack.setOnClickListener {
-            if (viewModel.fileList.value!![0].path.replace("/메인 혀니서버/혀니서버", "")
+            if (fileList.value!![0].path.replace(DEFAULT_PATH, "")
                     .split("/").size > 2
             ) {
-                goFtpBackPath(viewModel.fileList.value!![0].path)
+                goFtpBackPath(fileList.value!![0].path)
             } else {
                 cantGoBack()
             }
         }
 
-        viewModel.fileList.observe(viewLifecycleOwner, {
+        fileList.observe(viewLifecycleOwner, {
+            Logger.w(fileList.value?.get(0))
             runOnUiThread {
                 loadingDialog.close()
             }
@@ -112,85 +101,89 @@ class MainFragment : BaseFragment() {
                         }
                     }
                 }
-                binding.rvPath.apply {
-                    adapter = PathAdapter(
-                        viewModel.fileList.value!![0].path.split("/")
-                            .removePosition(ArrayPosition.FIRST)
-                            .removePosition(ArrayPosition.LAST), requireActivity()
-                    ).apply {
-                        setOnClickListener { path ->
-                            viewModel.fileCache.mapKeys { map ->
-                                if (map.key.split("/").last() == path) {
-                                    viewModel.fileList.postValue(viewModel.fileCache[map.key])
-                                }
-                            }
-                        }
-                    }
-                }.toBottomScroll()
             } else { // 파일 없음
                 binding.rvFile.hide()
                 binding.fblEmptyFile.show()
-                binding.rvPath.apply {
-                    adapter = PathAdapter(
-                        viewModel.fileList.value!![0].path.split("/")
-                            .removePosition(ArrayPosition.FIRST)
-                            .removePosition(ArrayPosition.LAST), requireActivity()
-                    ).apply {
-                        setOnClickListener { path ->
-                            var isCanAccess = false
-                            viewModel.fileCache.mapKeys { map ->
-                                if (map.key.split("/").last() == path) {
-                                    isCanAccess = true
-                                    viewModel.fileList.postValue(viewModel.fileCache[map.key])
-                                }
-                            }
-                            if (!isCanAccess) ToastUtil.show(
-                                requireContext(),
-                                context.getString(R.string.main_cant_go_path),
-                                ToastLength.SHORT,
-                                ToastType.WARNING
-                            )
-                        }
-                    }
-                }.toBottomScroll()
             }
+
+            binding.rvPath.apply {
+                adapter = PathAdapter(
+                    fileList.value!![0].path.split("/")
+                        .removePosition(ArrayPosition.FIRST)
+                        .removePosition(ArrayPosition.LAST), requireActivity()
+                ).apply {
+                    setOnClickListener { path ->
+                        var isCanAccess = false
+                        fileCache.mapKeys { map ->
+                            if (map.key.split("/").last() == path) {
+                                isCanAccess = true
+                                fileList.postValue(fileCache[map.key])
+                            }
+                        }
+                        if (!isCanAccess) ToastUtil.show(
+                            requireContext(),
+                            context.getString(R.string.ftp_cant_go_path),
+                            ToastLength.SHORT,
+                            ToastType.WARNING
+                        )
+                    }
+                }
+            }.toBottomScroll()
         })
 
-        Thread {
-            try {
-                runOnUiThread {
-                    loadingDialog.show()
-                }
+        Logger.w(fileList.value?.get(0))
 
-                client.connect(address) // client inits
-                client.login(id, password)
-                client.enterLocalPassiveMode() // required for connection
-
-                val list = ArrayList<com.sungbin.hyunnieserver.model.File>()
-                (client.listFiles("/메인 혀니서버/혀니서버") as Array<FTPFile>).map {
-                    val size = if (it.isFile) {
-                        StorageUtil.getSize(it.size)
-                    } else {
-                        ""
+        if (fileList.value?.get(0)?.isEmpty == false) { // 이전 데이터 있을 때
+            binding.fblEmptyFile.hide(true)
+            binding.rvFile.apply {
+                show()
+                adapter = FileAdapter(fileList.value!!, requireActivity()).apply {
+                    setOnClickListener { file ->
+                        if (file.path.contains(".")) {
+                            ftpFileDownload(file)
+                        } else {
+                            changeFtpPath(file)
+                        }
                     }
-                    list.add(
-                        com.sungbin.hyunnieserver.model.File(
-                            it.name,
-                            size,
-                            it.size,
-                            "/메인 혀니서버/혀니서버/${it.name}",
-                            FileUtil.getType(it.name, it.size),
-                            FileUtil.getLastModifyTime(it.timestamp),
-                            false
-                        )
-                    )
                 }
-                viewModel.fileCache["/메인 혀니서버/혀니서버"] = list
-                viewModel.fileList.postValue(list)
-            } catch (exception: Exception) {
-                ExceptionUtil.except(exception, requireContext())
             }
-        }.start()
+        } else { // 최초 실행
+            Thread {
+                try {
+                    runOnUiThread {
+                        loadingDialog.show()
+                    }
+
+                    client.connect(address) // client init
+                    client.login(id, password)
+                    client.enterLocalPassiveMode() // required for connection
+
+                    val list = ArrayList<com.sungbin.hyunnieserver.model.File>()
+                    (client.listFiles(DEFAULT_PATH) as Array<FTPFile>).map {
+                        val size = if (it.isFile) {
+                            StorageUtil.getSize(it.size)
+                        } else {
+                            ""
+                        }
+                        list.add(
+                            com.sungbin.hyunnieserver.model.File(
+                                it.name,
+                                size,
+                                it.size,
+                                "$DEFAULT_PATH/${it.name}",
+                                FileUtil.getType(it.name, it.size),
+                                FileUtil.getLastModifyTime(it.timestamp),
+                                false
+                            )
+                        )
+                    }
+                    fileCache[DEFAULT_PATH] = list
+                    fileList.postValue(list)
+                } catch (exception: Exception) {
+                    ExceptionUtil.except(exception, requireContext())
+                }
+            }.start()
+        }
     }
 
     private fun ftpFileDownload(file: com.sungbin.hyunnieserver.model.File) {
@@ -238,7 +231,7 @@ class MainFragment : BaseFragment() {
     }
 
     private fun changeFtpPath(file: com.sungbin.hyunnieserver.model.File) {
-        val cache = viewModel.fileCache[file.path]
+        val cache = fileCache[file.path]
         if (cache == null) {
             Thread {
                 runOnUiThread {
@@ -277,11 +270,11 @@ class MainFragment : BaseFragment() {
                         )
                     )
                 }
-                viewModel.fileCache[file.path] = list
-                viewModel.fileList.postValue(list)
+                fileCache[file.path] = list
+                fileList.postValue(list)
             }.start()
         } else {
-            viewModel.fileList.postValue(cache)
+            fileList.postValue(cache)
         }
     }
 
@@ -291,12 +284,11 @@ class MainFragment : BaseFragment() {
         val levelTwoLastPathName = levelOneBackPath.split("/").last()
         val levelTwoBackPath = levelOneBackPath.replaceLast("/$levelTwoLastPathName", "")
 
-        val backCache = viewModel.fileCache[levelTwoBackPath]
+        val backCache = fileCache[levelTwoBackPath]
         loadingDialog.show()
         backCache?.let {
-            viewModel.fileList.postValue(it)
+            fileList.postValue(it)
         } ?: cantGoBack()
-        loadingDialog.close()
     }
 
     private fun cantGoBack() {
@@ -306,6 +298,17 @@ class MainFragment : BaseFragment() {
             ToastLength.SHORT,
             ToastType.WARNING
         )
+    }
+
+    private fun closeApp() {
+        AlertDialog.Builder(requireActivity()).apply {
+            setTitle(getString(R.string.close))
+            setMessage(getString(R.string.main_really_close))
+            setNeutralButton(getString(R.string.main_stay)) { _, _ -> }
+            setPositiveButton(getString(R.string.main_finish)) { _, _ ->
+                requireActivity().finish()
+            }
+        }.show()
     }
 
 }

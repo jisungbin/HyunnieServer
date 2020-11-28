@@ -1,6 +1,5 @@
 plugins {
     id("com.android.application")
-    id("dagger.hilt.android.plugin")
     id("name.remal.check-dependency-updates") version "1.1.4"
     id("com.google.gms.google-services")
     kotlin("android")
@@ -72,27 +71,15 @@ dependencies {
         Dependencies.Ktx.Fragment,
         Dependencies.Ktx.Config,
 
-        Dependencies.Di.Hilt,
-
-        Dependencies.Jetpack.DataStore,
-
         Dependencies.Ui.Flexbox,
-        Dependencies.Ui.SpotLight,
-        Dependencies.Ui.TransformationLayout,
-        Dependencies.Ui.ShapeOfYou,
-        Dependencies.Ui.YoYo,
         Dependencies.Ui.SmoothBottomBar,
         Dependencies.Ui.Lottie,
-        Dependencies.Ui.Licenser,
         Dependencies.Ui.Material,
         Dependencies.Ui.Glide,
         Dependencies.Ui.ConstraintLayout,
 
-        Dependencies.Util.YoyoHelper,
-        Dependencies.Util.AndroidUtils,
-        Dependencies.Util.CrashReporter
+        Dependencies.Util.AndroidUtils
     )
 
-    kapt(Dependencies.Di.HiltCompiler)
     kapt(Dependencies.Util.GlideCompiler)
 }

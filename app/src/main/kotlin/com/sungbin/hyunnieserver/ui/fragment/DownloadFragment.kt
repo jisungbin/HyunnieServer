@@ -1,11 +1,10 @@
-package com.sungbin.hyunnieserver.ui.fragment.download
+package com.sungbin.hyunnieserver.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sungbin.hyunnieserver.databinding.TestFragmentBinding
-import com.sungbin.hyunnieserver.ui.fragment.BaseFragment
 
 
 /**
@@ -18,7 +17,7 @@ class DownloadFragment : BaseFragment() {
         private lateinit var downloadFragment: DownloadFragment
 
         fun instance(): DownloadFragment {
-            if (!::downloadFragment.isInitialized) {
+            if (!Companion::downloadFragment.isInitialized) {
                 downloadFragment = DownloadFragment()
             }
             return downloadFragment

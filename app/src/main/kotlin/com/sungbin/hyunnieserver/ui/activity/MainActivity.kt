@@ -1,29 +1,38 @@
 package com.sungbin.hyunnieserver.ui.activity
 
 import android.Manifest
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.sungbin.androidutils.util.PermissionUtil
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.databinding.ActivityMainBinding
+import com.sungbin.hyunnieserver.model.File
 import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
-import dagger.hilt.android.AndroidEntryPoint
+import org.apache.commons.net.ftp.FTPClient
 
 
 /**
  * Created by SungBin on 2020-08-23.
  */
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
+    companion object { // 이게 맞나;;;
+        val client = FTPClient().apply { controlEncoding = "UTF-8" }
+        val config = Firebase.remoteConfig
+        val fileList: MutableLiveData<List<File>> = MutableLiveData()
+        val fileCache = HashMap<String, List<File>>()
+        lateinit var backPressedAction: () -> Unit
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +43,9 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fcv_container) as NavHostFragment
         navController = navHostFragment.navController
 
-        if (!PermissionUtil.checkPermissionsGrant(
+        if (!PermissionUtil.checkPermissionsAllGrant(
                 applicationContext,
-                listOf(
+                arrayOf(
                     Manifest.permission.ACCESS_NETWORK_STATE,
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -70,14 +79,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        AlertDialog.Builder(this).run {
-            setTitle(getString(R.string.close))
-            setMessage(getString(R.string.main_really_close))
-            setNeutralButton(getString(R.string.main_stay)) { _, _ -> }
-            setPositiveButton(getString(R.string.main_finish)) { _, _ ->
-                finish()
-            }
-        }.show()
+        backPressedAction()
     }
 
 }

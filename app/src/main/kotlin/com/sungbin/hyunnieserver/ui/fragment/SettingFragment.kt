@@ -1,11 +1,10 @@
-package com.sungbin.hyunnieserver.ui.fragment.setting
+package com.sungbin.hyunnieserver.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sungbin.hyunnieserver.databinding.TestFragmentBinding
-import com.sungbin.hyunnieserver.ui.fragment.BaseFragment
 
 
 /**
@@ -18,7 +17,7 @@ class SettingFragment : BaseFragment() {
         private lateinit var settingFragment: SettingFragment
 
         fun instance(): SettingFragment {
-            if (!::settingFragment.isInitialized) {
+            if (!Companion::settingFragment.isInitialized) {
                 settingFragment = SettingFragment()
             }
             return settingFragment

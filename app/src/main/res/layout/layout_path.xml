@@ -5,7 +5,6 @@
     android:id="@+id/ll_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:clipToPadding="false"
     android:orientation="horizontal">
 
     <Space
@@ -17,7 +16,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
-        android:clipToPadding="false"
         app:cardBackgroundColor="@color/colorWhite"
         app:cardCornerRadius="@dimen/margin_default"
         app:contentPadding="@dimen/margin_half">
@@ -26,7 +24,6 @@
             android:id="@+id/tv_path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
             tools:text="@string/path_preview" />
 
     </com.google.android.material.card.MaterialCardView>
