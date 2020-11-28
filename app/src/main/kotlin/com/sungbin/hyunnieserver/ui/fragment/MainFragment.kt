@@ -74,16 +74,16 @@ class MainFragment : BaseFragment() {
             fileList.postValue(fileCache[DEFAULT_PATH])
         }
 
-        fileList.observe(viewLifecycleOwner, {
+        fileList.observe(viewLifecycleOwner, { files ->
             runOnUiThread {
                 loadingDialog.close()
             }
 
-            if (!it[0].isEmpty) {
+            if (!files[0].isEmpty) {
                 binding.fblEmptyFile.hide(true)
                 binding.rvFile.apply {
                     show()
-                    adapter = FileAdapter(it, requireActivity()).apply {
+                    adapter = FileAdapter(files).apply {
                         setOnClickListener { file ->
                             if (file.path.contains(".")) {
                                 ftpFileDownload(file)
@@ -102,7 +102,7 @@ class MainFragment : BaseFragment() {
                 adapter = PathAdapter(
                     fileList.value!![0].path.split("/")
                         .removePosition(ArrayPosition.FIRST)
-                        .removePosition(ArrayPosition.LAST), requireActivity()
+                        .removePosition(ArrayPosition.LAST)
                 ).apply {
                     setOnClickListener { path ->
                         var isCanAccess = false
@@ -123,13 +123,11 @@ class MainFragment : BaseFragment() {
             }.toBottomScroll()
         })
 
-        Logger.w(fileList.value?.get(0))
-
         if (fileList.value?.get(0)?.isEmpty == false) { // 이전 데이터 있을 때
             binding.fblEmptyFile.hide(true)
             binding.rvFile.apply {
                 show()
-                adapter = FileAdapter(fileList.value!!, requireActivity()).apply {
+                adapter = FileAdapter(fileList.value!!).apply {
                     setOnClickListener { file ->
                         if (file.path.contains(".")) {
                             ftpFileDownload(file)
@@ -147,7 +145,7 @@ class MainFragment : BaseFragment() {
                         loadingDialog.show()
                     }
 
-                    client.connect(address) // client init
+                    client.connect(address)
                     client.login(id, password)
                     client.enterLocalPassiveMode() // required for connection
 

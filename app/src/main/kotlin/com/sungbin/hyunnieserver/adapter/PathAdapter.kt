@@ -1,6 +1,5 @@
 package com.sungbin.hyunnieserver.adapter
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.NonNull
@@ -13,8 +12,7 @@ import com.sungbin.hyunnieserver.databinding.LayoutPathBinding
  */
 
 class PathAdapter(
-    private val items: List<String>,
-    private val activity: Activity
+    private val items: List<String>
 ) : RecyclerView.Adapter<PathAdapter.ViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
@@ -31,7 +29,7 @@ class PathAdapter(
         }
     }
 
-    inner class ViewHolder(private val binding: LayoutPathBinding, private val activity: Activity) :
+    inner class ViewHolder(private val binding: LayoutPathBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindViewHolder(path: String, listener: OnClickListener?) {
             binding.tvPath.text = path
@@ -43,8 +41,7 @@ class PathAdapter(
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) =
         ViewHolder(
-            LayoutPathBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false),
-            activity
+            LayoutPathBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         )
 
     override fun onBindViewHolder(@NonNull viewholder: ViewHolder, position: Int) {

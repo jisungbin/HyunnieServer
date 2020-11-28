@@ -1,6 +1,5 @@
 package com.sungbin.hyunnieserver.adapter
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.NonNull
@@ -19,11 +18,11 @@ import com.sungbin.hyunnieserver.tool.util.FileUtil
  */
 
 class FileAdapter(
-    private val items: List<File>,
-    private val activity: Activity
+    private val items: List<File>
 ) : RecyclerView.Adapter<FileAdapter.ViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
+
     interface OnClickListener {
         fun onClick(file: File)
     }
@@ -38,7 +37,6 @@ class FileAdapter(
 
     inner class ViewHolder(
         private val itemBinding: LayoutFileBinding,
-        private val activity: Activity
     ) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bindViewHolder(file: File, listener: OnClickListener?) {
@@ -54,7 +52,7 @@ class FileAdapter(
                         listener?.onClick(file)
                     }
                 }
-                if (file.size == "") tvDot.hide(true)
+                if (file.size.isEmpty()) tvDot.hide(true)
                 invalidateAll()
             }
         }
@@ -65,7 +63,7 @@ class FileAdapter(
             DataBindingUtil.inflate(
                 LayoutInflater.from(viewGroup.context),
                 R.layout.layout_file, viewGroup, false
-            ), activity
+            )
         )
 
     override fun onBindViewHolder(@NonNull viewholder: ViewHolder, position: Int) {
