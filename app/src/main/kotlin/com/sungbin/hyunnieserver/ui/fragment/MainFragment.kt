@@ -1,6 +1,5 @@
 package com.sungbin.hyunnieserver.ui.fragment
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +21,7 @@ import com.sungbin.hyunnieserver.tool.util.ArrayPosition
 import com.sungbin.hyunnieserver.tool.util.ExceptionUtil
 import com.sungbin.hyunnieserver.tool.util.FileUtil
 import com.sungbin.hyunnieserver.tool.util.removePosition
+import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.backPressedAction
 import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.client
 import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.config
 import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.fileCache
@@ -47,6 +47,7 @@ class MainFragment : BaseFragment() {
     private val DEFAULT_PATH = "/메인 혀니서버/혀니서버"
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+    private var backPressedTime = 0L
 
     private val loadingDialog by lazy {
         LoadingDialog(requireActivity())
@@ -67,22 +68,13 @@ class MainFragment : BaseFragment() {
         val password = config.getString("freePw")
         val address = /*config.getString("serverAddress")*/ "hn.osmg.kr"
 
+        backPressedAction = { goBackPath() }
+
         binding.cvHome.setOnClickListener {
             fileList.postValue(fileCache[DEFAULT_PATH])
         }
 
-        binding.cvBack.setOnClickListener {
-            if (fileList.value!![0].path.replace(DEFAULT_PATH, "")
-                    .split("/").size > 2
-            ) {
-                goFtpBackPath(fileList.value!![0].path)
-            } else {
-                cantGoBack()
-            }
-        }
-
         fileList.observe(viewLifecycleOwner, {
-            Logger.w(fileList.value?.get(0))
             runOnUiThread {
                 loadingDialog.close()
             }
@@ -147,6 +139,7 @@ class MainFragment : BaseFragment() {
                     }
                 }
             }
+            backPressedAction = { goBackPath() }
         } else { // 최초 실행
             Thread {
                 try {
@@ -183,6 +176,16 @@ class MainFragment : BaseFragment() {
                     ExceptionUtil.except(exception, requireContext())
                 }
             }.start()
+        }
+    }
+
+    private fun goBackPath() {
+        if (fileList.value!![0].path.replace(DEFAULT_PATH, "")
+                .split("/").size > 2
+        ) {
+            goFtpBackPath(fileList.value!![0].path)
+        } else {
+            cantGoBack()
         }
     }
 
@@ -292,23 +295,17 @@ class MainFragment : BaseFragment() {
     }
 
     private fun cantGoBack() {
-        ToastUtil.show(
-            requireContext(),
-            getString(R.string.ftp_cant_go_back),
-            ToastLength.SHORT,
-            ToastType.WARNING
-        )
-    }
-
-    private fun closeApp() {
-        AlertDialog.Builder(requireActivity()).apply {
-            setTitle(getString(R.string.close))
-            setMessage(getString(R.string.main_really_close))
-            setNeutralButton(getString(R.string.main_stay)) { _, _ -> }
-            setPositiveButton(getString(R.string.main_finish)) { _, _ ->
-                requireActivity().finish()
-            }
-        }.show()
+        if (System.currentTimeMillis() > backPressedTime + 2000) {
+            ToastUtil.show(
+                requireContext(),
+                getString(R.string.ftp_cant_go_back),
+                ToastLength.SHORT,
+                ToastType.WARNING
+            )
+            backPressedTime = System.currentTimeMillis()
+        } else if (System.currentTimeMillis() <= backPressedTime + 2000) {
+            requireActivity().finish()
+        }
     }
 
 }

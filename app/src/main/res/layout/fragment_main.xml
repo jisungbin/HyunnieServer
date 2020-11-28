@@ -85,41 +85,11 @@
         android:paddingStart="@dimen/margin_twice"
         android:paddingEnd="@dimen/margin_twice"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toStartOf="@+id/v_cv_back_center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/v_cv_home_center"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
         tools:itemCount="10"
         tools:listitem="@layout/layout_path" />
-
-    <View
-        android:id="@+id/v_cv_back_center"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cv_back"
-        app:layout_constraintEnd_toEndOf="@+id/cv_back"
-        app:layout_constraintStart_toStartOf="@+id/cv_back"
-        app:layout_constraintTop_toTopOf="@+id/cv_back" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_default"
-        android:background="@color/colorWhite"
-        app:cardBackgroundColor="@color/colorWhite"
-        app:cardCornerRadius="@dimen/margin_default"
-        app:contentPadding="@dimen/margin_half"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_path"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rv_path">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/image_description_back"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
-
-    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_file"

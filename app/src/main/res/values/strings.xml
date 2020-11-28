@@ -28,7 +28,7 @@
     <string name="exception_except">오류가 발생했습니다 😔</string>
     <string name="exception_preview_except">FATAL EXCEPTION: main exception</string>
 
-    <string name="ftp_cant_go_back">뒤로가기를 수행할 수 없습니다.</string>
+    <string name="ftp_cant_go_back">뒤로가기를 수행할 수 없어요.\n\n앱을 종료하시려면 뒤로가기 버튼을 한 번 더 눌러주세요.</string>
     <string name="ftp_cant_go_path">해당 경로로 갈 수 없어요 :(</string>
     <string name="ftp_empty_file">파일이 없어요 :(</string>
 
