@@ -31,7 +31,7 @@ class PathAdapter(
         }
     }
 
-    class ViewHolder(private val binding: LayoutPathBinding, private val activity: Activity) :
+    inner class ViewHolder(private val binding: LayoutPathBinding, private val activity: Activity) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindViewHolder(path: String, listener: OnClickListener?) {
             binding.tvPath.text = path

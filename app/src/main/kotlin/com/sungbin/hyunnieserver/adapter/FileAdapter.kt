@@ -36,7 +36,10 @@ class FileAdapter(
         }
     }
 
-    class ViewHolder(private val itemBinding: LayoutFileBinding, private val activity: Activity) :
+    inner class ViewHolder(
+        private val itemBinding: LayoutFileBinding,
+        private val activity: Activity
+    ) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bindViewHolder(file: File, listener: OnClickListener?) {
             with(itemBinding) {
