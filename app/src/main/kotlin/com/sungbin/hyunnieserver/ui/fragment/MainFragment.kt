@@ -304,7 +304,7 @@ class MainFragment : BaseFragment() {
             )
             backPressedTime = System.currentTimeMillis()
         } else if (System.currentTimeMillis() <= backPressedTime + 2000) {
-            requireActivity().finish()
+            requireActivity().finishAfterTransition()
         }
     }
 

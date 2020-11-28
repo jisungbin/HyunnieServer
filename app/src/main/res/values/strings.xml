@@ -25,16 +25,13 @@
     <string name="fileitem_dot">•</string>
     <string name="fileitem_preview_last_modify">오늘 14:00</string>
 
-    <string name="exception_except">오류가 발생했습니다 😔</string>
+    <string name="exception_except">오류가 발생했어요 😔</string>
     <string name="exception_preview_except">FATAL EXCEPTION: main exception</string>
 
-    <string name="ftp_cant_go_back">뒤로가기를 수행할 수 없어요.\n\n앱을 종료하시려면 뒤로가기 버튼을 한 번 더 눌러주세요.</string>
+    <string name="ftp_cant_go_back">앱을 종료하시려면 뒤로가기 버튼을 한 번 더 눌러주세요.</string>
     <string name="ftp_cant_go_path">해당 경로로 갈 수 없어요 :(</string>
     <string name="ftp_empty_file">파일이 없어요 :(</string>
 
-    <string name="main_really_close">정말 혀니서버 앱을 종료하실거에요?</string>
-    <string name="main_finish">종료하기</string>
-    <string name="main_stay">좀 더 있기</string>
     <string name="main_need_permission">혀니서버 앱을 사용하기 위해선, 다음과 같은 권한이 필요해요.\n\n1. 인터넷 체크 권한\n2. 파일 다운로드를 위한 내부메모리 접근 권한</string>
 
     <string name="notification_description">혀니서버 다운로드 알림이</string>
