@@ -23,8 +23,6 @@ class PathAdapter(
         fun onClick(path: String)
     }
 
-    // 편의점좀
-
     fun setOnClickListener(action: (String) -> Unit) {
         onClickListener = object : OnClickListener {
             override fun onClick(path: String) {

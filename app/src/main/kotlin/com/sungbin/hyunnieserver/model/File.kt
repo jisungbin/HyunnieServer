@@ -11,5 +11,6 @@ data class File(
     val originSize: Long,
     val path: String,
     val fileType: FileType,
-    val lastModify: String
+    val lastModify: String,
+    val isEmpty: Boolean
 )

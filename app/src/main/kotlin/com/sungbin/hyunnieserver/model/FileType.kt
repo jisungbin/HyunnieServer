@@ -16,5 +16,6 @@ sealed class FileType {
     object PDF : FileType()
     object SUBTITLE : FileType()
     object FILE : FileType()
+    object EMPTY : FileType()
 
 }

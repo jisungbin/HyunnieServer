@@ -1,13 +1,16 @@
 package com.sungbin.hyunnieserver.ui.activity
 
+import android.Manifest
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.sungbin.androidutils.util.PermissionUtil
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.databinding.ActivityMainBinding
+import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -30,6 +33,27 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fcv_container) as NavHostFragment
         navController = navHostFragment.navController
+
+        if (!PermissionUtil.checkPermissionsGrant(
+                applicationContext,
+                listOf(
+                    Manifest.permission.ACCESS_NETWORK_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+            )
+        ) {
+            PermissionUtil.request(
+                this,
+                getString(R.string.main_need_permission),
+                arrayOf(
+                    Manifest.permission.ACCESS_NETWORK_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+            )
+            NotificationUtil.createChannel(applicationContext)
+        }
 
         supportActionBar?.hide()
     }

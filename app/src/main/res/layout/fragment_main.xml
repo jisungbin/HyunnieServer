@@ -129,7 +129,7 @@
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/fbl_empty_file"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_half"
         android:visibility="gone"
@@ -137,9 +137,7 @@
         app:flexDirection="column"
         app:justifyContent="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/rv_path"
         tools:visibility="visible">
 
         <com.airbnb.lottie.LottieAnimationView

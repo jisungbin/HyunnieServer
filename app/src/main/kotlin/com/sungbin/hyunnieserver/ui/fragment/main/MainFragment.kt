@@ -17,6 +17,7 @@ import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.adapter.FileAdapter
 import com.sungbin.hyunnieserver.adapter.PathAdapter
 import com.sungbin.hyunnieserver.databinding.FragmentMainBinding
+import com.sungbin.hyunnieserver.model.FileType
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
 import com.sungbin.hyunnieserver.tool.util.ArrayPosition
@@ -86,7 +87,7 @@ class MainFragment : BaseFragment() {
             if (viewModel.fileList.value!![0].path.replace("/메인 혀니서버/혀니서버", "")
                     .split("/").size > 2
             ) {
-                changeBackPath(viewModel.fileList.value!![0])
+                goFtpBackPath(viewModel.fileList.value!![0].path)
             } else {
                 cantGoBack()
             }
@@ -97,7 +98,7 @@ class MainFragment : BaseFragment() {
                 loadingDialog.close()
             }
 
-            if (it.isNotEmpty()) {
+            if (!it[0].isEmpty) {
                 binding.fblEmptyFile.hide(true)
                 binding.rvFile.apply {
                     show()
@@ -112,9 +113,9 @@ class MainFragment : BaseFragment() {
                     }
                 }
                 binding.rvPath.apply {
-                    show()
                     adapter = PathAdapter(
-                        it[0].path.split("/").removePosition(ArrayPosition.FIRST)
+                        viewModel.fileList.value!![0].path.split("/")
+                            .removePosition(ArrayPosition.FIRST)
                             .removePosition(ArrayPosition.LAST), requireActivity()
                     ).apply {
                         setOnClickListener { path ->
@@ -127,9 +128,31 @@ class MainFragment : BaseFragment() {
                     }
                 }.toBottomScroll()
             } else { // 파일 없음
-                binding.rvPath.hide()
                 binding.rvFile.hide()
                 binding.fblEmptyFile.show()
+                binding.rvPath.apply {
+                    adapter = PathAdapter(
+                        viewModel.fileList.value!![0].path.split("/")
+                            .removePosition(ArrayPosition.FIRST)
+                            .removePosition(ArrayPosition.LAST), requireActivity()
+                    ).apply {
+                        setOnClickListener { path ->
+                            var isCanAccess = false
+                            viewModel.fileCache.mapKeys { map ->
+                                if (map.key.split("/").last() == path) {
+                                    isCanAccess = true
+                                    viewModel.fileList.postValue(viewModel.fileCache[map.key])
+                                }
+                            }
+                            if (!isCanAccess) ToastUtil.show(
+                                requireContext(),
+                                context.getString(R.string.main_cant_go_path),
+                                ToastLength.SHORT,
+                                ToastType.WARNING
+                            )
+                        }
+                    }
+                }.toBottomScroll()
             }
         })
 
@@ -157,7 +180,8 @@ class MainFragment : BaseFragment() {
                             it.size,
                             "/메인 혀니서버/혀니서버/${it.name}",
                             FileUtil.getType(it.name, it.size),
-                            FileUtil.getLastModifyTime(it.timestamp)
+                            FileUtil.getLastModifyTime(it.timestamp),
+                            false
                         )
                     )
                 }
@@ -168,7 +192,6 @@ class MainFragment : BaseFragment() {
             }
         }.start()
     }
-
 
     private fun ftpFileDownload(file: com.sungbin.hyunnieserver.model.File) {
         client.setFileType(FTPClient.BINARY_FILE_TYPE)
@@ -236,7 +259,21 @@ class MainFragment : BaseFragment() {
                             it.size,
                             "${file.path}/${it.name}",
                             FileUtil.getType(it.name, it.size),
-                            FileUtil.getLastModifyTime(it.timestamp)
+                            FileUtil.getLastModifyTime(it.timestamp),
+                            false
+                        )
+                    )
+                }
+                if (list.isEmpty()) {
+                    list.add(
+                        com.sungbin.hyunnieserver.model.File(
+                            "empty file",
+                            "0B",
+                            0L,
+                            "${file.path}/empty file",
+                            FileType.EMPTY,
+                            "",
+                            true
                         )
                     )
                 }
@@ -248,9 +285,9 @@ class MainFragment : BaseFragment() {
         }
     }
 
-    private fun changeBackPath(file: com.sungbin.hyunnieserver.model.File) {
-        val levelOneLastPathName = file.path.split("/").last()
-        val levelOneBackPath = file.path.replaceLast("/$levelOneLastPathName", "")
+    private fun goFtpBackPath(path: String) {
+        val levelOneLastPathName = path.split("/").last()
+        val levelOneBackPath = path.replaceLast("/$levelOneLastPathName", "")
         val levelTwoLastPathName = levelOneBackPath.split("/").last()
         val levelTwoBackPath = levelOneBackPath.replaceLast("/$levelTwoLastPathName", "")
 

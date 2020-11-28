@@ -6,23 +6,11 @@
     <string name="copyright">© 2020 SungBin</string>
     <string name="loading">불러오는 중…</string>
 
-    <string name="image_description_search">search</string>
+    <string name="path_preview">메인 혀니서버</string>
 
-    <string name="join_server_address">서버 주소</string>
-    <string name="join_login_with_arrow">로그인 →</string>
-    <string name="join_password">비밀번호</string>
-    <string name="join_id">아이디</string>
-    <string name="join_hello">안녕하세요!</string>
-    <string name="join_need_setting_before_start">시작하기 앞서,\n몇 가지 기본 설정이 필요해요.</string>
-    <string name="join_set_permission">권한설정</string>
-    <string name="join_storage_permission">저장소 접근 권한</string>
-    <string name="join_give_permission">권한 허용하기</string>
-    <string name="join_permission_grant">권한 부여됨</string>
-    <string name="join_start_with_start">로그인하여 시작하기</string>
-    <string name="join_reason_for_storage_permission">데이터 저장을 위해 해당 권한이 필요해요.</string>
-    <string name="join_no_connect_internet">인터넷에 연결되어있지 않아요 😢</string>
-    <string name="join_welcome">환영합니다 👋</string>
-    <string name="join_wrong_data">접속 정보가 일치하지 않습니다.</string>
+    <string name="image_description_search">search</string>
+    <string name="image_description_home">image_description_home</string>
+    <string name="image_description_back">image_description_back</string>
 
     <string name="navigation_main">메인</string>
     <string name="navigation_download">다운로드</string>
@@ -40,16 +28,13 @@
     <string name="ftp_cant_go_back">뒤로가기를 수행할 수 없습니다.</string>
 
     <string name="main_really_close">정말 혀니서버 앱을 종료하실거에요?</string>
+    <string name="main_finish">종료하기</string>
+    <string name="main_cant_go_path">해당 경로로 갈 수 없어요 :(</string>
+    <string name="main_empty_file">파일이 없어요 :(</string>
+    <string name="main_stay">좀 더 있기</string>
+    <string name="main_need_permission">혀니서버 앱을 사용하기 위해선, 다음과 같은 권한이 필요해요.\n\n1. 인터넷 체크 권한\n2. 파일 다운로드를 위한 내부메모리 접근 권한</string>
 
     <string name="notification_description">혀니서버 다운로드 알림이</string>
     <string name="notification_downloading">다운로드중…</string>
-
-    <string name="main_finish">종료하기</string>
-    <string name="main_stay">좀 더 있기</string>
-
-    <string name="path_preview">메인 혀니서버</string>
-    <string name="image_description_home">image_description_home</string>
-    <string name="image_description_back">image_description_back</string>
-    <string name="main_empty_file">파일이 없어요 :(</string>
 
 </resources>
