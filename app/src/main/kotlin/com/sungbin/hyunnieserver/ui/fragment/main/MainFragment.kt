@@ -98,6 +98,7 @@ class MainFragment : BaseFragment() {
             }
 
             if (it.isNotEmpty()) {
+                binding.fblEmptyFile.hide(true)
                 binding.rvFile.apply {
                     show()
                     adapter = FileAdapter(it, requireActivity()).apply {
@@ -117,17 +118,18 @@ class MainFragment : BaseFragment() {
                             .removePosition(ArrayPosition.LAST), requireActivity()
                     ).apply {
                         setOnClickListener { path ->
-                            viewModel.fileCache.mapKeys { cache ->
-                                if (cache.key.split("/").last() == path) {
-                                    viewModel.fileList.postValue(viewModel.fileCache[cache.key])
+                            viewModel.fileCache.mapKeys { map ->
+                                if (map.key.split("/").last() == path) {
+                                    viewModel.fileList.postValue(viewModel.fileCache[map.key])
                                 }
                             }
                         }
                     }
                 }.toBottomScroll()
-            } else {
+            } else { // 파일 없음
                 binding.rvPath.hide()
                 binding.rvFile.hide()
+                binding.fblEmptyFile.show()
             }
         })
 

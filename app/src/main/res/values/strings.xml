@@ -50,5 +50,6 @@
     <string name="path_preview">메인 혀니서버</string>
     <string name="image_description_home">image_description_home</string>
     <string name="image_description_back">image_description_back</string>
+    <string name="main_empty_file">파일이 없어요 :(</string>
 
 </resources>
