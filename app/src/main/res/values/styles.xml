@@ -10,15 +10,12 @@
         <item name="android:fontFamily">@font/nanumgothic</item>
     </style>
 
-    <style name="AppTheme.WhiteStatusBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme.WhiteStatusBar" parent="AppTheme">
         <item name="android:statusBarColor">@color/colorBackgroundWhite</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

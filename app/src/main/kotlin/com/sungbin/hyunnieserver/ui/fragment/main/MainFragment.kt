@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.sungbin.androidutils.extensions.hide
 import com.sungbin.androidutils.extensions.replaceLast
+import com.sungbin.androidutils.extensions.show
 import com.sungbin.androidutils.extensions.toBottomScroll
 import com.sungbin.androidutils.util.*
 import com.sungbin.androidutils.util.StorageUtil.sdcard
@@ -26,6 +28,7 @@ import com.sungbin.hyunnieserver.ui.fragment.BaseFragment
 import org.apache.commons.io.output.CountingOutputStream
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
+import org.jetbrains.anko.support.v4.runOnUiThread
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -90,59 +93,80 @@ class MainFragment : BaseFragment() {
         }
 
         viewModel.fileList.observe(viewLifecycleOwner, {
-            binding.rvFile.adapter = FileAdapter(it, requireActivity()).apply {
-                setOnClickListener { file ->
-                    if (file.path.contains(".")) {
-                        ftpFileDownload(file)
-                    } else {
-                        changeFtpPath(file)
-                    }
-                }
+            runOnUiThread {
+                loadingDialog.close()
             }
-            binding.rvPath.apply {
-                adapter = PathAdapter(
-                    it[0].path.split("/").removePosition(ArrayPosition.FIRST)
-                        .removePosition(ArrayPosition.LAST), requireActivity()
-                ).apply {
-                    setOnClickListener { path ->
-                        viewModel.fileCache.mapKeys { cache ->
-                            if (cache.key.split("/").last() == path) {
-                                viewModel.fileList.postValue(viewModel.fileCache[cache.key])
+
+            if (it.isNotEmpty()) {
+                binding.rvFile.apply {
+                    show()
+                    adapter = FileAdapter(it, requireActivity()).apply {
+                        setOnClickListener { file ->
+                            if (file.path.contains(".")) {
+                                ftpFileDownload(file)
+                            } else {
+                                changeFtpPath(file)
                             }
                         }
                     }
                 }
-            }.toBottomScroll()
+                binding.rvPath.apply {
+                    show()
+                    adapter = PathAdapter(
+                        it[0].path.split("/").removePosition(ArrayPosition.FIRST)
+                            .removePosition(ArrayPosition.LAST), requireActivity()
+                    ).apply {
+                        setOnClickListener { path ->
+                            viewModel.fileCache.mapKeys { cache ->
+                                if (cache.key.split("/").last() == path) {
+                                    viewModel.fileList.postValue(viewModel.fileCache[cache.key])
+                                }
+                            }
+                        }
+                    }
+                }.toBottomScroll()
+            } else {
+                binding.rvPath.hide()
+                binding.rvFile.hide()
+            }
         })
 
-        client.connect(address) // client inits
-        client.login(id, password)
-        client.enterLocalPassiveMode() // required for connection
-        loadingDialog.show()
+        Thread {
+            try {
+                runOnUiThread {
+                    loadingDialog.show()
+                }
 
-        val list = ArrayList<com.sungbin.hyunnieserver.model.File>()
-        (client.listFiles("/메인 혀니서버/혀니서버") as Array<FTPFile>).map {
-            val size = if (it.isFile) {
-                StorageUtil.getSize(it.size)
-            } else {
-                ""
+                client.connect(address) // client inits
+                client.login(id, password)
+                client.enterLocalPassiveMode() // required for connection
+
+                val list = ArrayList<com.sungbin.hyunnieserver.model.File>()
+                (client.listFiles("/메인 혀니서버/혀니서버") as Array<FTPFile>).map {
+                    val size = if (it.isFile) {
+                        StorageUtil.getSize(it.size)
+                    } else {
+                        ""
+                    }
+                    list.add(
+                        com.sungbin.hyunnieserver.model.File(
+                            it.name,
+                            size,
+                            it.size,
+                            "/메인 혀니서버/혀니서버/${it.name}",
+                            FileUtil.getType(it.name, it.size),
+                            FileUtil.getLastModifyTime(it.timestamp)
+                        )
+                    )
+                }
+                viewModel.fileCache["/메인 혀니서버/혀니서버"] = list
+                viewModel.fileList.postValue(list)
+            } catch (exception: Exception) {
+                ExceptionUtil.except(exception, requireContext())
             }
-            list.add(
-                com.sungbin.hyunnieserver.model.File(
-                    it.name,
-                    size,
-                    it.size,
-                    "/메인 혀니서버/혀니서버/${it.name}",
-                    FileUtil.getType(it.name, it.size),
-                    FileUtil.getLastModifyTime(it.timestamp)
-                )
-            )
-        }
-        viewModel.fileCache["/메인 혀니서버/혀니서버"] = list
-        viewModel.fileList.postValue(list)
-
-        loadingDialog.close()
+        }.start()
     }
+
 
     private fun ftpFileDownload(file: com.sungbin.hyunnieserver.model.File) {
         client.setFileType(FTPClient.BINARY_FILE_TYPE)
@@ -166,6 +190,7 @@ class MainFragment : BaseFragment() {
                     )
                 }/${file.name}"
             )
+            File(downloadFile.parent ?: return).mkdirs()
             downloadFile.createNewFile()
 
             outputStream = BufferedOutputStream(FileOutputStream(downloadFile))
@@ -188,34 +213,37 @@ class MainFragment : BaseFragment() {
     }
 
     private fun changeFtpPath(file: com.sungbin.hyunnieserver.model.File) {
-        loadingDialog.show()
-
         val cache = viewModel.fileCache[file.path]
         if (cache == null) {
-            val list = ArrayList<com.sungbin.hyunnieserver.model.File>()
-            (client.listFiles(file.path) as Array<FTPFile>).map {
-                val size = if (it.isFile) {
-                    StorageUtil.getSize(it.size)
-                } else {
-                    ""
+            Thread {
+                runOnUiThread {
+                    loadingDialog.show()
                 }
-                list.add(
-                    com.sungbin.hyunnieserver.model.File(
-                        it.name,
-                        size,
-                        it.size,
-                        "${file.path}/${it.name}",
-                        FileUtil.getType(it.name, it.size),
-                        FileUtil.getLastModifyTime(it.timestamp)
+
+                val list = ArrayList<com.sungbin.hyunnieserver.model.File>()
+                (client.listFiles(file.path) as Array<FTPFile>).map {
+                    val size = if (it.isFile) {
+                        StorageUtil.getSize(it.size)
+                    } else {
+                        ""
+                    }
+                    list.add(
+                        com.sungbin.hyunnieserver.model.File(
+                            it.name,
+                            size,
+                            it.size,
+                            "${file.path}/${it.name}",
+                            FileUtil.getType(it.name, it.size),
+                            FileUtil.getLastModifyTime(it.timestamp)
+                        )
                     )
-                )
-            }
-            viewModel.fileCache[file.path] = list
-            viewModel.fileList.postValue(list)
+                }
+                viewModel.fileCache[file.path] = list
+                viewModel.fileList.postValue(list)
+            }.start()
         } else {
             viewModel.fileList.postValue(cache)
         }
-        loadingDialog.close()
     }
 
     private fun changeBackPath(file: com.sungbin.hyunnieserver.model.File) {

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme.WhiteStatusBar" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme.WhiteStatusBar" parent="AppTheme">
         <item name="android:statusBarColor">@color/colorBackgroundWhite</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@color/colorWhite</item>
