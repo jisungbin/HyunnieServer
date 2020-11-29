@@ -1,6 +1,5 @@
 package com.sungbin.hyunnieserver.ui.dialog
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
@@ -9,32 +8,26 @@ import android.text.SpannableStringBuilder
 import android.text.method.ScrollingMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.airbnb.lottie.LottieAnimationView
-import com.sungbin.androidutils.extensions.get
 import com.sungbin.androidutils.extensions.plusAssign
 import com.sungbin.hyunnieserver.R
+import com.sungbin.hyunnieserver.databinding.LayoutLoadingDialogBinding
 
 
-class LoadingDialog(private val activity: Activity) {
+class LoadingDialog(activity: Activity) {
 
     private var alert: AlertDialog
-
-    @SuppressLint("InflateParams")
-    private var layout: View =
-        LayoutInflater.from(activity).inflate(R.layout.layout_loading_dialog, null)
+    private var layout = LayoutLoadingDialogBinding.inflate(LayoutInflater.from(activity))
 
     init {
         val dialog = AlertDialog.Builder(activity)
-        dialog.setView(layout)
+        dialog.setView(layout.root)
 
         alert = dialog.create()
         alert.window?.setBackgroundDrawable(
             ColorDrawable(
                 ContextCompat.getColor(
-                    layout.context,
+                    layout.root.context,
                     android.R.color.transparent
                 )
             )
@@ -47,8 +40,8 @@ class LoadingDialog(private val activity: Activity) {
     }
 
     fun updateTitle(title: String) {
-        (layout[R.id.tv_loading] as TextView) += title
-        layout.invalidate()
+        layout.tvLoading += title
+        layout.root.invalidate()
     }
 
     fun setCustomState(
@@ -57,37 +50,39 @@ class LoadingDialog(private val activity: Activity) {
         canDismiss: Boolean,
         dismissListener: () -> Unit
     ) {
-        (layout[R.id.lav_load] as LottieAnimationView).run {
-            setAnimation(lottie)
-            playAnimation()
+        layout.run {
+            lavLoad.setAnimation(lottie)
+            lavLoad.playAnimation()
+            tvLoading += message
+            tvLoading.movementMethod = ScrollingMovementMethod()
         }
-        (layout[R.id.tv_loading] as TextView) += message
-        (layout[R.id.tv_loading] as TextView).movementMethod = ScrollingMovementMethod()
         alert.setCancelable(canDismiss)
         alert.setOnDismissListener { dismissListener() }
-        layout.invalidate()
+        layout.root.invalidate()
     }
 
     fun setError(exception: Exception) {
-        (layout[R.id.lav_load] as LottieAnimationView).run {
-            setAnimation(R.raw.error)
-            playAnimation()
+        layout.run { // 이게 맞나;;
+            lavLoad.run {
+                setAnimation(R.raw.error)
+                playAnimation()
+            }
+            tvLoading.run {
+                val message =
+                    "서버 요청 중 오류가 발생했습니다!\n\n${exception.message} #${exception.stackTrace[0].lineNumber}"
+                val ssb = SpannableStringBuilder(message)
+                ssb.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(context, R.color.colorLightRed)),
+                    message.lastIndexOf("\n"),
+                    message.lastIndex + 1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                text = ssb
+                movementMethod = ScrollingMovementMethod()
+            }
         }
-        (layout[R.id.tv_loading] as TextView).run {
-            val message =
-                "서버 요청 중 오류가 발생했습니다!\n\n${exception.message} #${exception.stackTrace[0].lineNumber}"
-            val ssb = SpannableStringBuilder(message)
-            ssb.setSpan(
-                ForegroundColorSpan(ContextCompat.getColor(context, R.color.colorLightRed)),
-                message.lastIndexOf("\n"),
-                message.lastIndex + 1,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-            text = ssb
-        }
-        (layout[R.id.tv_loading] as TextView).movementMethod = ScrollingMovementMethod()
         alert.setCancelable(true)
-        layout.invalidate()
+        layout.root.invalidate()
     }
 
     fun close() {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/sort_file"
+        android:title="@string/sort_file" />
+
+    <item
+        android:id="@+id/sort_folder"
+        android:title="@string/sort_folder" />
+
+</menu>

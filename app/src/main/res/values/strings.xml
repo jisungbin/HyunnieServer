@@ -19,7 +19,7 @@
     <string name="navigation_download">다운로드</string>
     <string name="navigation_setting">설정</string>
 
-    <string name="fileitem_preview_size">4MB</string>
+    <string name="fileitem_preview_size">4 MB</string>
     <string name="fileitem_preview_path">preview path</string>
     <string name="fileitem_type">item type</string>
     <string name="fileitem_dot">•</string>
@@ -36,5 +36,9 @@
 
     <string name="notification_description">혀니서버 다운로드 알림이</string>
     <string name="notification_downloading">다운로드중…</string>
+    <string name="sort_file">파일 정렬</string>
+    <string name="sort_folder">폴더 정렬</string>
+    <string name="sort_ganada">가나다 정렬</string>
+    <string name="sort_danaga">다나가 정렬</string>
 
 </resources>

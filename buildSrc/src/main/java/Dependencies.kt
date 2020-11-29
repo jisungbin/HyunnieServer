@@ -40,6 +40,7 @@ object Versions {
     }
 
     object Ui {
+        const val ToggleButtonLayout = "1.3.0"
         const val Flexbox = "2.0.1"
         const val SmoothBottomBar = "1.7.6"
         const val Lottie = "3.5.0"
@@ -81,6 +82,8 @@ object Dependencies {
     }
 
     object Ui {
+        const val ToggleButtonLayout =
+            "com.github.savvyapps:ToggleButtonLayout:${Versions.Ui.ToggleButtonLayout}"
         const val Flexbox = "com.google.android:flexbox:${Versions.Ui.Flexbox}"
         const val SmoothBottomBar =
             "com.github.ibrahimsn98:SmoothBottomBar:${Versions.Ui.SmoothBottomBar}"

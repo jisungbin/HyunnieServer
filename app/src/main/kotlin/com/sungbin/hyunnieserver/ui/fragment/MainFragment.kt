@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.sungbin.androidutils.extensions.hide
 import com.sungbin.androidutils.extensions.replaceLast
 import com.sungbin.androidutils.extensions.show
@@ -27,6 +28,7 @@ import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.config
 import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.fileCache
 import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.fileList
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
+import com.sungbin.hyunnieserver.ui.dialog.SortDialog
 import org.apache.commons.io.output.CountingOutputStream
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
@@ -42,22 +44,20 @@ import java.io.OutputStream
  */
 
 
-class MainFragment : BaseFragment() {
+class MainFragment : Fragment() {
 
     private val DEFAULT_PATH = "/메인 혀니서버/혀니서버"
-    private var _binding: FragmentMainBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentMainBinding
     private var backPressedTime = 0L
 
-    private val loadingDialog by lazy {
-        LoadingDialog(requireActivity())
-    }
+    private val sortDialog by lazy { SortDialog.instance() } // 2중 싱글톤???
+    private val loadingDialog by lazy { LoadingDialog(requireActivity()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -66,12 +66,16 @@ class MainFragment : BaseFragment() {
 
         val id = config.getString("freeId")
         val password = config.getString("freePw")
-        val address = /*config.getString("serverAddress")*/ "hn.osmg.kr"
+        val address = config.getString("serverAddress")
 
         backPressedAction = { goBackPath() }
 
         binding.cvHome.setOnClickListener {
             fileList.postValue(fileCache[DEFAULT_PATH])
+        }
+
+        binding.ivSort.setOnClickListener {
+            sortDialog.show(parentFragmentManager, "")
         }
 
         fileList.observe(viewLifecycleOwner, { files ->

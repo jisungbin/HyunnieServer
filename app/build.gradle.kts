@@ -71,6 +71,7 @@ dependencies {
         Dependencies.Ktx.Fragment,
         Dependencies.Ktx.Config,
 
+        Dependencies.Ui.ToggleButtonLayout,
         Dependencies.Ui.Flexbox,
         Dependencies.Ui.SmoothBottomBar,
         Dependencies.Ui.Lottie,

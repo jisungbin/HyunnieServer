@@ -11,6 +11,7 @@ import com.sungbin.hyunnieserver.databinding.LayoutFileBinding
 import com.sungbin.hyunnieserver.model.File
 import com.sungbin.hyunnieserver.module.GlideApp
 import com.sungbin.hyunnieserver.tool.util.FileUtil
+import java.util.*
 
 
 /**
@@ -52,7 +53,7 @@ class FileAdapter(
                         listener?.onClick(file)
                     }
                 }
-                if (file.size.isEmpty()) tvDot.hide(true)
+                if (!file.isFile()) tvDot.hide(true)
                 invalidateAll()
             }
         }
@@ -68,6 +69,27 @@ class FileAdapter(
 
     override fun onBindViewHolder(@NonNull viewholder: ViewHolder, position: Int) {
         viewholder.bindViewHolder(items[position], onClickListener)
+    }
+
+    sealed class Sort {
+        object FOLDER : Sort()
+        object FILE : Sort()
+        object GANADA : Sort()
+        object DANAGA : Sort()
+    }
+
+    private fun File.isFile() = this.size.isNotEmpty()
+
+    fun sort(type: Sort) {
+        Collections.sort(items, Comparator { file, file2 ->
+            return@Comparator when (type) {
+                Sort.FOLDER -> file2.isFile().compareTo(file.isFile())
+                Sort.FILE -> file.isFile().compareTo(file2.isFile())
+                Sort.GANADA, Sort.DANAGA -> file.name.compareTo(file2.name)
+            }
+        })
+        if (type == Sort.DANAGA) items.asReversed()
+        notifyDataSetChanged()
     }
 
     override fun getItemCount() = items.size
