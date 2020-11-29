@@ -9,10 +9,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.sungbin.androidutils.util.Logger
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.databinding.LayoutSortDialogBinding
+import com.sungbin.hyunnieserver.datastore.DataManager
+import com.sungbin.hyunnieserver.datastore.Sort
 
 
 class SortDialog : BottomSheetDialogFragment() {
@@ -32,13 +34,19 @@ class SortDialog : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tblName.onToggledListener = { _, toggle, _ ->
-            when (toggle.id) {
-                R.id.sort_ganada ->
-            }
         }
 
+        @Throws(Exception::class)
         binding.tblType.onToggledListener = { _, toggle, _ ->
-            Logger.w(arrayOf(toggle.id))
+            lifecycleScope.launchWhenCreated {
+                DataManager.setSortType(
+                    when (toggle.id) {
+                        R.id.sort_folder -> Sort.FOLDER
+                        R.id.sort_file -> Sort.FILE
+                        else -> throw Exception("unknown sort type")
+                    }
+                )
+            }
         }
     }
 

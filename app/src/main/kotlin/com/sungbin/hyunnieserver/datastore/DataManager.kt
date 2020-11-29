@@ -15,13 +15,13 @@ object DataManager {
 
     private lateinit var context: Context
 
-    private val sortNameDataStore = dataStoreOf("sort_name_pref")
-    private val sortTypeDataStore = dataStoreOf("sort_type_pref")
-    private val uiThemeDataStore = dataStoreOf("ui_theme_pref")
+    private val sortNameDataStore by lazy { dataStoreOf("sort_name_pref") }
+    private val sortTypeDataStore by lazy { dataStoreOf("sort_type_pref") }
+    private val uiThemeDataStore by lazy { dataStoreOf("ui_theme_pref") }
 
-    private val sortNameKey = prefKeyOf<Int>("sort_name_key")
-    private val sortTypeKey = prefKeyOf<Int>("sort_type_key")
-    private val uiThemeKey = prefKeyOf<Int>("ui_theme_key")
+    private val sortNameKey by lazy { prefKeyOf<Int>("sort_name_key") }
+    private val sortTypeKey by lazy { prefKeyOf<Int>("sort_type_key") }
+    private val uiThemeKey by lazy { prefKeyOf<Int>("ui_theme_key") }
 
     private fun dataStoreOf(name: String) = context.createDataStore(name = name)
     private inline fun <reified T : Any> prefKeyOf(key: String) = preferencesKey<T>(key)
@@ -44,16 +44,22 @@ object DataManager {
         }
     }
 
-    val uiThemeFlow = uiThemeDataStore.data.map { preference ->
-        preference[uiThemeKey] ?: UiTheme.DAY
+    val uiThemeFlow by lazy {
+        uiThemeDataStore.data.map { preference ->
+            preference[uiThemeKey] ?: UiTheme.DAY
+        }
     }
 
-    val sortNameFlow = sortNameDataStore.data.map { preference ->
-        preference[sortNameKey] ?: Sort.GANADA
+    val sortNameFlow by lazy {
+        sortNameDataStore.data.map { preference ->
+            preference[sortNameKey] ?: Sort.GANADA
+        }
     }
 
-    val sortTypeFlow = sortTypeDataStore.data.map { preference ->
-        preference[sortTypeKey] ?: Sort.FOLDER
+    val sortTypeFlow by lazy {
+        sortTypeDataStore.data.map { preference ->
+            preference[sortTypeKey] ?: Sort.FOLDER
+        }
     }
 
     fun init(context: Context) {

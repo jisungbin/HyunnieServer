@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.asLiveData
 import com.sungbin.androidutils.extensions.hide
 import com.sungbin.androidutils.extensions.replaceLast
 import com.sungbin.androidutils.extensions.show
@@ -33,7 +34,6 @@ import com.sungbin.hyunnieserver.ui.dialog.SortDialog
 import org.apache.commons.io.output.CountingOutputStream
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
-import org.jetbrains.anko.coroutines.experimental.asReference
 import org.jetbrains.anko.support.v4.runOnUiThread
 import java.io.BufferedOutputStream
 import java.io.File
@@ -72,8 +72,9 @@ class MainFragment : Fragment() {
 
         backPressedAction = { goBackPath() }
 
-        DataManager.sortTypeFlow.asReference {
-
+        DataManager.sortTypeFlow.asLiveData().observe(viewLifecycleOwner) {
+            Logger.w("DataStore", it)
+            // (binding.rvFile.adapter as? FileAdapter)?.sort(it)
         }
 
         binding.cvHome.setOnClickListener {

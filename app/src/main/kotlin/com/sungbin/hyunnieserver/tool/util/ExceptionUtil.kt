@@ -1,7 +1,6 @@
 package com.sungbin.hyunnieserver.tool.util
 
 import android.content.Context
-import com.sungbin.androidutils.util.Logger
 import com.sungbin.hyunnieserver.ui.activity.ExceptionActivity
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
@@ -9,7 +8,7 @@ import org.jetbrains.anko.newTask
 object ExceptionUtil {
 
     fun except(exception: Exception, context: Context) {
-        Logger.w(exception)
+        exception.printStackTrace()
         val message = exception.localizedMessage
         val line = exception.stackTrace[0].lineNumber
         val content = "$message #$line"

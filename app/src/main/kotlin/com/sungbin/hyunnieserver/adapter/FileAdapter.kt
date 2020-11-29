@@ -82,7 +82,7 @@ class FileAdapter(
                 Sort.FILE -> file.isFile().compareTo(file2.isFile())
                 Sort.GANADA, Sort.DANAGA -> file.name.compareTo(file2.name)
                 else -> {
-                    throw Exception("unsupported sort type")
+                    throw Exception("unknown sort type")
                 }
             }
         })
