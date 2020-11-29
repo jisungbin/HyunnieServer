@@ -14,17 +14,6 @@ import com.sungbin.hyunnieserver.databinding.TestFragmentBinding
 
 class SettingFragment : Fragment() {
 
-    companion object {
-        private lateinit var settingFragment: SettingFragment
-
-        fun instance(): SettingFragment {
-            if (!Companion::settingFragment.isInitialized) {
-                settingFragment = SettingFragment()
-            }
-            return settingFragment
-        }
-    }
-
     private lateinit var binding: TestFragmentBinding
 
     override fun onCreateView(

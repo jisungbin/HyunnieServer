@@ -14,17 +14,6 @@ import com.sungbin.hyunnieserver.databinding.TestFragmentBinding
 
 class DownloadFragment : Fragment() {
 
-    companion object {
-        private lateinit var downloadFragment: DownloadFragment
-
-        fun instance(): DownloadFragment {
-            if (!Companion::downloadFragment.isInitialized) {
-                downloadFragment = DownloadFragment()
-            }
-            return downloadFragment
-        }
-    }
-
     private lateinit var binding: TestFragmentBinding
 
     override fun onCreateView(
@@ -37,7 +26,7 @@ class DownloadFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.tvTest.text = "DownloadFragment"
+        binding.tvTest.text = "기다려...\n곧 만들게..."
     }
 
 }

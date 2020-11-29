@@ -33,14 +33,15 @@ object FileUtil {
                 when {
                     endsWith("png", true) -> FileType.IMAGE
                     endsWith("jpg", true) -> FileType.IMAGE
+                    endsWith("jpeg", true) -> FileType.IMAGE
                     endsWith(
                         "txt",
                         true
-                    ) -> if (size >= 10000) FileType.BOOK else FileType.TEXT
+                    ) -> if (size >= 200000) FileType.BOOK else FileType.TEXT
                     endsWith(
                         "text",
                         true
-                    ) -> if (size >= 10000) FileType.BOOK else FileType.TEXT
+                    ) -> if (size >= 200000) FileType.BOOK else FileType.TEXT
                     endsWith("mp4", true) -> FileType.VIDEO
                     endsWith("avi", true) -> FileType.VIDEO
                     endsWith("gif", true) -> FileType.GIF
@@ -52,6 +53,7 @@ object FileUtil {
                     endsWith("mp3", true) -> FileType.MUSIC
                     endsWith("pdf", true) -> FileType.PDF
                     endsWith("smi", true) -> FileType.SUBTITLE
+                    endsWith("srt", true) -> FileType.SUBTITLE
                     else -> FileType.FILE
                 }
             }

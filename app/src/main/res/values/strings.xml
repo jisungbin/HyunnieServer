@@ -40,5 +40,6 @@
     <string name="sort_folder">폴더 정렬</string>
     <string name="sort_ganada">가나다 정렬</string>
     <string name="sort_danaga">다나가 정렬</string>
+    <string name="developing_version">아직 개발중인 기능입니다...</string>
 
 </resources>

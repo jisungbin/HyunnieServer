@@ -1,41 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clipToPadding="false"
-    android:paddingTop="@dimen/margin_twice_and_half"
-    android:paddingBottom="@dimen/margin_twice_and_half"
-    app:alignItems="center"
-    app:flexDirection="column"
-    app:justifyContent="center">
+    android:layout_height="wrap_content">
 
-    <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
-        android:id="@+id/tbl_name"
+    <TextView
+        android:id="@+id/tv_developing_label"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginBottom="@dimen/margin_half"
-        android:foregroundGravity="center"
-        app:allowDeselection="false"
-        app:cardCornerRadius="@dimen/margin_half"
-        app:dividerColor="@color/colorLightGray"
-        app:menu="@menu/menu_sort_name"
-        app:multipleSelection="false"
-        app:selectedColor="@color/colorTwiceLightGray"
-        app:toggleMode="even" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:text="@string/developing_version"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
-        android:id="@+id/tbl_type"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="@dimen/margin_half"
-        android:foregroundGravity="center"
-        app:allowDeselection="false"
-        app:cardCornerRadius="@dimen/margin_half"
-        app:dividerColor="@color/colorLightGray"
-        app:menu="@menu/menu_sort_type"
-        app:multipleSelection="false"
-        app:selectedColor="@color/colorTwiceLightGray"
-        app:toggleMode="even" />
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/margin_twice_and_half"
+        android:paddingBottom="@dimen/margin_twice_and_half"
+        app:alignItems="center"
+        app:flexDirection="column"
+        app:justifyContent="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_developing_label">
 
-</com.google.android.flexbox.FlexboxLayout>
+        <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
+            android:id="@+id/tbl_name"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:foregroundGravity="center"
+            app:allowDeselection="false"
+            app:cardCornerRadius="@dimen/margin_half"
+            app:dividerColor="@color/colorLightGray"
+            app:menu="@menu/menu_sort_name"
+            app:multipleSelection="false"
+            app:selectedColor="@color/colorTwiceLightGray"
+            app:toggleMode="even" />
+
+        <com.savvyapps.togglebuttonlayout.ToggleButtonLayout
+            android:id="@+id/tbl_type"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="@dimen/margin_half"
+            android:foregroundGravity="center"
+            app:allowDeselection="false"
+            app:cardCornerRadius="@dimen/margin_half"
+            app:dividerColor="@color/colorLightGray"
+            app:menu="@menu/menu_sort_type"
+            app:multipleSelection="false"
+            app:selectedColor="@color/colorTwiceLightGray"
+            app:toggleMode="even" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

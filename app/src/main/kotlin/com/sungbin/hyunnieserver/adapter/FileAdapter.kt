@@ -78,17 +78,17 @@ class FileAdapter(
     fun sort(type: Int) {
         Collections.sort(items, Comparator { file, file2 ->
             return@Comparator when (type) {
-                Sort.FOLDER -> file2.isFile().compareTo(file.isFile())
-                Sort.FILE -> file.isFile().compareTo(file2.isFile())
-                Sort.GANADA, Sort.DANAGA -> file.name.compareTo(file2.name)
-                else -> {
-                    throw Exception("unknown sort type")
-                }
+                Sort.FOLDER -> file.isFile().compareTo(file2.isFile())
+                Sort.FILE -> file2.isFile().compareTo(file.isFile())
+                Sort.GANADA, Sort.DANAGA -> file.name.onlyKor().compareTo(file2.name.onlyKor())
+                else -> throw Exception("unknown sort type")
             }
         })
         if (type == Sort.DANAGA) items.asReversed()
         notifyDataSetChanged()
     }
+
+    private fun String.onlyKor() = this.replace("[^ㄱ-ㅎ가-힣]".toRegex(), "")
 
     override fun getItemCount() = items.size
     override fun getItemId(position: Int) = position.toLong()

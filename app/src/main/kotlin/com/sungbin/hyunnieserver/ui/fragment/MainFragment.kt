@@ -72,20 +72,11 @@ class MainFragment : Fragment() {
 
         backPressedAction = { goBackPath() }
 
-        DataManager.sortTypeFlow.asLiveData().observe(viewLifecycleOwner) {
-            Logger.w("DataStore", it)
-            // (binding.rvFile.adapter as? FileAdapter)?.sort(it)
-        }
+        binding.cvHome.setOnClickListener { fileList.postValue(fileCache[DEFAULT_PATH]) }
 
-        binding.cvHome.setOnClickListener {
-            fileList.postValue(fileCache[DEFAULT_PATH])
-        }
+        binding.ivSort.setOnClickListener { sortDialog.show(parentFragmentManager, "") }
 
-        binding.ivSort.setOnClickListener {
-            sortDialog.show(parentFragmentManager, "")
-        }
-
-        fileList.observe(viewLifecycleOwner, { files ->
+        fileList.observe(viewLifecycleOwner) { files ->
             runOnUiThread { loadingDialog.close() }
 
             if (!files[0].isEmpty) {
@@ -130,7 +121,7 @@ class MainFragment : Fragment() {
                     }
                 }
             }.toBottomScroll()
-        })
+        }
 
         if (fileList.value?.get(0)?.isEmpty == false) { // 이전 데이터 있을 때
             binding.fblEmptyFile.hide(true)
@@ -181,6 +172,14 @@ class MainFragment : Fragment() {
                     ExceptionUtil.except(exception, requireContext())
                 }
             }.start()
+        }
+
+        DataManager.sortTypeFlow.asLiveData().observe(viewLifecycleOwner) {
+            (binding.rvFile.adapter as? FileAdapter)?.sort(it)
+        }
+
+        DataManager.sortNameFlow.asLiveData().observe(viewLifecycleOwner) {
+            (binding.rvFile.adapter as? FileAdapter)?.sort(it)
         }
     }
 
