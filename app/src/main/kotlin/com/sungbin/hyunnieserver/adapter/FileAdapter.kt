@@ -74,12 +74,16 @@ class FileAdapter(
 
     private fun File.isFile() = this.size.isNotEmpty()
 
-    fun sort(type: Sort) {
+    @Throws(Exception::class)
+    fun sort(type: Int) {
         Collections.sort(items, Comparator { file, file2 ->
             return@Comparator when (type) {
                 Sort.FOLDER -> file2.isFile().compareTo(file.isFile())
                 Sort.FILE -> file.isFile().compareTo(file2.isFile())
                 Sort.GANADA, Sort.DANAGA -> file.name.compareTo(file2.name)
+                else -> {
+                    throw Exception("unsupported sort type")
+                }
             }
         })
         if (type == Sort.DANAGA) items.asReversed()

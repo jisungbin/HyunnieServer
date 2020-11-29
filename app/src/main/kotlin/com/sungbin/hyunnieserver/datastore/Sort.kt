@@ -1,8 +1,8 @@
 package com.sungbin.hyunnieserver.datastore
 
-sealed class Sort {
-    object FOLDER : Sort()
-    object FILE : Sort()
-    object GANADA : Sort()
-    object DANAGA : Sort()
+object Sort { // for DataStore
+    const val FOLDER = 1
+    const val FILE = 2
+    const val GANADA = 3
+    const val DANAGA = 4
 }
