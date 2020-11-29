@@ -42,6 +42,7 @@ object Versions {
     }
 
     object Ui {
+        const val DayNightSwitch = "1.2.1"
         const val ToggleButtonLayout = "1.3.0"
         const val Flexbox = "2.0.1"
         const val SmoothBottomBar = "1.7.6"
@@ -90,6 +91,7 @@ object Dependencies {
     }
 
     object Ui {
+        const val DayNightSwitch = "com.github.Mahfa:DayNightSwitch:${Versions.Ui.DayNightSwitch}"
         const val ToggleButtonLayout =
             "com.github.savvyapps:ToggleButtonLayout:${Versions.Ui.ToggleButtonLayout}"
         const val Flexbox = "com.google.android:flexbox:${Versions.Ui.Flexbox}"

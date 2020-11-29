@@ -12,6 +12,7 @@
     <string name="image_description_sort">sort</string>
     <string name="image_description_home">home</string>
     <string name="image_description_back">back</string>
+    <string name="image_description_icon">icon</string>
 
     <string name="splash_no_connect_internet">인터넷에 연결되어있지 않아요 😢\n\n인터넷 연결 후 다시 접속해 주세요.</string>
 
@@ -36,10 +37,12 @@
 
     <string name="notification_description">혀니서버 다운로드 알림이</string>
     <string name="notification_downloading">다운로드중…</string>
+
     <string name="sort_file">파일 정렬</string>
     <string name="sort_folder">폴더 정렬</string>
     <string name="sort_ganada">가나다 정렬</string>
     <string name="sort_danaga">다나가 정렬</string>
-    <string name="developing_version">아직 개발중인 기능입니다...</string>
 
+    <string name="developing_version">아직 개발중인 기능입니다…</string>
+    <string name="setting_copyright"><![CDATA[Design & Programming by SungBin.\n© 2021 SungBin. all rights reserved.]]></string>
 </resources>
