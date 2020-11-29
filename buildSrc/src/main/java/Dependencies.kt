@@ -33,6 +33,7 @@ object Versions {
     object Ktx {
         const val Core = "1.3.2"
         const val Fragment = "2.3.0"
+        const val LifeCycleLiveData = "2.2.0"
     }
 
     object Jetpack {
@@ -84,6 +85,8 @@ object Dependencies {
             "androidx.navigation:navigation-ui-ktx:${Versions.Jetpack.Navigation}"
         const val Core = "androidx.core:core-ktx:${Versions.Ktx.Core}"
         const val Fragment = "androidx.navigation:navigation-fragment-ktx:${Versions.Ktx.Fragment}"
+        const val LifeCycleLiveData =
+            "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.Ktx.LifeCycleLiveData}"
     }
 
     object Ui {

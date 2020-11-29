@@ -15,6 +15,7 @@ import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.adapter.FileAdapter
 import com.sungbin.hyunnieserver.adapter.PathAdapter
 import com.sungbin.hyunnieserver.databinding.FragmentMainBinding
+import com.sungbin.hyunnieserver.datastore.DataManager
 import com.sungbin.hyunnieserver.model.FileType
 import com.sungbin.hyunnieserver.tool.manager.PathManager
 import com.sungbin.hyunnieserver.tool.ui.NotificationUtil
@@ -32,6 +33,7 @@ import com.sungbin.hyunnieserver.ui.dialog.SortDialog
 import org.apache.commons.io.output.CountingOutputStream
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
+import org.jetbrains.anko.coroutines.experimental.asReference
 import org.jetbrains.anko.support.v4.runOnUiThread
 import java.io.BufferedOutputStream
 import java.io.File
@@ -70,6 +72,10 @@ class MainFragment : Fragment() {
 
         backPressedAction = { goBackPath() }
 
+        DataManager.sortTypeFlow.asReference {
+
+        }
+
         binding.cvHome.setOnClickListener {
             fileList.postValue(fileCache[DEFAULT_PATH])
         }
@@ -79,9 +85,7 @@ class MainFragment : Fragment() {
         }
 
         fileList.observe(viewLifecycleOwner, { files ->
-            runOnUiThread {
-                loadingDialog.close()
-            }
+            runOnUiThread { loadingDialog.close() }
 
             if (!files[0].isEmpty) {
                 binding.fblEmptyFile.hide(true)
@@ -145,9 +149,7 @@ class MainFragment : Fragment() {
         } else { // 최초 실행
             Thread {
                 try {
-                    runOnUiThread {
-                        loadingDialog.show()
-                    }
+                    runOnUiThread { loadingDialog.show() }
 
                     client.connect(address)
                     client.login(id, password)

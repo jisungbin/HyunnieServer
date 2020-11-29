@@ -72,6 +72,7 @@ dependencies {
         Dependencies.Ktx.Core,
         Dependencies.Ktx.Fragment,
         Dependencies.Ktx.Config,
+        Dependencies.Ktx.LifeCycleLiveData,
 
         Dependencies.Ui.ToggleButtonLayout,
         Dependencies.Ui.Flexbox,
