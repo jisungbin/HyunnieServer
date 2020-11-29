@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.sungbin.androidutils.util.Logger
+import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.databinding.LayoutSortDialogBinding
 
 
@@ -31,7 +32,9 @@ class SortDialog : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.tblName.onToggledListener = { _, toggle, _ ->
-            Logger.w(arrayOf(toggle.id))
+            when (toggle.id) {
+                R.id.sort_ganada ->
+            }
         }
 
         binding.tblType.onToggledListener = { _, toggle, _ ->

@@ -37,6 +37,7 @@ object Versions {
 
     object Jetpack {
         const val Navigation = "2.3.1"
+        const val DataStore = "1.0.0-alpha01"
     }
 
     object Ui {
@@ -59,6 +60,10 @@ object Dependencies {
         const val Bom = "com.google.firebase:firebase-bom:${Versions.Firebase.Bom}"
     }
 
+    object Jetpack {
+        const val DataStore =
+            "androidx.datastore:datastore-preferences:${Versions.Jetpack.DataStore}"
+    }
 
     object Network {
         const val CommonsNet = "commons-net:commons-net:${Versions.Network.CommonsNet}"

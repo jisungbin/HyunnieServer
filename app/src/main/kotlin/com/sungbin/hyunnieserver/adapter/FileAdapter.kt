@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.androidutils.extensions.hide
 import com.sungbin.hyunnieserver.R
-import com.sungbin.hyunnieserver.databinding.LayoutFileBinding
+import com.sungbin.hyunnieserver.datastore.Sort
 import com.sungbin.hyunnieserver.model.File
 import com.sungbin.hyunnieserver.module.GlideApp
 import com.sungbin.hyunnieserver.tool.util.FileUtil
@@ -37,7 +37,7 @@ class FileAdapter(
     }
 
     inner class ViewHolder(
-        private val itemBinding: LayoutFileBinding,
+        private val itemBinding: com.sungbin.hyunnieserver.databinding.LayoutFileBinding,
     ) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bindViewHolder(file: File, listener: OnClickListener?) {
@@ -71,12 +71,6 @@ class FileAdapter(
         viewholder.bindViewHolder(items[position], onClickListener)
     }
 
-    sealed class Sort {
-        object FOLDER : Sort()
-        object FILE : Sort()
-        object GANADA : Sort()
-        object DANAGA : Sort()
-    }
 
     private fun File.isFile() = this.size.isNotEmpty()
 

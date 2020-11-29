@@ -65,6 +65,8 @@ dependencies {
         Dependencies.Essential.Anko,
         Dependencies.Essential.Kotlin,
 
+        Dependencies.Jetpack.DataStore,
+
         Dependencies.Ktx.NavigationUi,
         Dependencies.Ktx.NavigationFragment,
         Dependencies.Ktx.Core,
