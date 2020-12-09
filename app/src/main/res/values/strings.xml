@@ -7,6 +7,8 @@
     <string name="loading">불러오는 중…</string>
 
     <string name="path_preview">메인 혀니서버</string>
+    <string name="developing_version">아직 개발중인 기능입니다…</string>
+    <string name="setting_copyright"><![CDATA[Design & Programming by SungBin.\n© 2021 SungBin. all rights reserved.]]></string>
 
     <string name="image_description_search">search</string>
     <string name="image_description_sort">sort</string>
@@ -33,16 +35,16 @@
     <string name="ftp_cant_go_path">해당 경로로 갈 수 없어요 :(</string>
     <string name="ftp_empty_file">파일이 없어요 :(</string>
 
+    <string name="main_download_fail">다운로드 실패 :(\n[%s]</string>
+    <string name="main_download_done">다운로드 완료 :)\n[%s]</string>
     <string name="main_need_permission">혀니서버 앱을 사용하기 위해선, 다음과 같은 권한이 필요해요.\n\n1. 인터넷 체크 권한\n2. 파일 다운로드를 위한 내부메모리 접근 권한</string>
 
     <string name="notification_description">혀니서버 다운로드 알림이</string>
     <string name="notification_downloading">다운로드중…</string>
+    <string name="notification_downloading_percent">다운로드중… (%d/100)</string>
 
     <string name="sort_file">파일 정렬</string>
     <string name="sort_folder">폴더 정렬</string>
     <string name="sort_ganada">가나다 정렬</string>
     <string name="sort_danaga">다나가 정렬</string>
-
-    <string name="developing_version">아직 개발중인 기능입니다…</string>
-    <string name="setting_copyright"><![CDATA[Design & Programming by SungBin.\n© 2021 SungBin. all rights reserved.]]></string>
 </resources>

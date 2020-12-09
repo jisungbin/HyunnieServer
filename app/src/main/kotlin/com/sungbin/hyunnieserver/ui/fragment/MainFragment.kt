@@ -197,6 +197,7 @@ class MainFragment : Fragment() {
         client.setFileType(FTPClient.BINARY_FILE_TYPE)
         val notificationId = 1000
         var outputStream: OutputStream? = null
+        var prePercent = 0
         val manager = NotificationUtil.getManager(requireContext())
         val notification = NotificationUtil.getDownloadNotification(
             requireContext(), notificationId, getString(
@@ -224,7 +225,17 @@ class MainFragment : Fragment() {
                 override fun afterWrite(n: Int) {
                     super.afterWrite(n)
                     val percent = (count * 100 / file.originSize).toInt()
-                    notification.setProgress(100, percent, false)
+                    if (percent > prePercent) {
+                        notification.setContentTitle(
+                            getString(
+                                R.string.notification_downloading_percent,
+                                percent
+                            )
+                        )
+                        notification.setProgress(100, percent, false)
+                        manager.notify(notificationId, notification.build())
+                        prePercent = percent
+                    }
                 }
             }
 
@@ -232,8 +243,22 @@ class MainFragment : Fragment() {
             client.retrieveFile(file.path, cos)
         } catch (exception: Exception) {
             ExceptionUtil.except(exception, requireContext())
+            ToastUtil.show(
+                requireContext(),
+                getString(R.string.main_download_fail, file.name),
+                ToastLength.SHORT,
+                ToastType.ERROR
+            )
+            NotificationUtil.remove(requireContext(), notificationId)
         } finally {
             outputStream?.close()
+            ToastUtil.show(
+                requireContext(),
+                getString(R.string.main_download_done, file.name),
+                ToastLength.SHORT,
+                ToastType.SUCCESS
+            )
+            NotificationUtil.remove(requireContext(), notificationId)
         }
     }
 

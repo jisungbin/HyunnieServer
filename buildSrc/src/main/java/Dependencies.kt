@@ -38,7 +38,7 @@ object Versions {
 
     object Jetpack {
         const val Navigation = "2.3.1"
-        const val DataStore = "1.0.0-alpha01"
+        const val DataStore = "1.0.0-alpha05"
     }
 
     object Ui {
