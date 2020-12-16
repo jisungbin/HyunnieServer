@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    id("name.remal.check-dependency-updates") version "1.1.4"
+    id("name.remal.check-dependency-updates") version "1.1.6"
     id("com.google.gms.google-services")
     kotlin("android")
     kotlin("kapt")

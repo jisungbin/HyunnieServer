@@ -1,5 +1,6 @@
 package com.sungbin.hyunnieserver.ui.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -39,7 +40,7 @@ class DownloadFragment : Fragment() {
 
         binding.srlContainer.setColorSchemeResources(R.color.colorPrimary)
         binding.srlContainer.setOnRefreshListener {
-            doDelay(1000) {
+            doDelay(500) {
                 init()
                 binding.srlContainer.isRefreshing = false
             }
@@ -73,11 +74,34 @@ class DownloadFragment : Fragment() {
             files.add(file)
         }
 
+        var totalSize = 0L
+        files.map {
+            totalSize += it.originSize
+        }
+
         if (files.isEmpty()) {
             binding.rvFile.hide(true)
             binding.fblEmptyFile.show()
+            binding.tvDownloadSize.text =
+                getString(R.string.download_downloaded_size, "0 B")
+            binding.ivClear.hide(true)
         } else {
+            binding.fblEmptyFile.hide(true)
+            binding.rvFile.show()
             binding.rvFile.adapter = FileAdapter(files)
+            binding.tvDownloadSize.text =
+                getString(R.string.download_downloaded_size, StorageUtil.getSize(totalSize))
+            binding.ivClear.show()
+            binding.ivClear.setOnClickListener {
+                val dialog = AlertDialog.Builder(requireActivity())
+                dialog.setTitle(getString(R.string.download_delete_all))
+                dialog.setMessage(getString(R.string.download_confirm_delete))
+                dialog.setPositiveButton(getString(R.string.delete)) { _, _ ->
+                    files.map {
+                        StorageUtil.deleteAll(it.path)
+                    }
+                }
+            }
         }
     }
 

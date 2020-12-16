@@ -14,7 +14,7 @@ object Application {
 
 object Versions {
     object Firebase {
-        const val Bom = "26.1.0"
+        const val Bom = "26.1.1"
     }
 
     object Network {
@@ -25,24 +25,24 @@ object Versions {
     object Essential {
         const val AppCompat = "1.2.0"
         const val Anko = "0.10.8"
-        const val Kotlin = "1.4.20"
+        const val Kotlin = "1.4.21"
         const val Gradle = "4.1.1"
         const val Google = "4.3.3"
     }
 
     object Ktx {
         const val Core = "1.3.2"
-        const val Fragment = "2.3.0"
+        const val Fragment = "2.3.2"
         const val LifeCycleLiveData = "2.2.0"
     }
 
     object Jetpack {
-        const val Navigation = "2.3.1"
+        const val Navigation = "2.3.2"
         const val DataStore = "1.0.0-alpha05"
     }
 
     object Ui {
-        const val DayNightSwitch = "1.2.1"
+        const val DayNightSwitch = "1.4"
         const val ToggleButtonLayout = "1.3.0"
         const val Flexbox = "2.0.1"
         const val SmoothBottomBar = "1.7.6"
@@ -53,7 +53,7 @@ object Versions {
     }
 
     object Util {
-        const val AndroidUtils = "4.1.5"
+        const val AndroidUtils = "4.2.3"
     }
 }
 
