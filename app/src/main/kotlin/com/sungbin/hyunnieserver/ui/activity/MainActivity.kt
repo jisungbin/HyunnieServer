@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     companion object { // 이게 맞나;;;
         val client = FTPClient().apply { controlEncoding = "UTF-8" }
         val config = Firebase.remoteConfig
-        val fileList: MutableLiveData<List<File>> = MutableLiveData()
+        val fileList = MutableLiveData<List<File>>()
         val fileCache = HashMap<String, List<File>>()
         lateinit var backPressedAction: () -> Unit
     }

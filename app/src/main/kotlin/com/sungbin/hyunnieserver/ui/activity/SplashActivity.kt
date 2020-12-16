@@ -42,9 +42,7 @@ class SplashActivity : AppCompatActivity() {
                     R.raw.no_internet,
                     getString(R.string.splash_no_connect_internet),
                     true
-                ) {
-                    finish()
-                }
+                ) { finish() }
             }.show()
         }
     }

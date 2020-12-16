@@ -9,6 +9,7 @@ import android.text.method.ScrollingMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
+import com.sungbin.androidutils.extensions.plusAssign
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.databinding.LayoutLoadingDialogBinding
 
@@ -44,6 +45,21 @@ class LoadingDialog(private val activity: Activity) {
         layout.root.invalidate()
     }
 
+    fun setCustomState(
+        lottie: Int,
+        message: String,
+        canDismiss: Boolean,
+        dismissListener: () -> Unit
+    ) {
+        layout.lavLoad.setAnimation(lottie)
+        layout.lavLoad.playAnimation()
+        layout.tvLoading += message
+        layout.tvLoading.movementMethod = ScrollingMovementMethod()
+        alert.setCancelable(canDismiss)
+        alert.setOnDismissListener { dismissListener() }
+        layout.root.invalidate()
+    }
+
     fun setError(throwable: Throwable) {
         throwable.printStackTrace()
         layout.lavLoad.run {
@@ -68,6 +84,6 @@ class LoadingDialog(private val activity: Activity) {
     }
 
     fun close() {
-        alert.cancel()
+        if (::alert.isInitialized) alert.cancel()
     }
 }

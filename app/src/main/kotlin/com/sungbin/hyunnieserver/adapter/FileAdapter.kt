@@ -43,16 +43,14 @@ class FileAdapter(
         fun bindViewHolder(file: File, listener: OnClickListener?) {
             with(itemBinding) {
                 item = file
-                GlideApp
+                tvName.isSelected = true
+                tvName.setOnClickListener {
+                    listener?.onClick(file)
+                }
+                GlideApp // todo: 오디오는 앨범커버로 표시하기
                     .with(ivType.context)
                     .load(FileUtil.getTypeIcon(file.fileType))
                     .into(ivType)
-                tvName.apply {
-                    isSelected = true
-                    setOnClickListener {
-                        listener?.onClick(file)
-                    }
-                }
                 if (!file.isFile()) tvDot.hide(true)
                 invalidateAll()
             }

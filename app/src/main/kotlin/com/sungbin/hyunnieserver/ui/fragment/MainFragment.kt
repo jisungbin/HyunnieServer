@@ -45,6 +45,7 @@ import java.io.OutputStream
  */
 
 
+// todo: viewmodel로 해야하는데!!!!!!!!!!!
 class MainFragment : Fragment() {
 
     private val DEFAULT_PATH = "/메인 혀니서버/혀니서버"
@@ -69,7 +70,6 @@ class MainFragment : Fragment() {
         backPressedAction = { goBackPath() }
 
         binding.cvHome.setOnClickListener { fileList.postValue(fileCache[DEFAULT_PATH]) }
-
         binding.ivSort.setOnClickListener { sortDialog.show(parentFragmentManager, "") }
 
         fileList.observe(viewLifecycleOwner) { files ->
