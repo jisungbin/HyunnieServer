@@ -16,11 +16,10 @@ import com.sungbin.hyunnieserver.databinding.ActivityExceptionBinding
 
 class ExceptionActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityExceptionBinding
+    private val binding by lazy { ActivityExceptionBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityExceptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val message = intent.getStringExtra("message") ?: "NullPointerException"

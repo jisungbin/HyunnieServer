@@ -31,16 +31,13 @@ class SortDialog : BottomSheetDialogFragment() {
         }
     }
 
-    private lateinit var binding: LayoutSortDialogBinding
+    private val binding by lazy { LayoutSortDialogBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = LayoutSortDialogBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    ) = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -2,7 +2,6 @@ package com.sungbin.hyunnieserver.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
@@ -49,7 +48,7 @@ import java.io.OutputStream
 class MainFragment : Fragment() {
 
     private val DEFAULT_PATH = "/메인 혀니서버/혀니서버"
-    private lateinit var binding: FragmentMainBinding
+    private val binding by lazy { FragmentMainBinding.inflate(layoutInflater) }
     private var backPressedTime = 0L
 
     private val sortDialog by lazy { SortDialog.instance() } // 2중 싱글톤???
@@ -58,10 +57,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    ) = binding.root
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

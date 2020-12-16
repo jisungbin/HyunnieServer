@@ -2,7 +2,6 @@ package com.sungbin.hyunnieserver.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mahfa.dnswitch.DayNightSwitchAnimListener
@@ -15,15 +14,12 @@ import com.sungbin.hyunnieserver.databinding.FragmentSettingBinding
 
 class SettingFragment : Fragment() {
 
-    private lateinit var binding: FragmentSettingBinding
+    private val binding by lazy { FragmentSettingBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSettingBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    ) = binding.root
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sungbin.androidutils.extensions.doDelay
 import com.sungbin.androidutils.util.NetworkUtil
 import com.sungbin.hyunnieserver.R
+import com.sungbin.hyunnieserver.databinding.ActivitySplashBinding
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import org.jetbrains.anko.startActivity
 
@@ -16,6 +17,8 @@ import org.jetbrains.anko.startActivity
 
 class SplashActivity : AppCompatActivity() {
 
+    private val binding by lazy { ActivitySplashBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        setContentView(R.layout.activity_splash)
+        setContentView(binding.root)
 
         if (NetworkUtil.isNetworkAvailable(applicationContext)) {
             doDelay(1500) {
