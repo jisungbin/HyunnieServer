@@ -11,29 +11,22 @@
         android:layout_height="0dp"
         android:background="@color/colorBackgroundWhite"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/cv_container"
+        app:layout_constraintBottom_toTopOf="@+id/sbb_navigation"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/main_navigation" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_container"
+    <me.ibrahimsn.lib.SmoothBottomBar
+        android:id="@+id/sbb_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/margin_default"
-        app:cardElevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <me.ibrahimsn.lib.SmoothBottomBar
-            android:id="@+id/sbb_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:activeItem="0"
-            app:backgroundColor="@color/colorWhite"
-            app:iconTint="@color/colorTwiceLightGray"
-            app:iconTintActive="@color/colorPrimary"
-            app:menu="@menu/main_navigation"
-            app:textColor="@color/colorPrimary" />
-
-    </androidx.cardview.widget.CardView>
+        android:layout_height="60dp"
+        app:activeItem="0"
+        app:backgroundColor="@color/colorWhite"
+        app:cornerRadius="@dimen/margin_default"
+        app:iconTint="@color/colorTwiceLightGray"
+        app:iconTintActive="@color/colorPrimary"
+        app:indicatorRadius="@dimen/margin_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/main_navigation"
+        app:textColor="@color/colorPrimary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
