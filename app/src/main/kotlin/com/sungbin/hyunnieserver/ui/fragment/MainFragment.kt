@@ -31,7 +31,6 @@ import com.sungbin.hyunnieserver.ui.activity.MainActivity.Companion.fileList
 import com.sungbin.hyunnieserver.ui.dialog.LoadingDialog
 import com.sungbin.hyunnieserver.ui.dialog.SortDialog
 import org.apache.commons.io.output.CountingOutputStream
-import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
 import org.jetbrains.anko.support.v4.runOnUiThread
 import java.io.BufferedOutputStream
@@ -125,7 +124,7 @@ class MainFragment : Fragment() {
                 show()
                 adapter = FileAdapter(fileList.value!!).apply {
                     setOnClickListener { file ->
-                        if (file.path.contains(".")) {
+                        if (file.isFile) {
                             ftpFileDownload(file)
                         } else {
                             changeFtpPath(file)
@@ -158,7 +157,8 @@ class MainFragment : Fragment() {
                                 "$DEFAULT_PATH/${it.name}",
                                 FileUtil.getType(it.name, it.size),
                                 FileUtil.getLastModifyTime(it.timestamp),
-                                false
+                                false,
+                                it.isFile
                             )
                         )
                     }
@@ -190,7 +190,6 @@ class MainFragment : Fragment() {
     }
 
     private fun ftpFileDownload(file: com.sungbin.hyunnieserver.model.File) {
-        client.setFileType(FTPClient.BINARY_FILE_TYPE)
         val notificationId = 1000
         var outputStream: OutputStream? = null
         var prePercent = 0
@@ -281,7 +280,8 @@ class MainFragment : Fragment() {
                             "${file.path}/${it.name}",
                             FileUtil.getType(it.name, it.size),
                             FileUtil.getLastModifyTime(it.timestamp),
-                            false
+                            false,
+                            it.isFile
                         )
                     )
                 }
@@ -294,6 +294,7 @@ class MainFragment : Fragment() {
                             "${file.path}/empty file",
                             FileType.EMPTY,
                             "",
+                            true,
                             true
                         )
                     )

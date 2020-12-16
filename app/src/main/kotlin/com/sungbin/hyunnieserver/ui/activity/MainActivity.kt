@@ -27,7 +27,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     companion object { // 이게 맞나;;;
-        val client = FTPClient().apply { controlEncoding = "UTF-8" }
+        val client = FTPClient().apply {
+            controlEncoding = "UTF-8"
+            setFileType(FTPClient.BINARY_FILE_TYPE)
+        }
         val config = Firebase.remoteConfig
         val fileList = MutableLiveData<List<File>>()
         val fileCache = HashMap<String, List<File>>()
