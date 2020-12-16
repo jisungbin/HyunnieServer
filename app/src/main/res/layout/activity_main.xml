@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/main_navigation" />
 
+    <!--todo: 바텀바 모서리 라운딩 처리하기 -->
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/sbb_navigation"
         android:layout_width="match_parent"

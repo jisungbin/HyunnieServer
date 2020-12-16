@@ -8,8 +8,7 @@ import androidx.fragment.app.Fragment
 import com.sungbin.androidutils.extensions.doDelay
 import com.sungbin.androidutils.extensions.hide
 import com.sungbin.androidutils.extensions.show
-import com.sungbin.androidutils.util.DataUtil
-import com.sungbin.androidutils.util.StorageUtil
+import com.sungbin.androidutils.util.*
 import com.sungbin.hyunnieserver.R
 import com.sungbin.hyunnieserver.adapter.FileAdapter
 import com.sungbin.hyunnieserver.databinding.FragmentDownloadBinding
@@ -97,10 +96,23 @@ class DownloadFragment : Fragment() {
                 dialog.setTitle(getString(R.string.download_delete_all))
                 dialog.setMessage(getString(R.string.download_confirm_delete))
                 dialog.setPositiveButton(getString(R.string.delete)) { _, _ ->
-                    files.map {
-                        StorageUtil.deleteAll(it.path)
-                    }
+                    StorageUtil.deleteAll(
+                        "${StorageUtil.sdcard}/${
+                            DataUtil.readData(
+                                requireContext(),
+                                PathManager.DOWNLOAD_PATH,
+                                PathManager.DOWNLOAD_PATH_DEFAULT
+                            )
+                        }"
+                    )
+                    ToastUtil.show(
+                        requireContext(), getString(R.string.download_all_file_deleted),
+                        ToastLength.SHORT, ToastType.SUCCESS
+                    )
+                    init()
                 }
+                dialog.setNegativeButton(getString(R.string.cancel), null)
+                dialog.show()
             }
         }
     }
