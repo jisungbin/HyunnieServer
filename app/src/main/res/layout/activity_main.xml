@@ -27,7 +27,7 @@
         app:iconTintActive="@color/colorPrimary"
         app:indicatorRadius="@dimen/margin_default"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/main_navigation"
+        app:menu="@menu/menu_navigation"
         app:textColor="@color/colorPrimary" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

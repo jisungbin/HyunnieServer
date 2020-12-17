@@ -68,7 +68,8 @@ class DownloadFragment : Fragment() {
                 it.path,
                 FileUtil.getType(it.name, it.length()),
                 FileUtil.getLastModifyTime(lastModifyCalendar),
-                false
+                false,
+                it.isFile
             )
             files.add(file)
         }

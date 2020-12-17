@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     companion object { // 이게 맞나;;;
         val client = FTPClient().apply {
             controlEncoding = "UTF-8"
-            setFileType(FTPClient.BINARY_FILE_TYPE)
         }
         val config = Firebase.remoteConfig
         val fileList = MutableLiveData<List<File>>()
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_navigation, menu)
+        menuInflater.inflate(R.menu.menu_navigation, menu)
         binding.sbbNavigation.setupWithNavController(menu!!, navController)
         return true
     }
