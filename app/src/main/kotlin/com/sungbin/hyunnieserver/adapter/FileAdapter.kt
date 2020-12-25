@@ -11,6 +11,7 @@ import com.sungbin.hyunnieserver.datastore.Sort
 import com.sungbin.hyunnieserver.model.File
 import com.sungbin.hyunnieserver.module.GlideApp
 import com.sungbin.hyunnieserver.tool.util.FileUtil
+import com.sungbin.hyunnieserver.tool.util.onlyKor
 import java.util.*
 
 
@@ -69,7 +70,6 @@ class FileAdapter(
         viewholder.bindViewHolder(items[position], onClickListener)
     }
 
-
     private fun File.isFile() = this.size.isNotEmpty()
 
     @Throws(Exception::class)
@@ -85,8 +85,6 @@ class FileAdapter(
         if (type == Sort.DANAGA) items.asReversed()
         notifyDataSetChanged()
     }
-
-    private fun String.onlyKor() = this.replace("[^ㄱ-ㅎ가-힣]".toRegex(), "")
 
     override fun getItemCount() = items.size
     override fun getItemId(position: Int) = position.toLong()

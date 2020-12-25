@@ -27,3 +27,5 @@ fun <T> List<T>.removePosition(position: ArrayPosition): List<T> { // 이제 제
         this
     }
 }
+
+fun String.onlyKor() = this.replace("[^ㄱ-ㅎ가-힣]".toRegex(), "")

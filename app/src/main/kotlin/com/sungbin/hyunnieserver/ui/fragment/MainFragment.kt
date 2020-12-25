@@ -239,6 +239,13 @@ class MainFragment : Fragment() {
 
             client.bufferSize = 2048 * 2048
             client.retrieveFile(file.path, cos)
+
+            ToastUtil.show(
+                requireContext(),
+                getString(R.string.main_download_start, file.name),
+                ToastLength.SHORT,
+                ToastType.SUCCESS
+            )
         } catch (exception: Exception) {
             ExceptionUtil.except(exception, requireContext())
             ToastUtil.show(

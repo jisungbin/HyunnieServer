@@ -1,10 +1,13 @@
 <resources>
 
+    <string name="choose">선택</string>
     <string name="cancel">취소</string>
     <string name="close">닫기</string>
     <string name="app_name">혀니서버</string>
     <string name="copyright">© 2020 SungBin</string>
     <string name="loading">불러오는 중…</string>
+    <string name="change">변경</string>
+    <string name="done">완료</string>
     <string name="delete">삭제</string>
     <string name="path_preview">메인 혀니서버</string>
     <string name="developing_version">아직 개발중인 기능이에요…</string>
@@ -13,6 +16,7 @@
     <string name="image_description_sort">sort</string>
     <string name="image_description_home">home</string>
     <string name="image_description_back">back</string>
+    <string name="image_description_folder">folder</string>
     <string name="image_description_icon">icon</string>
     <string name="image_description_clear">clear</string>
 
@@ -35,14 +39,23 @@
     <string name="ftp_cant_go_path">해당 경로로 갈 수 없어요 😧</string>
     <string name="ftp_empty_file">파일이 없어요 😥</string>
 
+    <string name="main_download_start">%s 다운로드가 시작되었어요 :)\n\n알림창에서 다운로드 진행상황을 확인할 수 있어요.</string>
     <string name="main_download_fail">다운로드 실패 :(\n- %s</string>
     <string name="main_download_done">다운로드 완료!\n- %s</string>
     <string name="main_need_permission">혀니서버 앱을 사용하기 위해선, 다음과 같은 권한이 필요해요.\n\n1. 인터넷 체크 권한\n2. 파일 다운로드를 위한 내부메모리 접근 권한</string>
 
     <string name="download_empty_downloaded">다운로드 항복이 없어요 🥺</string>
     <string name="download_downloaded_size">다운로드: %s</string>
+    <string name="download_delete_all">다운로드 전체 삭제</string>
+    <string name="download_confirm_delete">정말 다운로드하신 모든 파일들을 삭제할까요?</string>
+    <string name="download_all_file_deleted">다운로드하신 파일들이 모두 삭제되었어요 :)</string>
 
     <string name="setting_copyright"><![CDATA[Design & Programming by SungBin.\n© 2021 SungBin. all rights reserved.]]></string>
+    <string name="setting_version">(%s)</string>
+    <string name="setting_preview_version">(1.0.0)</string>
+    <string name="setting_download_path_label">다운로드 경로</string>
+    <string name="setting_download_path">%s</string>
+    <string name="setting_preview_download_path">/sdcard/0/HyunnieServer/Download</string>
 
     <string name="notification_description">혀니서버 다운로드 알림이</string>
     <string name="notification_downloading">다운로드중…</string>
@@ -53,8 +66,9 @@
     <string name="sort_ganada">가나다 정렬</string>
     <string name="sort_danaga">다나가 정렬</string>
 
-    <string name="download_delete_all">다운로드 전체 삭제</string>
-    <string name="download_confirm_delete">정말 다운로드하신 모든 파일들을 삭제할까요?</string>
-    <string name="download_all_file_deleted">다운로드하신 파일들이 모두 삭제되었어요 :)</string>
+    <string name="folderdialog_folder_name_empty">폴더명을 입력해 주세요!</string>
+    <string name="folderdialog_input_folder_name">폴더 이름 입력</string>
+    <string name="folderdialog_choose_folder">폴더 선택</string>
+    <string name="folderdialog_exist_folder_name">이미 존재하는 폴더에요 :(\n다른 폴더명을 입력해 주세요.</string>
 
 </resources>
