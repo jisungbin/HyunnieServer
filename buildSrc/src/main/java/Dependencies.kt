@@ -32,7 +32,6 @@ object Versions {
 
     object Ktx {
         const val Core = "1.3.2"
-        const val Fragment = "2.3.2"
         const val LifeCycleLiveData = "2.2.0"
     }
 
@@ -42,7 +41,6 @@ object Versions {
     }
 
     object Ui {
-        const val DayNightSwitch = "1.4"
         const val ToggleButtonLayout = "1.3.0"
         const val Flexbox = "2.0.1"
         const val SmoothBottomBar = "1.7.6"
@@ -85,13 +83,11 @@ object Dependencies {
         const val NavigationUi =
             "androidx.navigation:navigation-ui-ktx:${Versions.Jetpack.Navigation}"
         const val Core = "androidx.core:core-ktx:${Versions.Ktx.Core}"
-        const val Fragment = "androidx.fragment:fragment-ktx:${Versions.Ktx.Fragment}"
         const val LifeCycleLiveData =
             "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.Ktx.LifeCycleLiveData}"
     }
 
     object Ui {
-        const val DayNightSwitch = "com.github.Mahfa:DayNightSwitch:${Versions.Ui.DayNightSwitch}"
         const val ToggleButtonLayout =
             "com.github.savvyapps:ToggleButtonLayout:${Versions.Ui.ToggleButtonLayout}"
         const val Flexbox = "com.google.android:flexbox:${Versions.Ui.Flexbox}"

@@ -70,11 +70,9 @@ dependencies {
         Dependencies.Ktx.NavigationUi,
         Dependencies.Ktx.NavigationFragment,
         Dependencies.Ktx.Core,
-        Dependencies.Ktx.Fragment,
         Dependencies.Ktx.Config,
         Dependencies.Ktx.LifeCycleLiveData,
 
-        Dependencies.Ui.DayNightSwitch,
         Dependencies.Ui.ToggleButtonLayout,
         Dependencies.Ui.Flexbox,
         Dependencies.Ui.SmoothBottomBar,
