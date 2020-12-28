@@ -15,3 +15,5 @@ HyunnieServer official application
 4. - [ ] 동시 다운로드 기능 추가
 5. - [ ] 다운로드 인디케이터 다이얼로그 추가
 6. - [ ] 다운로드 취소 기능 추가
+
+# Happy Coding :)
