@@ -14,7 +14,6 @@ import com.sungbin.hyunnieserver.tool.util.FileUtil
 import com.sungbin.hyunnieserver.tool.util.onlyKor
 import java.util.*
 
-
 /**
  * Created by SungBin on 2020-08-23.
  */
@@ -74,14 +73,17 @@ class FileAdapter(
 
     @Throws(Exception::class)
     fun sort(type: Int) {
-        Collections.sort(items, Comparator { file, file2 ->
-            return@Comparator when (type) {
-                Sort.FOLDER -> file.isFile().compareTo(file2.isFile())
-                Sort.FILE -> file2.isFile().compareTo(file.isFile())
-                Sort.GANADA, Sort.DANAGA -> file.name.onlyKor().compareTo(file2.name.onlyKor())
-                else -> throw Exception("unknown sort type")
+        Collections.sort(
+            items,
+            Comparator { file, file2 ->
+                return@Comparator when (type) {
+                    Sort.FOLDER -> file.isFile().compareTo(file2.isFile())
+                    Sort.FILE -> file2.isFile().compareTo(file.isFile())
+                    Sort.GANADA, Sort.DANAGA -> file.name.onlyKor().compareTo(file2.name.onlyKor())
+                    else -> throw Exception("unknown sort type")
+                }
             }
-        })
+        )
         if (type == Sort.DANAGA) items.asReversed()
         notifyDataSetChanged()
     }
